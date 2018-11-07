@@ -2,6 +2,9 @@ antigen theme theunraveler
 
 antigen bundle git
 
+# https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/common-aliases/common-aliases.plugin.zsh
+antigen bundle common-aliases
+
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
