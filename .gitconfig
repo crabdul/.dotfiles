@@ -1,18 +1,186 @@
+[alias]
+	a = add --all
+	ai = add -i
+	#############
+	b = branch
+	ba = branch -a
+	bd = branch -d
+	bdd = branch -D
+	br = branch -r
+	bc = rev-parse --abbrev-ref HEAD
+	bu = !git rev-parse --abbrev-ref --symbolic-full-name \"@{u}\"
+	#############
+	c = commit
+	ca = commit -a
+	cm = commit -m
+	cam = commit -am
+	cem = commit --allow-empty -m
+	cd = commit --amend
+	# Equivalent to
+	# $ git reset --soft HEAD~
+    # $ ... do something else to come up with the right tree ...
+    # $ git commit -c ORIG_HEAD
+	cad = commit -a --amend
+	ced = commit --allow-empty --amend
+	#############
+	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
+	#############
+	d = diff
+	dp = diff --patience
+	dc = diff --cached
+	dk = diff --check
+	dck = diff --cached --check
+	#############
+	f = fetch
+	fo = fetch origin
+	fu = fetch upstream
+	#############
+	g = grep -p
+	#############
+	l = log --oneline
+	lg = log --oneline --graph --decorate
+	#############
+	ls = ls-files
+	lsf = !git ls-files | grep -i
+	#############
+	m = merge
+	ma = merge --abort
+	mc = merge --continue
+	ms = merge --skip
+	#############
+	o = checkout
+	ob = checkout -b
+	#############
+	pr = prune -v
+	#############
+	p = push
+	pf = push --force-with-lease
+	pu = push -u
+	pt = push --tags
+	#############
+	po = push origin
+	pao = push --all origin
+	pfo = push --force-with-lease origin
+	puo = push -u origin
+	#############
+	pom = push origin master
+	paom = push --all origin master
+	pfom = push --force-with-lease origin master
+	puom = push -u origin master
+	poc = !git push origin $(git bc)
+	paoc = !git push --all origin $(git bc)
+	pfoc = !git push -f origin $(git bc)
+	puoc = !git push -u origin $(git bc)
+	pdc = !git push origin :$(git bc)
+	#############
+	pl = pull
+	pb = pull --rebase
+	#############
+	plo = pull origin
+	pbo = pull --rebase origin
+	plom = pull origin master
+	ploc = !git pull origin $(git bc)
+	pbom = pull --rebase origin master
+	pboc = !git pull --rebase origin $(git bc)
+	#############
+	plo = pull origin
+	pbo = pull --rebase origin
+	plom = pull origin master
+	ploc = !git pull origin $(git bc)
+	pbom = pull --rebase origin master
+	pboc = !git pull --rebase origin $(git bc)
+	#############
+	r = reset HEAD~
+	rh = reset --hard
+	rs = reset --soft
+	rhh = reset --hard HEAD~
+	rsh = reset --soft HEAD~
+	#############
+	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase --interactive
+	rbs = rebase --skip
+	#############
+	rf = reflog 
+	rfh = reflog --all | head -n 1 | awk '{print $1;}'
+	#############
+	rm = remote
+	rma = remote add
+	rmr = remote rm
+	rmv = remote -v
+	rmn = remote rename
+	rmp = remote prune
+	rms = remote show
+	rmao = remote add origin
+	rmau = remote add upstream
+	rmro = remote remove origin
+	rmru = remote remove upstream
+	rmso = remote show origin
+	rmsu = remote show upstream
+	rmpo = remote prune origin
+	rmpu = remote prune upstream
+	#############
+	# Remove files from the working tree and from the index
+	rmf = rm -f
+	rmrf = rm -r -f # Allow recursive removal when a leading directory name is given
+	#############
+	s = status
+	sb = status -s -b # Short format
+	#############
+	sa = stash apply
+	sc = stash clear
+	sd = stash drop
+	sl = stash list
+	sp = stash pop
+	ss = stash save
+	ssk = stash save -k
+	sw = stash show
+	st = !git stash list | wc -l 2>/dev/null | grep -oEi '[0-9][0-9]*' # No of stashes
+	#############
+	w = show 
+	#############
+	# Modifies the index or directory cache. 
+	assume = update-index --assume-unchanged # ignore watching/tracking a particular dir/file
+	unassume = update-index --no-assume-unchanged
+	assumed = !git ls -v | grep ^h | cut -c 3-
+	unassumeall = !git assumed | xargs git unassume
+	assumeall = !git status -s | awk {'print $2'} | xargs git assume
+	#############
+	bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
+	release = !sh -c 'git tag v$1 && git pst' -
+	unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
+	merged = !sh -c 'git o master && git plom && git bd $1 && git rpo' -
+	aliases = !git config -l | grep alias | cut -c 7-
+	snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
+	bare = !sh -c 'git symbolic-ref HEAD refs/heads/$1 && git rm --cached -r . && git clean -xfd' -
+	whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
+	serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+	#############
+	behind = !git rev-list --left-only --count $(git bu)...HEAD
+	ahead = !git rev-list --right-only --count $(git bu)...HEAD
+	#############
+	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+	subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
+	human = name-rev --name-only --refs=refs/heads/*
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
-
 [color "diff-highlight"]
     oldNormal = red bold
     oldHighlight = red bold 52
     newNormal = green bold
     newHighlight = green bold 22
-
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold
 	old = red bold
 	new = green bold
 	whitespace = red reverse
-
 [diff-so-fancy]
 	markEmptyLines = false
+[user]
+	name = crabdul
+	email = 23074754+crabdul@users.noreply.github.com
