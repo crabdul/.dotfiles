@@ -56,6 +56,11 @@ print_success() {
     printf "\e[0;32m] ✨ $1\e[0m\n"
 }
 
+sync_iterm_with_dotfiles() {
+    defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/iterm2"
+    defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+}
+
 # }}}
 
 # Install. {{{
@@ -96,6 +101,8 @@ main() {
             execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
         fi
     done
+
+    sync_iterm_with_dotfiles
 
 }
 
