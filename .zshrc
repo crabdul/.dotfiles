@@ -17,6 +17,7 @@ if ! zgen saved; then
 
     # Modules
     zgen load junegunn/fzf
+    zgen load lukechilds/zsh-nvm
     zgen load zsh-users/zsh-autosuggestions
     zgen load zsh-users/zsh-completions
     zgen load zsh-users/zsh-history-substring-search
