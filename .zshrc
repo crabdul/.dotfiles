@@ -16,6 +16,7 @@ if ! zgen saved; then
     zgen prezto command-not-found
 
     # Modules
+    zgen load junegunn/fzf
     zgen load zsh-users/zsh-autosuggestions
     zgen load zsh-users/zsh-completions
     zgen load zsh-users/zsh-history-substring-search
