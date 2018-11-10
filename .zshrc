@@ -9,16 +9,17 @@ if ! zgen saved; then
     zgen prezto
 
     # Prezto options
-    zgen prezto editor key-bindings 'vim'
     zgen prezto prompt theme 'sorin'
     
     # Prezto modules
     zgen prezto git
     zgen prezto command-not-found
-    zgen prezto syntax-highlighting
 
     # Modules
-    zgen load zsh-users/zsh-completions src
+    zgen load zsh-users/zsh-autosuggestions
+    zgen load zsh-users/zsh-completions
+    zgen load zsh-users/zsh-history-substring-search
+    zgen load zsh-users/zsh-syntax-highlighting
 
     # Save all to init script
     zgen save
