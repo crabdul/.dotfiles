@@ -104,5 +104,21 @@ else
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+" Python autocompletion
+Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+
 " Initialize plugin system
 call plug#end()
+
+
+" Deoplete
+" ---
+
+" Set language sources
+call deoplete#custom#option('sources', {
+    \ 'python': ['LanguageClient'],
+\})
+
+" Disable the candidates in Comment/String syntaxes.
+call deoplete#custom#source('_',
+    \ 'disabled_syntaxes', ['Comment', 'String'])
