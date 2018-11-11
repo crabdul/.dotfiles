@@ -122,3 +122,11 @@ call deoplete#custom#option('sources', {
 " Disable the candidates in Comment/String syntaxes.
 call deoplete#custom#source('_',
     \ 'disabled_syntaxes', ['Comment', 'String'])
+
+" Saved for later
+" ---
+
+" Loop over files
+" for f in split(glob('~/.config/nvim/config/*.vim'), '\n')
+"     exe 'source' f
+" endfor
