@@ -61,22 +61,6 @@ nnoremap <expr> k v:count ? 'k' : 'gk'      " move up by visual line
 nnoremap gV `[v`]        " highlight last inserted text
 
 
-" Deoplete
-" ---
-
-" Use deoplete
-let g:deoplete#enable_at_startup = 1
-
-" Path to the Python 3 interpreter
-let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim3/bin/python'
-
-" Disable Python 2 support
-let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
-
-" Disable Ruby support
-let g:loaded_ruby_provider = 1
-
-
 " Plugins
 " ---
 
@@ -107,21 +91,91 @@ endif
 " Python autocompletion
 Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 
+" JS autocompletion
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install',
+    \ 'for': ['javascript', 'javascript.jsx']
+\}
+
+" JS autocompletion
+Plug 'carlitux/deoplete-ternjs', { 
+    \ 'for': ['javascript', 'javascript.jsx']
+\}
+
+" Better JS function parameter completion
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+
+" Super-Tab
+Plug 'ervandew/supertab'
+
 " Initialize plugin system
 call plug#end()
 
 
 " Deoplete
 " ---
+" https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
+
+" Use deoplete
+let g:deoplete#enable_at_startup = 1
+
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+
+" Turn automatic autocomplete off
+" let g:deoplete#disable_auto_complete = 1
+
+" Automatically closw the scratch window at the top of the vim window 
+" on finishing a complete or leaving insert
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Path to the Python 3 interpreter
+let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim3/bin/python'
+
+" Disable Python 2 support
+let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
+
+" Disable Ruby support
+let g:loaded_ruby_provider = 1
+
+" Tab-complete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Set language sources
-call deoplete#custom#option('sources', {
-    \ 'python': ['LanguageClient'],
-\})
+" call deoplete#custom#option('sources', {
+"     \ 'python': ['LanguageClient'],
+"     \ 'javascript': ['LanguageClient'],
+" \})
 
 " Disable the candidates in Comment/String syntaxes.
 call deoplete#custom#source('_',
     \ 'disabled_syntaxes', ['Comment', 'String'])
+
+
+" omnifuncs
+" ---
+" https://gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
+augroup omnifuncs
+    autocmd!
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+
+
+" tern
+" ---
+if exists('g:plugs["tern_for_vim"]')
+    let g:tern_show_argument_hints = 'on_hold'
+    let g:tern_show_signature_in_pum = 1
+    autocmd FileType javascript setlocal omnifunc=tern#Complete
+endif
+
+" Tab complete
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
 
 " Saved for later
 " ---
