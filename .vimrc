@@ -62,10 +62,10 @@ nnoremap gV `[v`]        " highlight last inserted text
 let g:deoplete#enable_at_startup = 1
 
 " Path to the Python 3 interpreter
-let g:python3_host_prog = "~/.pyenv/versions/neovim3/bin/python"
+let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim3/bin/python'
 
 " Disable Python 2 support
-let g:python_host_prog = "~/.pyenv/versions/neovim2/bin/python"
+let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
 
 " Disable Ruby support
 let g:loaded_ruby_provider = 1
