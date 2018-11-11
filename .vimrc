@@ -4,11 +4,13 @@
 syntax on
 colorscheme Tomorrow-Night 
 
+
 " Leader shortcuts
 " ---
 
 let mapleader = ","     " display using :echo mapleader
 inoremap jk <esc>       " js is escape
+
 
 " Tabs and spaces
 " ---
@@ -16,6 +18,7 @@ inoremap jk <esc>       " js is escape
 set tabstop=4
 set softtabstop=4       " number of spaces in tab when editing
 set expandtab 		    " tabs are spaces
+
 
 " UI Config
 " ---
@@ -28,12 +31,14 @@ set wildmenu            " visual autocomplete for command menu
 set lazyredraw          " redraw only when we need to
 set showmatch           " highlight matching [{()}]
 
+
 " Searching 
 " ---
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
 nnoremap <leader><space> :nohlsearch<CR>    " turn off search highlight 
+
 
 " Folding 
 " ---
@@ -43,6 +48,7 @@ set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 nnoremap <space> za     " space open/closes folds
 set foldmethod=indent   " fold based on indent level
+
 
 " Movement 
 " ---
@@ -58,7 +64,7 @@ nnoremap gV `[v`]        " highlight last inserted text
 " Deoplete
 " ---
 
-" Enable deoplete plugin at startup
+" Use deoplete
 let g:deoplete#enable_at_startup = 1
 
 " Path to the Python 3 interpreter
@@ -69,6 +75,7 @@ let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
 
 " Disable Ruby support
 let g:loaded_ruby_provider = 1
+
 
 " Plugins
 " ---
