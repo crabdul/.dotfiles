@@ -58,9 +58,15 @@ set foldmethod=indent   " fold based on indent level
 
 nnoremap <expr> j v:count ? 'j' : 'gj'      " move down by visual line
 nnoremap <expr> k v:count ? 'k' : 'gk'      " move up by visual line
-"nnoremap B ^            " move to beginning of line
-"nnoremap E $            " move to end of line
-nnoremap gV `[v`]        " highlight last inserted text
+"nnoremap B ^           " move to beginning of line
+"nnoremap E $           " move to end of line
+nnoremap gV `[v`]       " highlight last inserted text
+
+
+" Command
+" ---
+
+command! Q q            " Quit
 
 
 " Plugins
