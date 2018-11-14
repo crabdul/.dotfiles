@@ -107,6 +107,11 @@ Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 " Super-Tab
 Plug 'ervandew/supertab'
 
+" Fuzzy-search
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Silver searcher
+Plug 'mileszs/ack.vim'
 " Initialize plugin system
 call plug#end()
 
@@ -175,6 +180,21 @@ endif
 
 " Tab complete
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
+
+" ctrlp
+" ---
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+
+" Silver-searcher
+" ---
+
+" Make CtrlP use ag for listing the files. Way faster and no useless files.
+let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+let g:ctrlp_use_caching = 0
 
 
 " Saved for later
