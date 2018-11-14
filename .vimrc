@@ -8,9 +8,11 @@ colorscheme Tomorrow-Night
 " Leader shortcuts
 " ---
 
-let mapleader = ","     " display using :echo mapleader
-inoremap jk <esc>       " js is escape
-
+let mapleader = "\<Space>"              " display using :echo mapleader
+imap <leader>jk <esc>                   " escape
+imap <leader>kj <esc>                   " escape
+nmap <leader>vr :sp $MYVIMRC<cr>        " edit vimrc
+nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
 
 " Tabs and spaces
 " ---
@@ -46,7 +48,7 @@ nnoremap <leader><space> :nohlsearch<CR>    " turn off search highlight
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
-nnoremap <space> za     " space open/closes folds
+"nnoremap <space> za     " space open/closes folds
 set foldmethod=indent   " fold based on indent level
 
 
