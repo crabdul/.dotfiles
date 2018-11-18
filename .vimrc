@@ -13,6 +13,8 @@ imap <leader>jk <esc>                   " escape
 imap <leader>kj <esc>                   " escape
 nmap <leader>vr :sp $MYVIMRC<cr>        " edit vimrc
 nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
+nmap <leader>no :NERDTree<cr>           " open NERDTree
+nmap <leader>nc :NERDTreeClose<cr>      " close NERDTree
 
 " Tabs and spaces
 " ---
@@ -81,8 +83,11 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'airblade/vim-gitgutter'           " Git status in gutter
 Plug 'scrooloose/nerdtree'              " Tree explorer
+Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
+Plug 'tpope/vim-repeat'                 " repeat last command
+Plug 'vbundles/nerdtree'                " file explorer
 Plug 'vim-airline/vim-airline'          " Status bar 
 " Deoplete
 " Requirements: 
