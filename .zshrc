@@ -34,9 +34,13 @@ fi
 # Aliases
 # =============================================================================
 
-alias g pr='hub pull-request'
-alias g pulls='hub browse -- pulls'
-alias g wiki='hub browse -- wiki'
+# General
+alias sourcezsh='source ~/.zshrc'
+
+# Hub 
+alias hpr='hub pull-request'
+alias pulls='hub browse -- pulls'
+alias wiki='hub browse -- wiki'
 
 # =============================================================================
 # zgen
