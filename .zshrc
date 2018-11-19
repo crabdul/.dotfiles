@@ -2,7 +2,45 @@
 # Environment Config
 # =============================================================================
 
-export EDITOR='vim'
+export PATH="$HOME/bin:$PATH"
+
+export PYENV_ROOT="$HOME/.pyenv"
+
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+# https://github.com/pyenv/pyenv-virtualenv/issues/155 
+if which pyenv-virtualenv-init > /dev/null; then
+   eval "$(pyenv init -)"
+   eval "$(pyenv virtualenv-init -)"; 
+fi
+
+# if command -v pyenv 1>/dev/null 2>&1; then
+#     eval "$(pyenv init -)"
+# fi
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# =============================================================================
+# NeoVim 
+# =============================================================================
+
+export EDITOR='nvim'
+
+if type nvim > /dev/null 2>&1; then
+    alias vim='nvim'
+    alias vi='nvim'
+fi
+# =============================================================================
+# Aliases
+# =============================================================================
+
+# General
+alias sourcezsh='source ~/.zshrc'
+
+# Hub 
+alias hpr='hub pull-request'
+alias pulls='hub browse -- pulls'
+alias wiki='hub browse -- wiki'
 
 # =============================================================================
 # zgen
