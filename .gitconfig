@@ -101,7 +101,9 @@
 	rb = rebase
 	rba = rebase --abort
 	rbc = rebase --continue
-	rbi = rebase --interactive
+    rbi = "!f() { \
+             git rebase -i HEAD~$1; \
+           }; f"
 	rbs = rebase --skip
 	#############
 	rf = reflog 
