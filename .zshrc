@@ -9,10 +9,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 # https://github.com/pyenv/pyenv-virtualenv/issues/155 
-if which pyenv-virtualenv-init > /dev/null; then
-   eval "$(pyenv init -)"
-   eval "$(pyenv virtualenv-init -)"; 
-fi
+# if which pyenv-virtualenv-init > /dev/null; then
+#   eval "$(pyenv init -)"
+#   eval "$(pyenv virtualenv-init -)"; 
+# fi
 
 # if command -v pyenv 1>/dev/null 2>&1; then
 #     eval "$(pyenv init -)"
@@ -30,6 +30,7 @@ if type nvim > /dev/null 2>&1; then
     alias vim='nvim'
     alias vi='nvim'
 fi
+
 # =============================================================================
 # Aliases
 # =============================================================================
