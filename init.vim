@@ -3,7 +3,7 @@
 
 " Theme
 " ---
-
+            
 syntax on
 colorscheme Tomorrow-Night 
 
@@ -19,12 +19,14 @@ nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
 nmap <leader>no :NERDTree<cr>           " open NERDTree
 nmap <leader>nc :NERDTreeClose<cr>      " close NERDTree
 
+
 " Tabs and spaces
 " ---
 
-set tabstop=4
-set softtabstop=4       " number of spaces in tab when editing
-set expandtab 		    " tabs are spaces
+set tabstop=4       " width of TAB
+set shiftwidth=4    " indents will have a width of 4
+set softtabstop=4   " sets the number of columns for a TAB
+set expandtab       " expand TABs to spaces
 
 
 " UI Config
@@ -128,6 +130,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 " Silver searcher
 Plug 'mileszs/ack.vim'
+
 " Initialize plugin system
 call plug#end()
 
