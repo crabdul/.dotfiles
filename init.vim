@@ -1,360 +1,222 @@
-" Fisa-nvim-config
-" http://nvim.fisadev.com
-" version: 10.0
+" Symlink with command below
+" ln -s ~/.dotfiles/init.vim ~/.config/nvim/init.vim
 
-" TODO current problems:
-" * end key not working undef tmux+fish
+" Theme
+" ---
 
-" ============================================================================
-" Vim-plug initialization
-" Avoid modify this section, unless you are very sure of what you are doing
+syntax on
+colorscheme Tomorrow-Night 
 
-let vim_plug_just_installed = 0
-let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
-if !filereadable(vim_plug_path)
-    echo "Installing Vim-plug..."
-    echo ""
-    silent !mkdir -p ~/.config/nvim/autoload
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    let vim_plug_just_installed = 1
+
+" Leader shortcuts
+" ---
+
+let mapleader = "\<Space>"              " display using :echo mapleader
+imap <leader>jk <esc>                   " escape
+imap <leader>kj <esc>                   " escape
+nmap <leader>vr :sp $MYVIMRC<cr>        " edit vimrc
+nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
+nmap <leader>no :NERDTree<cr>           " open NERDTree
+nmap <leader>nc :NERDTreeClose<cr>      " close NERDTree
+
+" Tabs and spaces
+" ---
+
+set tabstop=4
+set softtabstop=4       " number of spaces in tab when editing
+set expandtab 		    " tabs are spaces
+
+
+" UI Config
+" ---
+
+set number		        " show line numbers
+set showcmd             " show command in bottom bar
+set cursorline          " highlight current line
+filetype indent on      " load filetype-specific indent files
+set wildmenu            " visual autocomplete for command menu
+set lazyredraw          " redraw only when we need to
+set showmatch           " highlight matching [{()}]
+
+
+" Searching 
+" ---
+
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+nnoremap <leader><space> :nohlsearch<CR>    " turn off search highlight 
+
+
+" Folding 
+" ---
+
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+"nnoremap <space> za     " space open/closes folds
+set foldmethod=indent   " fold based on indent level
+
+
+" Movement 
+" ---
+" source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+
+nnoremap <expr> j v:count ? 'j' : 'gj'      " move down by visual line
+nnoremap <expr> k v:count ? 'k' : 'gk'      " move up by visual line
+"nnoremap B ^           " move to beginning of line
+"nnoremap E $           " move to end of line
+nnoremap gV `[v`]       " highlight last inserted text
+
+
+" Command
+" ---
+
+command! Q q            " Quit
+
+
+" Plugins
+" ---
+
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+
+Plug 'airblade/vim-gitgutter'           " Git status in gutter
+Plug 'scrooloose/nerdtree'              " Tree explorer
+Plug 'tpope/vim-commentary'             " Comment out stuff
+Plug 'tpope/vim-fugitive'               " Git wrapper
+Plug 'tpope/vim-surround'               " Quoting / paranthesizing
+Plug 'tpope/vim-repeat'                 " repeat last command
+Plug 'vbundles/nerdtree'                " file explorer
+Plug 'vim-airline/vim-airline'          " Status bar 
+" Deoplete
+" Requirements: 
+" - https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim 
+" - https://github.com/pyenv/pyenv/wiki
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" manually load vim-plug the first time
-if vim_plug_just_installed
-    :execute 'source '.fnameescape(vim_plug_path)
-endif
-
-" Obscure hacks done, you can now modify the rest of the .vimrc as you wish :)
-
-" ============================================================================
-" Active plugins
-" You can disable or add new ones here:
-
-" this needs to be here, so vim-plug knows we are declaring the plugins we
-" want to use
-call plug#begin('~/.config/nvim/plugged')
-
-" Now the actual plugins:
-
-" Override configs by directory
-Plug 'arielrossanigo/dir-configs-override.vim'
-
-" Code commenter
-Plug 'scrooloose/nerdcommenter'
-
-" Better file browser
-Plug 'scrooloose/nerdtree'
-
-" Class/module browser
-Plug 'majutsushi/tagbar'
-" TODO known problems:
-" * current block not refreshing
-
-" Search results counter
-Plug 'vim-scripts/IndexedSearch'
-
-" Terminal Vim with 256 colors colorscheme
-Plug 'fisadev/fisa-vim-colorscheme'
-
-" Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" Code and files fuzzy finder
-" Plug 'ctrlpvim/ctrlp.vim'
-" Extension to ctrlp, for fuzzy command finder
-" Plug 'fisadev/vim-ctrlp-cmdpalette'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" Pending tasks list
-Plug 'fisadev/FixedTaskList.vim'
-
-" Async autocompletion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Completion from other opened files
-Plug 'Shougo/context_filetype.vim'
 " Python autocompletion
 Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-" Just to add the python go-to-definition and similar features, autocompletion
-" from this plugin is disabled
-Plug 'davidhalter/jedi-vim'
 
-" Automatically close parenthesis, etc
-Plug 'Townk/vim-autoclose'
+" JS autocompletion
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install',
+    \ 'for': ['javascript', 'javascript.jsx']
+\}
 
-" Surround
-Plug 'tpope/vim-surround'
+" JS autocompletion
+Plug 'carlitux/deoplete-ternjs', { 
+    \ 'for': ['javascript', 'javascript.jsx']
+\}
 
-" Indent text object
-Plug 'michaeljsmith/vim-indent-object'
+" Better JS function parameter completion
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
-" Indentation based movements
-Plug 'jeetsukumaran/vim-indentwise'
+" Super-Tab
+Plug 'ervandew/supertab'
 
-" Better language packs
-Plug 'sheerun/vim-polyglot'
+" Fuzzy-search
+Plug 'ctrlpvim/ctrlp.vim'
 
-" Ack code search (requires ack installed in the system)
+" Silver searcher
 Plug 'mileszs/ack.vim'
-" TODO is there a way to prevent the progress which hides the editor?
-
-" Paint css colors with the real color
-Plug 'lilydjwg/colorizer'
-" TODO is there a better option for neovim?
-
-" Window chooser
-Plug 't9md/vim-choosewin'
-
-" Automatically sort python imports
-Plug 'fisadev/vim-isort'
-
-" Highlight matching html tags
-Plug 'valloric/MatchTagAlways'
-
-" Generate html in a simple way
-Plug 'mattn/emmet-vim'
-
-" Git integration
-Plug 'tpope/vim-fugitive'
-
-" Git/mercurial/others diff icons on the side of the file lines
-Plug 'mhinz/vim-signify'
-
-" Yank history navigation
-Plug 'vim-scripts/YankRing.vim'
-
-" Linters
-Plug 'neomake/neomake'
-" TODO is it running on save? or when?
-" TODO not detecting errors, just style, is it using pylint?
-
-" Relative numbering of lines (0 is the current line)
-" (disabled by default because is very intrusive and can't be easily toggled
-" on/off. When the plugin is present, will always activate the relative
-" numbering every time you go to normal mode. Author refuses to add a setting
-" to avoid that)
-Plug 'myusuf3/numbers.vim'
-
-
-
-" Tell vim-plug we finished declaring plugins, so it can load them
+" Initialize plugin system
 call plug#end()
 
-" ============================================================================
-" Install plugins the first time vim runs
 
-if vim_plug_just_installed
-    echo "Installing Bundles, please ignore key map error messages"
-    :PlugInstall
-endif
+" Deoplete
+" ---
+" https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
 
-" ============================================================================
-" Vim settings and mappings
-" You can edit them as you wish
-
-" tabs and spaces handling
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-
-" show line numbers
-set nu
-
-" remove ugly vertical lines on window division
-set fillchars+=vert:\ 
-
-" use 256 colors when possible
-if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
-	let &t_Co = 256
-    colorscheme fisa
-else
-    colorscheme delek
-endif
-
-" needed so deoplete can auto select the first suggestion
-set completeopt+=noinsert
-" comment this line to enable autocompletion preview window
-" (displays documentation related to the selected completion option)
-set completeopt-=preview
-
-" autocompletion of files and commands behaves like shell
-" (complete only the common part, list the options that match)
-set wildmode=list:longest
-
-" save as sudo
-ca w!! w !sudo tee "%"
-
-" tab navigation mappings
-map tt :tabnew 
-map <M-Right> :tabn<CR>
-imap <M-Right> <ESC>:tabn<CR>
-map <M-Left> :tabp<CR>
-imap <M-Left> <ESC>:tabp<CR>
-
-" when scrolling, keep cursor 3 lines away from screen border
-set scrolloff=3
-
-" clear search results
-nnoremap <silent> // :noh<CR>
-
-" clear empty spaces at the end of lines on save of python files
-autocmd BufWritePre *.py :%s/\s\+$//e
-
-" fix problems with uncommon shells (fish, xonsh) and plugins running commands
-" (neomake, ...)
-set shell=/bin/bash 
-
-" ============================================================================
-" Plugins settings and mappings
-" Edit them as you wish.
-
-" Tagbar -----------------------------
-
-" toggle tagbar display
-map <F4> :TagbarToggle<CR>
-" autofocus on tagbar open
-let g:tagbar_autofocus = 1
-
-" NERDTree -----------------------------
-
-" toggle nerdtree display
-map <F3> :NERDTreeToggle<CR>
-" open nerdtree with the current file selected
-nmap ,t :NERDTreeFind<CR>
-" don;t show these file types
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
-
-" Tasklist ------------------------------
-
-" show pending tasks list
-map <F2> :TaskList<CR>
-
-" Neomake ------------------------------
-
-" Run linter on write
-autocmd! BufWritePost * Neomake
-
-" Check code as python3 by default
-let g:neomake_python_python_maker = neomake#makers#ft#python#python()
-let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
-let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
-let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
-
-" Fzf ------------------------------
-
-" file finder mapping
-nmap ,e :Files<CR>
-" tags (symbols) in current file finder mapping
-nmap ,g :BTag<CR>
-" tags (symbols) in all files finder mapping
-nmap ,G :Tag<CR>
-" general code finder in current file mapping
-nmap ,f :BLines<CR>
-" general code finder in all files mapping
-nmap ,F :Lines<CR>
-" commands finder mapping
-nmap ,c :Commands<CR>
-" to be able to call CtrlP with default search text
-"function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-    "execute ':CtrlP' . a:ctrlp_command_end
-    "call feedkeys(a:search_text)
-"endfunction
-" same as previous mappings, but calling with current word as default text
-"nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-"nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-"nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-"nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-"nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-"nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-"nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
-
-
-" Deoplete -----------------------------
-
-" Use deoplete.
-
+" Use deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-" complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
 
-" Jedi-vim ------------------------------
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
 
-" Disable autocompletion (using deoplete instead)
-let g:jedi#completions_enabled = 0
+" Turn automatic autocomplete off
+" let g:deoplete#disable_auto_complete = 1
 
-" All these mappings work only for python code:
-" Go to definition
-let g:jedi#goto_command = ',d'
-" Find ocurrences
-let g:jedi#usages_command = ',o'
-" Find assignments
-let g:jedi#goto_assignments_command = ',a'
-" Go to definition in new tab
-nmap ,D :tab split<CR>:call jedi#goto()<CR>
+" Automatically closw the scratch window at the top of the vim window 
+" on finishing a complete or leaving insert
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Ack.vim ------------------------------
+" Path to the Python 3 interpreter
+let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim3/bin/python'
 
-" mappings
-nmap ,r :Ack 
-nmap ,wr :Ack <cword><CR>
+" Disable Python 2 support
+let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
 
-" Window Chooser ------------------------------
+" Disable Ruby support
+let g:loaded_ruby_provider = 1
 
-" mapping
-nmap  -  <Plug>(choosewin)
-" show big letters
-let g:choosewin_overlay_enable = 1
+" Tab-complete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Signify ------------------------------
+" Set language sources
+" call deoplete#custom#option('sources', {
+"     \ 'python': ['LanguageClient'],
+"     \ 'javascript': ['LanguageClient'],
+" \})
 
-" this first setting decides in which order try to guess your current vcs
-" UPDATE it to reflect your preferences, it will speed up opening files
-let g:signify_vcs_list = [ 'git', 'hg' ]
-" mappings to jump to changed blocks
-nmap <leader>sn <plug>(signify-next-hunk)
-nmap <leader>sp <plug>(signify-prev-hunk)
-" nicer colors
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
+" Disable the candidates in Comment/String syntaxes.
+call deoplete#custom#source('_',
+    \ 'disabled_syntaxes', ['Comment', 'String'])
 
-" Autoclose ------------------------------
 
-" Fix to let ESC work as espected with Autoclose plugin
-" (without this, when showing an autocompletion window, ESC won't leave insert
-"  mode)
-let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
+" omnifuncs
+" ---
+" https://gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
+augroup omnifuncs
+    autocmd!
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
 
-" Yankring -------------------------------
 
-" Fix for yankring and neovim problem when system has non-text things copied
-" in clipboard
-let g:yankring_clipboard_monitor = 0
-let g:yankring_history_dir = '~/.config/nvim/'
+" tern
+" ---
+if exists('g:plugs["tern_for_vim"]')
+    let g:tern_show_argument_hints = 'on_hold'
+    let g:tern_show_signature_in_pum = 1
+    autocmd FileType javascript setlocal omnifunc=tern#Complete
+endif
 
-" Airline ------------------------------
+" Tab complete
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
-let g:airline_powerline_fonts = 0
-let g:airline_theme = 'bubblegum'
-let g:airline#extensions#whitespace#enabled = 0
 
-" to use fancy symbols for airline, uncomment the following lines and use a
-" patched font (more info on docs/fancy_symbols.rst)
-"if !exists('g:airline_symbols')
-   "let g:airline_symbols = {}
-"endif
-"let g:airline_left_sep = '⮀'
-"let g:airline_left_alt_sep = '⮁'
-"let g:airline_right_sep = '⮂'
-"let g:airline_right_alt_sep = '⮃'
-"let g:airline_symbols.branch = '⭠'
-"let g:airline_symbols.readonly = '⭤'
-"let g:airline_symbols.linenr = '⭡'
+" ctrlp
+" ---
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+
+" Silver-searcher
+" ---
+
+" Make CtrlP use ag for listing the files. Way faster and no useless files.
+let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+let g:ctrlp_use_caching = 0
+
+
+" Saved for later
+" ---
+
+" Loop over files
+" for f in split(glob('~/.config/nvim/config/*.vim'), '\n')
+"     exe 'source' f
+" endfor
