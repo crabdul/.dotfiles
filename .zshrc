@@ -30,6 +30,13 @@ if type nvim > /dev/null 2>&1; then
     alias vim='nvim'
     alias vi='nvim'
 fi
+# =============================================================================
+# Aliases
+# =============================================================================
+
+alias g pr='hub pull-request'
+alias g pulls='hub browse -- pulls'
+alias g wiki='hub browse -- wiki'
 
 # =============================================================================
 # zgen
