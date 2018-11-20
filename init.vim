@@ -26,8 +26,6 @@ imap <leader>kj <esc>                   " escape
 
 nmap <leader>vr :sp $MYVIMRC<cr>        " edit vimrc
 nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
-nmap <leader>no :NERDTree<cr>           " open NERDTree
-nmap <leader>nc :NERDTreeClose<cr>      " close NERDTree
 
 
 " Tabs and spaces
@@ -224,6 +222,12 @@ let g:ctrlp_cmd = 'CtrlP'
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
 let g:ctrlp_use_caching = 0
+
+" NERDTree
+" ---
+
+nmap <leader>no :NERDTree<cr>           " open NERDTree
+nmap <leader>nc :NERDTreeClose<cr>      " close NERDTree
 
 
 " Saved for later
