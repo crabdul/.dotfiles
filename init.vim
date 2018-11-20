@@ -3,17 +3,27 @@
 
 " Theme
 " ---
-            
+        
 syntax on
 colorscheme Tomorrow-Night 
 
 
-" Leader shortcuts
+" Leader
 " ---
 
 let mapleader = "\<Space>"              " display using :echo mapleader
+
+
+" Escape
+" ---
+
 imap <leader>jk <esc>                   " escape
 imap <leader>kj <esc>                   " escape
+
+
+" Vimrc
+" ---
+
 nmap <leader>vr :sp $MYVIMRC<cr>        " edit vimrc
 nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
 nmap <leader>no :NERDTree<cr>           " open NERDTree
