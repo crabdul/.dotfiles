@@ -102,6 +102,7 @@ Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vbundles/nerdtree'                " file explorer
 Plug 'vim-airline/vim-airline'          " Status bar 
+
 " Deoplete
 " Requirements: 
 " - https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim 
