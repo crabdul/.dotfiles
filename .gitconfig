@@ -45,6 +45,7 @@
 	lg = log --oneline --graph --decorate
 	#############
 	ls = ls-files
+	lsc = !git ls-files | xargs git add
 	lsf = !git ls-files | grep -i
 	#############
 	m = merge
