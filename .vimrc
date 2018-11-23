@@ -1,8 +1,14 @@
 " Theme
 " ---
-
+	
 syntax on
 colorscheme Tomorrow-Night 
+
+
+" General
+" ---
+
+set history=500				" sets how many lines of history VIM has to remember
 
 
 " Leader shortcuts
