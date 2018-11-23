@@ -22,6 +22,7 @@
     # $ git commit -c ORIG_HEAD
 	cad = commit -a --amend
 	ced = commit --allow-empty --amend
+	clm = commit -C HEAD@{1} # git commit -C@@{1} commit with previous msg
 	#############
 	cp = cherry-pick
 	cpa = cherry-pick --abort
