@@ -23,6 +23,7 @@
 	cad = commit -a --amend
 	ced = commit --allow-empty --amend
 	clm = commit -C HEAD@{1} # git commit -C@@{1} commit with previous msg
+	calm = commit -a -C@@{1}
 	#############
 	cp = cherry-pick
 	cpa = cherry-pick --abort
