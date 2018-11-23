@@ -44,6 +44,9 @@ fi
 # General
 alias sourcezsh='source ~/.zshrc'
 
+# Navigation
+alias dot="~/.dotfiles"
+
 # Hub 
 alias hpr='hub pull-request'
 alias pulls='hub browse -- pulls'
