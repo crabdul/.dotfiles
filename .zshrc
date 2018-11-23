@@ -20,6 +20,12 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
+# Add support for ctrl+o to open selected file in VS Code
+export FZF_DEFAULT_OPTS="--bind='ctrl-o:execute(code {})+abort'"
+
+# Setting fd as the default source for fzf as it respects .gitignore
+export FZF_DEFAULT_COMMAND='fd --type f'
+
 # =============================================================================
 # NeoVim 
 # =============================================================================
@@ -49,6 +55,8 @@ alias shelloadtime="/usr/bin/time zsh -i -c exit"
 # linux
 function killport() { lsof -ti:$1 | xargs kill; }
 
+# Plugins
+alias f="fzf --preview 'bat --color \"always\" {}'"
 
 # =============================================================================
 # zgen
