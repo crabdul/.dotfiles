@@ -206,3 +206,13 @@ unsetopt flow_control
 [ -n "${terminfo[kcub1]}" ] && bindkey "${terminfo[kcub1]}" backward-char
 # Right-arrow
 [ -n "${terminfo[kcuf1]}" ] && bindkey "${terminfo[kcuf1]}" forward-char
+
+
+# =============================================================================
+# Source dev config
+# =============================================================================
+
+if [ -s ~/.dev.zsh ]; then
+    source "~/.dev.zsh"
+fi 
+
