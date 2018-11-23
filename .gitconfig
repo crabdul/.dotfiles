@@ -97,11 +97,13 @@
 	pbom = pull --rebase origin master
 	pboc = !git pull --rebase origin $(git bc)
 	#############
-	r = reset HEAD~
+	r = reset
 	rh = reset --hard
 	rs = reset --soft
-	rhh = reset --hard HEAD~
-	rsh = reset --soft HEAD~
+	rhead = reset HEAD
+	rh1 = reset HEAD~
+	rhh1 = reset --hard HEAD~
+	rsh1 = reset --soft HEAD~
 	#############
 	rb = rebase
 	rba = rebase --abort

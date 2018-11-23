@@ -20,6 +20,7 @@ nmap <leader>nc :NERDTreeClose<cr>      " close NERDTree
 " ---
 
 set tabstop=4
+set shiftwidth=4
 set softtabstop=4       " number of spaces in tab when editing
 set expandtab 		    " tabs are spaces
 
