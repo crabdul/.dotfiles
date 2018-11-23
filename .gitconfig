@@ -155,13 +155,16 @@
 	#############
 	bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
 	# Count commits since branching out from master
-	count = !git rev-list --count origin..HEAD
+	count = rev-list --count origin/master..HEAD
 
 	release = !sh -c 'git tag v$1 && git pst' -
 	unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
 	merged = !sh -c 'git o master && git plom && git bd $1 && git rpo' -
 	aliases = !git config -l | grep alias | cut -c 7-
 	snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
+	# squash
+	squash = !git rebase -i HEAD~$(git count)
+
 	bare = !sh -c 'git symbolic-ref HEAD refs/heads/$1 && git rm --cached -r . && git clean -xfd' -
 	whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
 	serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
