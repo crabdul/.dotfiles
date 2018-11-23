@@ -114,30 +114,16 @@ Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'scrooloose/nerdtree'                " file explorer
 Plug 'vim-airline/vim-airline'          " Status bar 
 
-" Deoplete
-" Requirements: 
-" - https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim 
-" - https://github.com/pyenv/pyenv/wiki
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
+"" JS autocompletion
+"Plug 'ternjs/tern_for_vim', { 'do': 'npm install',
+"    \ 'for': ['javascript', 'javascript.jsx']
+"\}
 
-" Python autocompletion
-Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+" A collection of language packs
+Plug 'sheerun/vim-polyglot'
 
-" JS autocompletion
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install',
-    \ 'for': ['javascript', 'javascript.jsx']
-\}
-
-" JS autocompletion
-Plug 'carlitux/deoplete-ternjs', { 
-    \ 'for': ['javascript', 'javascript.jsx']
-\}
+" Autocomplete
+Plug 'ajh17/VimCompletesMe'
 
 " Better JS function parameter completion
 Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
@@ -155,70 +141,36 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 
 
-" Deoplete
-" ---
-" https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
-
-" Use deoplete
-let g:deoplete#enable_at_startup = 1
-
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-
-" Turn automatic autocomplete off
-" let g:deoplete#disable_auto_complete = 1
-
-" Automatically closw the scratch window at the top of the vim window 
-" on finishing a complete or leaving insert
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Path to the Python 3 interpreter
-let g:python3_host_prog = $HOME.'/.pyenv/versions/neovim3/bin/python'
-
-" Disable Python 2 support
-let g:python_host_prog = $HOME.'/.pyenv/versions/neovim2/bin/python'
-
-" Disable Ruby support
-let g:loaded_ruby_provider = 1
-
-" Tab-complete
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Set language sources
-" call deoplete#custom#option('sources', {
-"     \ 'python': ['LanguageClient'],
-"     \ 'javascript': ['LanguageClient'],
-" \})
-
-" Disable the candidates in Comment/String syntaxes.
-call deoplete#custom#source('_',
-    \ 'disabled_syntaxes', ['Comment', 'String'])
-
-
 " omnifuncs
 " ---
 " https://gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
-augroup omnifuncs
-    autocmd!
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
-
-
-" tern
-" ---
+"augroup omnifuncs
+"    autocmd!
+"    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+"    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"augroup end
+"
+"
+"" tern
+"" ---
+"
 if exists('g:plugs["tern_for_vim"]')
-    let g:tern_show_argument_hints = 'on_hold'
-    let g:tern_show_signature_in_pum = 1
+    " show argument hints
+    let g:tern_show_argument_hints='on_hold'
+    " enable keyboard shortcuts
+    let g:tern_map_kets=1
+"    let g:tern_show_signature_in_pum = 1
     autocmd FileType javascript setlocal omnifunc=tern#Complete
+"    let g:tern#command = ["tern"]
+"
+"    " Tab complete
+"    autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+"
+"    let g:tern#arguments = ["--persistent"]
 endif
-
-" Tab complete
-autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
 
 " ctrlp
