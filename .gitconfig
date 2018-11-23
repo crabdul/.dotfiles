@@ -39,6 +39,8 @@
 	#############
 	g = grep -p
 	#############
+	h = hist
+	#############
 	l = log --oneline
 	lg = log --oneline --graph --decorate
 	#############
