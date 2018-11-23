@@ -154,6 +154,9 @@
 	assumeall = !git status -s | awk {'print $2'} | xargs git assume
 	#############
 	bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
+	# Count commits since branching out from master
+	count = !git rev-list --count origin..HEAD
+
 	release = !sh -c 'git tag v$1 && git pst' -
 	unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
 	merged = !sh -c 'git o master && git plom && git bd $1 && git rpo' -
