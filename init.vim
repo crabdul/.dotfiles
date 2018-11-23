@@ -79,11 +79,21 @@ nnoremap <expr> k v:count ? 'k' : 'gk'      " move up by visual line
 "nnoremap E $           " move to end of line
 nnoremap gV `[v`]       " highlight last inserted text
 
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 " Command
 " ---
 
 command! Q q            " Quit
+
+" Sudo
+" ---
+
+cmap w!! w !sudo tee % >/dev/null           " Grant root privileges on opened file with w!!
 
 
 " Plugins
