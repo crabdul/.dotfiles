@@ -43,6 +43,13 @@ alias hpr='hub pull-request'
 alias pulls='hub browse -- pulls'
 alias wiki='hub browse -- wiki'
 
+# zsh tools
+alias shelloadtime="/usr/bin/time zsh -i -c exit"
+
+# linux
+function killport() { lsof -ti:$1 | xargs kill; }
+
+
 # =============================================================================
 # zgen
 # =============================================================================
