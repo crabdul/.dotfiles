@@ -1,6 +1,0 @@
-brew "diff-so-fancy"
-brew "neovim"
-brew "pyenv-virtualenv"
-brew "python"
-brew "the_silver_searcher"
-brew "tmux"
