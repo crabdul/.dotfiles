@@ -24,9 +24,11 @@ imap <leader>kj <esc>                   " escape
 " Vimrc
 " ---
 
-nmap <leader>vr :sp $MYVIMRC<cr>        " edit vimrc
-nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
-
+nnoremap ; :
+nmap <silent> <leader>ev :sp $MYVIMRC<cr>        " edit vimrc
+nmap <silent> <leader>sv :source $MYVIMRC<cr>    " source vimrc
+set nobackup
+set noswapfile
 
 " Tabs and spaces
 " ---
