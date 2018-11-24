@@ -18,6 +18,9 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Disable automatic comment insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 " Leader shortcuts
 " ---
 
