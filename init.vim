@@ -102,7 +102,7 @@ Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vim-airline/vim-airline'          " Status bar 
 
 " Better JS function parameter completion
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 " Super-Tab
 Plug 'ervandew/supertab'
