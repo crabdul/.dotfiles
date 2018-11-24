@@ -11,6 +11,10 @@ syntax on
 set history=500				" sets how many lines of history VIM has to remember
 let mapleader = ","              " display using :echo mapleader
 
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
 
 " Leader shortcuts
 " ---
