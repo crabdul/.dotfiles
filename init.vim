@@ -200,6 +200,12 @@ map <leader>sa zg
 command! Q q            " Quit
 
 
+" Omni complete functions
+" ---
+
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+
 " Plugins
 " ---
 
