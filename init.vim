@@ -178,6 +178,21 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
 endif
 
+" Spell checking 
+" ---
+
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Move to spelling-mistake
+" Next
+map <leader>sn ]s
+" Previous 
+map <leader>sp [s
+
+" Add definition
+map <leader>sa zg
+
 
 " Command
 " ---
