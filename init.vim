@@ -72,6 +72,13 @@ nnoremap <expr> k v:count ? 'k' : 'gk'      " move up by visual line
 nnoremap gV `[v`]       " highlight last inserted text
 
 
+" Pasting
+" ---
+
+nnoremap p "0p
+nnoremap P "0P
+
+
 " Command
 " ---
 
