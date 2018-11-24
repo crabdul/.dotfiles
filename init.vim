@@ -25,6 +25,19 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 nmap <leader>w :w!<cr>
 
 
+" VIM user interface
+" ---
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Makes search act like search in modern browsers
+set incsearch
+
+
 " Leader shortcuts
 " ---
 
