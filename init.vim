@@ -118,6 +118,13 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 
 
+" airblade/vim-gitgutter
+" ---
+
+nmap <Leader>ha <Plug>GitGutterStageHunk                " Stage hunk when cursor inside
+nmap <Leader>hr <Plug>GitGutterUndoHunk                 " Undo staged hunk when cursor inside
+
+
 " Tab complete
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
