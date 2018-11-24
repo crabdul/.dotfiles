@@ -1,26 +1,24 @@
 " Theme
 " ---
 	
-syntax on
 colorscheme Tomorrow-Night 
 
 
 " General
 " ---
 
+syntax on
 set history=500				" sets how many lines of history VIM has to remember
+let mapleader = ","              " display using :echo mapleader
 
 
 " Leader shortcuts
 " ---
 
-let mapleader = "\<Space>"              " display using :echo mapleader
 imap <leader>jk <esc>                   " escape
 imap <leader>kj <esc>                   " escape
-nmap <leader>vr :sp $MYVIMRC<cr>        " edit vimrc
-nmap <leader>so :source $MYVIMRC<cr>    " source vimrc
-nmap <leader>no :NERDTree<cr>           " open NERDTree
-nmap <leader>nc :NERDTreeClose<cr>      " close NERDTree
+nmap <leader>ev :sp $MYVIMRC<cr>        " edit vimrc
+nmap <leader>sv :source $MYVIMRC<cr>    " source vimrc
 
 " Tabs and spaces
 " ---
