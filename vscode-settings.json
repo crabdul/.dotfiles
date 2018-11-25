@@ -20,9 +20,6 @@
     "editor.fontSize": 14,
     "gitlens.historyExplorer.enabled": true,
     "workbench.colorCustomizations": {
-    //     "editor.background": "#151515",
-    //     "editor.selectionBackground": "#197185",
-    //     "editor.selectionHighlightBackground": "#197185"
         "tab.activeBorder": "#FDD835",
         "list.activeSelectionForeground": "#FDD835",
         "tab.activeForeground": "#FDD835",
