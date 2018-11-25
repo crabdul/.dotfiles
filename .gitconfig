@@ -199,3 +199,6 @@
 [user]
 	name = crabdul
 	email = 23074754+crabdul@users.noreply.github.com
+[includeIf "gitdir:~/workspace/"]
+    path = .gitconfig-work
+
