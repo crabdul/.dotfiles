@@ -78,7 +78,13 @@ ln -s ~/.dotfiles/vscode-settings.json $HOME/Library/Application\ Support/Code/U
 
 In VS Code, extensions should appear as recommended in the plugins tab
 
+## Karabiner
 
+### Symlink karabiner
+
+```bash
+ln -s ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
+```
 
 ## npm
 
