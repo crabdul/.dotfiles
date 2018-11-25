@@ -1,33 +1,13 @@
 {
-    "workbench.colorTheme": "Relaxed",
-    "files.useExperimentalFileWatcher": true,
-    "gitlens.advanced.messages": {
-        "suppressShowKeyBindingsNotice": true
-    },
-    "workbench.editor.enablePreview": false,
-    "terminal.integrated.shell.osx": "zsh",
-    "workbench.startupEditor": "newUntitledFile",
+    "editor.fontSize": 14,
+    "editor.tabSize": 4,
     "emmet.includeLanguages": {
         "javascript": "javascriptreact"
     },
-    "editor.tabSize": 4,
-    "python.linting.pylintArgs": [
-        "--load-plugins",
-        "pylint_django"
-    ],
-    "window.zoomLevel": 0,
-    "git.autofetch": true,
-    "editor.fontSize": 14,
-    "gitlens.historyExplorer.enabled": true,
-    "workbench.colorCustomizations": {
-        "tab.activeBorder": "#FDD835",
-        "list.activeSelectionForeground": "#FDD835",
-        "tab.activeForeground": "#FDD835",
-        "editorLineNumber.activeForeground": "#FDD835",
-        "editorLink.activeForeground": "#FDD835",
-        "editor.selectionBackground": "#ff0077",
-        "editor.selectionHighlightBackground": "#18778d"
-    },
+    "eslint.autoFixOnSave": true,
+    "eslint.packageManager": "yarn",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
     "files.autoSaveDelay": 2000,
     "files.exclude": {
         "**/.DS_Store": true,
@@ -37,30 +17,50 @@
         "**/bower_components": true,
         "**/jspm_packages": true
     },
-    "sasslint.enable": true,
-    "python.linting.enabled": false,
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "workbench.iconTheme": "material-icon-theme",
-    "gitlens.gitExplorer.files.layout": "auto",
-    "terminal.integrated.rendererType": "dom",
-    "python.jediEnabled": false,
-    "prettier.trailingComma": "all",
-    "eslint.autoFixOnSave": true,
-    "eslint.packageManager": "yarn",
+    "files.useExperimentalFileWatcher": true,
+    "git.autofetch": true,
     "git.promptToSaveFilesBeforeCommit": true,
     "githubPullRequests.hosts": [
         {
             "host": "https://github.com",
-            "username": "oauth",
-            "token": "system"
+            "token": "system",
+            "username": "oauth"
         }
     ],
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "gitlens.gitExplorer.files.layout": "auto",
+    "gitlens.historyExplorer.enabled": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "prettier.trailingComma": "all",
+    "python.jediEnabled": false,
+    "python.linting.enabled": false,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django"
+    ],
+    "sasslint.enable": true,
+    "terminal.integrated.rendererType": "dom",
+    "terminal.integrated.shell.osx": "zsh",
     "vim.easymotion": true,
-    "vim.sneak": true,
+    "vim.hlsearch": true,
     "vim.incsearch": true,
-    "vim.useSystemClipboard": true,
+    "vim.sneak": true,
     "vim.useCtrlKeys": true,
-    "vim.hlsearch": true
+    "vim.useSystemClipboard": true,
+    "window.zoomLevel": 0,
+    "workbench.colorCustomizations": {
+        "editor.selectionBackground": "#ff0077",
+        "editor.selectionHighlightBackground": "#18778d",
+        "editorLineNumber.activeForeground": "#FDD835",
+        "editorLink.activeForeground": "#FDD835",
+        "list.activeSelectionForeground": "#FDD835",
+        "tab.activeBorder": "#FDD835",
+        "tab.activeForeground": "#FDD835"
+    },
+    "workbench.colorTheme": "Relaxed",
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "newUntitledFile"
 }
