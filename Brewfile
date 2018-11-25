@@ -1,3 +1,4 @@
+brew tap jesseduffield/lazygit
 tap "mas-cli/tap"
 
 tap-pin "mas-cli/tap"
@@ -10,6 +11,7 @@ brew "fzf"
 brew "git"
 brew "httpie"
 brew "hub"
+brew "lazygit"
 brew "lsof"
 brew "mas"
 brew "mozjpeg"
