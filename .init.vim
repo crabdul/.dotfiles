@@ -1,7 +1,7 @@
 " Theme
 " ---
-	
-colorscheme Tomorrow-Night 
+
+colorscheme Tomorrow-Night
 
 
 " General
@@ -12,7 +12,7 @@ set history=500				" sets how many lines of history VIM has to remember
 let mapleader = ","              " display using :echo mapleader
 
 " Can quit with capital Q
-command! Q q            
+command! Q q
 
 " Enable filetype plugins
 filetype plugin on

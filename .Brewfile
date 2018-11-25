@@ -1,7 +1,5 @@
-brew tap jesseduffield/lazygit
-tap "mas-cli/tap"
-
-tap-pin "mas-cli/tap"
+tap "jesseduffield/lazygit"
+tap "mas-cli/tap", pin:true
 
 brew "bat"
 brew "diff-so-fancy"
