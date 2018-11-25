@@ -46,7 +46,6 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 ```
 
 And then install all vim plugins
-
 ```bash
 vi
 :PlugInstall
@@ -83,4 +82,36 @@ Symlink config file
 
 ```bash
 ln -s ~/.dotfiles/pgcliconfig ~/.config/pgcli/config
+```
+
+**mjolnir**
+
+Install lua
+
+Download and uncompress https://www.lua.org/ftp/lua-5.2.4.tar.gz.
+
+```bash
+$ cd lua-5.2.4
+$ make macosx
+$ sudo make install
+$ lua -v
+Lua 5.2.4  Copyright (C) 1994-2015 Lua.org, PUC-Rio
+```
+
+Install lua modules
+
+```bash
+luarocks install mjolnir.hotkey
+luarocks install mjolnir.application
+luarocks install mjolnir.bg.grid
+```
+Symlink config file
+
+```bash
+mkdir $HOME/.mjolnir && ln -s $HOME/.dotfiles/.mjolnir/init.lua $HOME/.mjolnir/init.lua
+```
+
+Reload config in console
+```
+mjolnir.reload()
 ```
