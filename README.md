@@ -86,7 +86,14 @@ In VS Code, extensions should appear as recommended in the plugins tab
 ln -s ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
 ```
 
+## pgcli
+
+### Symlink config file
+
+```bash
+ln -s ~/.dotfiles/pgcliconfig ~/.config/pgcli/config
+```
+
 ## npm
 
-- [sindresorhus/emoj](https://github.com/sindresorhus/emoj) 
-
+- [sindresorhus/emoj](https://github.com/sindresorhus/emoj)
