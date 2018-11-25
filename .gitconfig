@@ -45,6 +45,7 @@
 	#############
 	l = log --oneline
 	lg = log --oneline --graph --decorate
+    lh = log --color --pretty=format:\"%C(yellow)%h%C(reset) %s%C(bold red)%d%C(reset) %C(green)%ad%C(reset) %C(blue)[%an]%C(reset)\" --relative-date --decorate
 	#############
 	ls = ls-files
 	lsc = !git ls-files | xargs git add
@@ -58,7 +59,9 @@
 	o = checkout
 	ob = checkout -b
 	#############
-	pr = prune -v
+    pr = !git publish && hub pull-request
+    #############
+	prune = prune -v
 	#############
 	p = push
 	pf = push --force-with-lease
