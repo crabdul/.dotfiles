@@ -224,7 +224,7 @@ unsetopt flow_control
 # Source work config
 # =============================================================================
 
-if [ -s "~/.zshrc.work" ]; then
-    source "~/.zshrc.work"
+if [ -s "$HOME/.zshrc.work" ]; then
+    source "$HOME/.zshrc.work"
 fi
 
