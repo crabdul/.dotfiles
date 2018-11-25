@@ -1,0 +1,69 @@
+{
+    "workbench.colorTheme": "Relaxed",
+    "files.useExperimentalFileWatcher": true,
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "workbench.editor.enablePreview": false,
+    "terminal.integrated.shell.osx": "zsh",
+    "workbench.startupEditor": "newUntitledFile",
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "editor.tabSize": 4,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django"
+    ],
+    "window.zoomLevel": 0,
+    "git.autofetch": true,
+    "editor.fontSize": 14,
+    "gitlens.historyExplorer.enabled": true,
+    "workbench.colorCustomizations": {
+    //     "editor.background": "#151515",
+    //     "editor.selectionBackground": "#197185",
+    //     "editor.selectionHighlightBackground": "#197185"
+        "tab.activeBorder": "#FDD835",
+        "list.activeSelectionForeground": "#FDD835",
+        "tab.activeForeground": "#FDD835",
+        "editorLineNumber.activeForeground": "#FDD835",
+        "editorLink.activeForeground": "#FDD835",
+        "editor.selectionBackground": "#ff0077",
+        "editor.selectionHighlightBackground": "#18778d"
+    },
+    "files.autoSaveDelay": 2000,
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/bower_components": true,
+        "**/jspm_packages": true
+    },
+    "sasslint.enable": true,
+    "python.linting.enabled": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.iconTheme": "material-icon-theme",
+    "gitlens.gitExplorer.files.layout": "auto",
+    "terminal.integrated.rendererType": "dom",
+    "python.jediEnabled": false,
+    "prettier.trailingComma": "all",
+    "eslint.autoFixOnSave": true,
+    "eslint.packageManager": "yarn",
+    "git.promptToSaveFilesBeforeCommit": true,
+    "githubPullRequests.hosts": [
+        {
+            "host": "https://github.com",
+            "username": "oauth",
+            "token": "system"
+        }
+    ],
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true
+}
