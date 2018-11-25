@@ -66,6 +66,19 @@ Symlinking theme
 ln -s ~/.dotfiles/Tomorrow-Night.vim ~/.config/nvim/colors/Tomorrow-Night.vim
 ```
 
+## VS Code setup
+
+### Symlink vscode settings
+
+```bash
+ln -s ~/.dotfiles/vscode-settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+```
+
+### Install extensions
+
+In VS Code, extensions should appear as recommended in the plugins tab
+
+
 
 ## npm
 
