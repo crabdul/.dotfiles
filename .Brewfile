@@ -33,6 +33,7 @@ cask "iterm2"
 cask "karabiner-elements"
 cask "magnet"
 cask "mjolnir"
+cask "postico"
 cask "spotify"
 
 mas 'aware', id: 1082170746
