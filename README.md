@@ -1,99 +1,86 @@
-## [zgen - ZSH plugin manager](https://github.com/tarjoilija/zgen)
+# Dotfiles 🎈
 
-- [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins)
+## Installation guide
 
-
-# Initial installation
-
-## Install zgen, zsh plugin manager
+**Install zgen, zsh plugin manager 🔌**
 
 ```bash
 git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 ```
 
-## Move dotfiles to root dir
+**Symlink config files 🔗**
+
+This moves all the necesary files that should be in the `$HOME` directory and symlinks them
 
 ```bash
 bash ~/.dotfiles/install.sh
 ```
 
-## Install package and apps
+**Install brew packages 🍺**
+
+Brew bundle is used to install dependencies including Mac applications, even ones from the Mac App store.
 
 ```bash
 brew bundle --file=~/.Brewfile
 ```
 
-## NeoVim
+**Setup NeoVim 💊**
 
-### Symlink config file
+Symlink the config file
 
 ```bash
 mkdir -p ~/.config/nvim && ln -s ~/.dotfiles/.init.vim .config/nvim/init.vim
 ```
 
-### Install vim-plug, vim plugin manager
+Synlink theme
+
+```bash
+mkdir ~/.config/nvim/colors && ln -s ~/.dotfiles/Tomorrow-Night.vim ~/.config/nvim/colors/Tomorrow-Night.vim
+```
+
+Install vim-plug, the vim plugin manager
 
 ```bash
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-### Synlink theme
-
-```bash
-mkdir ~/.config/nvim/colors && ln -s ~/.dotfiles/Tomorrow-Night.vim ~/.config/nvim/colors/Tomorrow-Night.vim
-```
-
-### Install vim plugins
+And then install all vim plugins
 
 ```bash
 vi
 :PlugInstall
 ```
 
-## Load iterm2 preferences
+**Setup iTerm2 👾**
 
 In General/Preferences, set custom folder path
 ```
 ~/.dotfiles/iterm2
 ```
 
-# Vim setup
+**VS Code setup 💻**
 
-Symlinking theme
-
-```bash
-ln -s ~/.dotfiles/Tomorrow-Night.vim ~/.config/nvim/colors/Tomorrow-Night.vim
-```
-
-## VS Code setup
-
-### Symlink vscode settings
+Symlink vscode settings file
 
 ```bash
 ln -s ~/.dotfiles/vscode-settings.json $HOME/Library/Application\ Support/Code/User/settings.json
 ```
 
-### Install extensions
+In VS Code, extensions in `vscode-extensions.json` should appear as recommended in the plugins tab
 
-In VS Code, extensions should appear as recommended in the plugins tab
+**Karabiner ⌨️**
 
-## Karabiner
-
-### Symlink karabiner
+Symlink karabiner config file
 
 ```bash
 ln -s ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
 ```
 
-## pgcli
+**pgcli 🐘**
 
-### Symlink config file
+Symlink config file
 
 ```bash
 ln -s ~/.dotfiles/pgcliconfig ~/.config/pgcli/config
 ```
-
-## npm
-
-- [sindresorhus/emoj](https://github.com/sindresorhus/emoj)
