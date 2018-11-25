@@ -221,10 +221,10 @@ unsetopt flow_control
 
 
 # =============================================================================
-# Source dev config
+# Source work config
 # =============================================================================
 
-if [ -s ~/.dev.zsh ]; then
-    source "~/.dev.zsh"
+if [ -s ~/.zshrc.work ]; then
+    source "~/.zshrc.work"
 fi 
 
