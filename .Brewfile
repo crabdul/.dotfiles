@@ -3,6 +3,7 @@ tap "mas-cli/tap", pin:true
 
 brew "bat"
 brew "diff-so-fancy"
+brew "dokku"
 brew "fd"
 brew "fzf"
 brew "git"
