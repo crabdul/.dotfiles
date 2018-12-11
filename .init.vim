@@ -301,6 +301,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Silver searcher
 Plug 'mileszs/ack.vim'
 
+" Emmet
+Plug 'mattn/emmet-vim'
 
 " Initialize plugin system
 call plug#end()
