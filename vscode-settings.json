@@ -34,7 +34,7 @@
     "gitlens.historyExplorer.enabled": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "prettier.trailingComma": "all",
-    "python.jediEnabled": false,
+    "python.jediEnabled": true,
     "python.linting.enabled": false,
     "python.linting.pylintArgs": [
         "--load-plugins",
@@ -59,8 +59,11 @@
         "tab.activeBorder": "#FDD835",
         "tab.activeForeground": "#FDD835"
     },
-    "workbench.colorTheme": "Relaxed",
+    "workbench.colorTheme": "Palenight Operator",
     "workbench.editor.enablePreview": false,
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+    "gitlens.views.repositories.files.layout": "auto",
+    "gitlens.views.fileHistory.enabled": true,
+    "gitlens.views.lineHistory.enabled": true
 }
