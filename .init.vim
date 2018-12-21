@@ -229,7 +229,9 @@ let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 
 au BufNewFile,BufRead *.jinja set syntax=htmljinja
-au BufNewFile,BufRead *.mako set ft=mako
+
+" configure expanding of tabs for various file types
+au BufRead,BufNewFile *.py set expandtab
 
 au FileType python map <buffer> F :set foldmethod=indent<cr>
 
@@ -398,6 +400,13 @@ let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
+
+" Emmet
+" ---
+
+" Use tab for autocompletion
+let g:user_emmet_expandabbr_key='<Tab>'
+map <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 
 " Saved for later
