@@ -66,18 +66,32 @@ set foldcolumn=1
 " Leader shortcuts
 " ---
 
-imap <leader>jk <esc>                   " escape
-imap <leader>kj <esc>                   " escape
-nmap <leader>ev :sp $MYVIMRC<cr>        " edit vimrc
-nmap <leader>sv :source $MYVIMRC<cr>    " source vimrc
+" escape
+imap <leader>jk <esc>
+imap <leader>kj <esc>
+
+" edit vimrc
+nmap <leader>ev :sp $MYVIMRC<cr>
+
+" source vimrc
+nmap <leader>sv :source $MYVIMRC<cr>
+
 
 " Tabs and spaces
 " ---
 
 set tabstop=4
 set shiftwidth=4
-set softtabstop=4       " number of spaces in tab when editing
-set expandtab 		    " tabs are spaces
+
+" number of spaces in tab when editing
+set softtabstop=4
+
+" tabs are spaces
+set expandtab
+
+" highlight extra white spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
 
 
 " UI Config
@@ -110,7 +124,7 @@ set foldnestmax=10      " 10 nested fold max
 set foldmethod=indent   " fold based on indent level
 
 
-" Movement 
+" Movement
 " ---
 " source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
@@ -120,7 +134,7 @@ nnoremap <expr> k v:count ? 'k' : 'gk'      " move up by visual line
 "nnoremap E $           " move to end of line
 nnoremap gV `[v`]       " highlight last inserted text
 
-" Map <Space> to / (search) 
+" Map <Space> to / (search)
 map <space> /
 
 " Smart way to move between windows
