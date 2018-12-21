@@ -106,15 +106,31 @@ set lazyredraw          " redraw only when we need to
 set showmatch           " highlight matching [{()}]
 
 
-" Searching 
+" Tab completion
+" ---
+
+" open tab completion
+imap <Tab> <C-P>
+
+" pull keywords from the current file, other buffers, and from
+" the current tags file
+set complete=.,b,u,]
+
+" how vim should replace text
+set wildmode=longest,list:longest
+
+
+" Searching
 " ---
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
-nnoremap <leader>sh :nohlsearch<CR>    " turn off search highlight 
+
+" turn off search highlight
+nnoremap <leader>sh :nohlsearch<CR>
 
 
-" Folding 
+" Folding
 " ---
 
 set foldenable          " enable folding
