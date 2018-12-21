@@ -62,6 +62,15 @@ function killport() { lsof -ti:$1 | xargs kill; }
 alias cat="bat"
 alias f="fzf --preview 'bat --color \"always\" {}'"
 
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+  local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
 # =============================================================================
 # zgen
 # =============================================================================
