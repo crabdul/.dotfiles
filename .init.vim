@@ -27,6 +27,8 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" Always change to the current file's directory
+set autochdir
 
 " VIM user interface
 " ---
