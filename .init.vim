@@ -97,7 +97,7 @@ set showmatch           " highlight matching [{()}]
 
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
-nnoremap <leader><space> :nohlsearch<CR>    " turn off search highlight 
+nnoremap <leader>sh :nohlsearch<CR>    " turn off search highlight 
 
 
 " Folding 
