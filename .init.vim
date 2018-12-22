@@ -1,9 +1,3 @@
-" Theme
-" ---
-
-colorscheme Tomorrow-Night
-
-
 " General
 " ---
 
@@ -319,6 +313,9 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+" Palenight theme
+Plug 'drewtempelmeyer/palenight.vim'
+
 Plug 'airblade/vim-gitgutter'           " Git status in gutter
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'tpope/vim-commentary'             " Comment out stuff
@@ -344,6 +341,21 @@ Plug 'mattn/emmet-vim'
 
 " Initialize plugin system
 call plug#end()
+
+
+" Theme
+" ---
+
+set background=dark
+colorscheme palenight
+
+" enable true colours
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" Italics for my favorite color scheme
+let g:palenight_terminal_italics=1
 
 
 " airblade/vim-gitgutter
