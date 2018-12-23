@@ -24,6 +24,10 @@ nmap <leader>w :w!<cr>
 " No swap file
 set noswapfile
 
+" copy to clipboard
+vnoremap <C-c> :w !pbcopy<CR><CR>
+noremap <C-v> :r !pbpaste<CR><CR>
+
 
 " VIM user interface
 " ---
