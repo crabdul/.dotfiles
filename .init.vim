@@ -135,7 +135,7 @@ nnoremap <leader>sh :nohlsearch<CR>
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
-"nnoremap <space> za     " space open/closes folds
+nnoremap <leader>f za     " space open/closes folds
 set foldmethod=indent   " fold based on indent level
 
 
