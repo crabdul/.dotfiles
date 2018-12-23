@@ -22,6 +22,7 @@ brew "postgresql"
 brew "pyenv-virtualenv"
 brew "python"
 brew "rabbitmq"
+brew "redis"
 brew "the_silver_searcher"
 brew "tmux"
 
