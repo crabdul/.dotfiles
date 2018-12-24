@@ -137,19 +137,30 @@ nnoremap <leader>sh :nohlsearch<CR>
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
-nnoremap <leader>f za     " space open/closes folds
 set foldmethod=indent   " fold based on indent level
+
+" toggle fold
+nnoremap <leader>f za    
 
 
 " Movement
 " ---
 " source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
-nnoremap <expr> j v:count ? 'j' : 'gj'      " move down by visual line
-nnoremap <expr> k v:count ? 'k' : 'gk'      " move up by visual line
-"nnoremap B ^           " move to beginning of line
-"nnoremap E $           " move to end of line
-nnoremap gV `[v`]       " highlight last inserted text
+" move down by visual line
+nnoremap <expr> j v:count ? 'j' : 'gj'
+
+" move up by visual line
+nnoremap <expr> k v:count ? 'k' : 'gk' 
+
+" move to beginning of line
+nnoremap B ^
+
+" move to end of line
+nnoremap E $
+
+" highlight last inserted text
+nnoremap gV `[v`]
 
 " Map <Space> to / (search)
 map <space> /
