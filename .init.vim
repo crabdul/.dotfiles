@@ -1,6 +1,4 @@
-" ----------------------------------------------------------------
-" General
-" ----------------------------------------------------------------
+" General {{{
 
 syntax on
 set history=500				" sets how many lines of history VIM has to remember
@@ -41,9 +39,11 @@ tnoremap <Esc> <C-\><C-n>
 " save session
 nnoremap <leader>s :mksession<cr>
 
-" ----------------------------------------------------------------
-" UI
-" ----------------------------------------------------------------
+" declare lines from end of file just for vim
+set modelines=1
+
+" }}}
+" UI {{{
 
 " Don't redraw while executing macros
 set lazyredraw
@@ -78,10 +78,8 @@ set showcmd
 " highlight current line
 set cursorline         
 
-
-" ----------------------------------------------------------------
-" Tabs and spaces
-" ----------------------------------------------------------------
+" }}}
+" Tabs and spaces {{{
 
 set tabstop=4
 set shiftwidth=4
@@ -96,10 +94,8 @@ set expandtab
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
-
-" ----------------------------------------------------------------
-" Searching
-" ----------------------------------------------------------------
+" }}}
+" Searching {{{
 
 " higlight matches
 set hlsearch 
@@ -116,10 +112,8 @@ set smartcase
 " search as characters are entered
 set incsearch
 
-
-" ----------------------------------------------------------------
-" Folding
-" ----------------------------------------------------------------
+" }}}
+" Folding {{{
 
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
@@ -129,18 +123,8 @@ set foldmethod=indent   " fold based on indent level
 " toggle fold
 nnoremap <leader>f za    
 
-" close every fold in vim files
-au BufRead,BufNewFile *.vim set foldmethod=marker
-au BufRead,BufNewFile *.vim set foldlevel=0
-
-" Section Name {{{
-set number "This will be folded
 " }}}
-
-
-" ----------------------------------------------------------------
-" Movement
-" ----------------------------------------------------------------
+" Movement {{{
 " source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
 " move down by visual line
@@ -202,19 +186,15 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
-" ----------------------------------------------------------------
-" Pasting
-" ----------------------------------------------------------------
+" }}}
+" Pasting {{{
 
 " paste from unnamed register
 nnoremap <leader>p "0p
 nnoremap <leader>P "0P
 
-
-" ----------------------------------------------------------------
-" Editing
-" ----------------------------------------------------------------
+" }}}
+" Editing {{{
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -229,10 +209,8 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
 endif
 
-
-" ----------------------------------------------------------------
-" Spell checking 
-" ----------------------------------------------------------------
+" }}}
+" Spell checking {{{
 
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
@@ -246,19 +224,15 @@ map <leader>sp [s
 " Add definition
 map <leader>sa zg
 
-
-" ----------------------------------------------------------------
-" INSERT MODE
-" ----------------------------------------------------------------
+" }}}
+" INSERT MODE {{{
 
 " escape
 imap <leader>jk <esc>
 imap <leader>kj <esc>
 
-
-" ----------------------------------------------------------------
-" Custom functions
-" ----------------------------------------------------------------
+" }}}
+" Custom functions {{{
 
 " toggle between number and relativenumber
 function! ToggleNumber()
@@ -270,10 +244,8 @@ function! ToggleNumber()
     endif
 endfunc
 
-
-" ----------------------------------------------------------------
-" Tab completion
-" ----------------------------------------------------------------
+" }}}
+" Tab completion {{{
 
 " open tab completion
 imap <Tab> <C-P>
@@ -285,10 +257,8 @@ set complete=.,b,u,]
 " how vim should replace text
 set wildmode=longest,list:longest
 
-
-" ----------------------------------------------------------------
-" Helper functions
-" ----------------------------------------------------------------
+" }}}
+" Helper functions {{{
 
 function! CmdLine(str)
     call feedkeys(":" . a:str)
@@ -311,10 +281,8 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction<Paste>
 
-
-" ----------------------------------------------------------------
-" Python filetypes
-" ----------------------------------------------------------------
+" }}}
+" Python filetypes {{{
 
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
@@ -338,10 +306,8 @@ au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
 
-
-" ----------------------------------------------------------------
-" JavaScript filetypes
-" ----------------------------------------------------------------
+" }}}
+" JavaScript filetypes {{{
 
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
@@ -364,10 +330,8 @@ function! JavaScriptFold()
     setl foldtext=FoldText()
 endfunction
 
-
-" ----------------------------------------------------------------
-" Plugins
-" ----------------------------------------------------------------
+" }}}
+" Plugins {{{
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -402,10 +366,8 @@ Plug 'mattn/emmet-vim'
 " Initialize plugin system
 call plug#end()
 
-
-" ----------------------------------------------------------------
-" Theme
-" ----------------------------------------------------------------
+" }}}
+" Theme {{{
 
 set background=dark
 colorscheme palenight
@@ -418,10 +380,8 @@ endif
 " Italics for my favorite color scheme
 let g:palenight_terminal_italics=1
 
-
-" ----------------------------------------------------------------
-" Plugin > airblade/vim-gitgutter
-" ----------------------------------------------------------------
+" }}}
+" Plugin > airblade/vim-gitgutter {{{
 
 " Stage hunk when cursor inside
 nmap <Leader>ha <Plug>GitGutterStageHunk                
@@ -429,17 +389,13 @@ nmap <Leader>ha <Plug>GitGutterStageHunk
 " Undo staged hunk when cursor inside
 nmap <Leader>hr <Plug>GitGutterUndoHunk                
 
-
-" ----------------------------------------------------------------
-" Plugin > Omni complete functions
-" ----------------------------------------------------------------
+" }}}
+" Plugin > Omni complete functions {{{
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
-
-" ----------------------------------------------------------------
-" Plugin > Ack searching and cope displaying 
-" ----------------------------------------------------------------
+" }}}
+" Plugin > Ack searching and cope displaying {{{
 
 " Use the the_silver_searcher if possible (much faster than Ack)
 if executable('ag')
@@ -467,10 +423,8 @@ map <leader>n :cn<cr>
 " go to previous search result
 map <leader>cp :cp<cr>
 
-
-" ----------------------------------------------------------------
-" Plugin > ctrlp
-" ----------------------------------------------------------------
+" }}}
+" Plugin > ctrlp {{{
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -488,7 +442,6 @@ let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("t")': ['<cr>'],
     \ }
 
-
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
 let g:ctrlp_use_caching = 0
@@ -496,10 +449,8 @@ let g:ctrlp_use_caching = 0
 " order matches top to bottom
 let g:ctrlp_match_window = 'bottom,order:ttb'
 
-
-" ----------------------------------------------------------------
-" Plugin > Nerd Tree
-" ----------------------------------------------------------------
+" }}}
+" Plugin > Nerd Tree {{{
 
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
@@ -509,20 +460,21 @@ map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
 
-
-" ----------------------------------------------------------------
-" Plugin > Emmet
-" ----------------------------------------------------------------
+" }}}
+" Plugin > Emmet {{{
 
 " Use tab for autocompletion
 let g:user_emmet_expandabbr_key='<Tab>'
 map <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
+" }}}
 
-" Saved for later
-" ---
+" Saved for later {{{
 
 " Loop over files
 " for f in split(glob('~/.config/nvim/config/*.vim'), '\n')
 "     exe 'source' f
 " endfor
+
+" }}}
+" vim:foldmethod=marker:foldlevel=0
