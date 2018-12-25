@@ -66,8 +66,11 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-" show line numbers
-set number		        
+" show current line number
+set number
+
+" show lines number relative to current
+set relativenumber		        
 
 " show command in bottom bar
 set showcmd 
@@ -243,6 +246,21 @@ map <leader>sa zg
 " escape
 imap <leader>jk <esc>
 imap <leader>kj <esc>
+
+
+" ----------------------------------------------------------------
+" Custom functions
+" ----------------------------------------------------------------
+
+" toggle between number and relativenumber
+function! ToggleNumber()
+    if(&relativenumber == 0)
+        set relativenumber
+    else
+        set norelativenumber
+        set number
+    endif
+endfunc
 
 
 " ----------------------------------------------------------------
