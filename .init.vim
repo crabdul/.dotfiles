@@ -129,6 +129,14 @@ set foldmethod=indent   " fold based on indent level
 " toggle fold
 nnoremap <leader>f za    
 
+" close every fold in vim files
+au BufRead,BufNewFile *.vim set foldmethod=marker
+au BufRead,BufNewFile *.vim set foldlevel=0
+
+" Section Name {{{
+set number "This will be folded
+" }}}
+
 
 " ----------------------------------------------------------------
 " Movement
