@@ -1,5 +1,6 @@
+" -------------------------
 " General
-" ---
+" -------------------------
 
 syntax on
 set history=500				" sets how many lines of history VIM has to remember
@@ -7,6 +8,12 @@ let mapleader = ","              " display using :echo mapleader
 
 " Can quit with capital Q
 command! Q q
+
+" edit vimrc
+nmap <leader>ev :sp $MYVIMRC<cr>
+
+" source vimrc
+nmap <leader>sv :source $MYVIMRC<cr>
 
 " Enable filetype plugins
 filetype plugin on
@@ -31,17 +38,10 @@ noremap <C-v> :r !pbpaste<CR><CR>
 " esc for terminal 
 tnoremap <Esc> <C-\><C-n>
 
-" VIM user interface
-" ---
 
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
-
-" Makes search act like search in modern browsers
-set incsearch
+" -------------------------
+" UI
+" -------------------------
 
 " Don't redraw while executing macros
 set lazyredraw
@@ -51,6 +51,7 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -63,23 +64,19 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" show line numbers
+set number		        
 
-" Leader shortcuts
-" ---
+" show command in bottom bar
+set showcmd 
 
-" escape
-imap <leader>jk <esc>
-imap <leader>kj <esc>
-
-" edit vimrc
-nmap <leader>ev :sp $MYVIMRC<cr>
-
-" source vimrc
-nmap <leader>sv :source $MYVIMRC<cr>
+" highlight current line
+set cursorline         
 
 
+" -------------------------
 " Tabs and spaces
-" ---
+" -------------------------
 
 set tabstop=4
 set shiftwidth=4
@@ -95,44 +92,29 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
 
-" UI Config
-" ---
-
-set number		        " show line numbers
-set showcmd             " show command in bottom bar
-set cursorline          " highlight current line
-filetype indent on      " load filetype-specific indent files
-set wildmenu            " visual autocomplete for command menu
-set lazyredraw          " redraw only when we need to
-set showmatch           " highlight matching [{()}]
-
-
-" Tab completion
-" ---
-
-" open tab completion
-imap <Tab> <C-P>
-
-" pull keywords from the current file, other buffers, and from
-" the current tags file
-set complete=.,b,u,]
-
-" how vim should replace text
-set wildmode=longest,list:longest
-
-
+" -------------------------
 " Searching
-" ---
+" -------------------------
 
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
+" higlight matches
+set hlsearch 
 
 " turn off search highlight
 nnoremap <leader>sh :nohlsearch<CR>
 
+" Ignore case when searching
+set ignorecase
 
+" When searching try to be smart about cases
+set smartcase
+
+" search as characters are entered
+set incsearch
+
+
+" -------------------------
 " Folding
-" ---
+" -------------------------
 
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
@@ -143,8 +125,9 @@ set foldmethod=indent   " fold based on indent level
 nnoremap <leader>f za    
 
 
+" -------------------------
 " Movement
-" ---
+" -------------------------
 " source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
 " move down by visual line
@@ -171,7 +154,8 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Close the current buffer
+" TODO: :Bclose editor command not found 
+" Close the current buffer without closing the window
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 
 " Close all the buffers
@@ -185,7 +169,7 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove<cr>
+map <leader>tm :tabmove<space>
 map <leader>t<leader> :tabnext<cr>
 
 " Opens a new tab with the current buffer's path
@@ -205,12 +189,19 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Editing mappings
-" ---
 
+" -------------------------
 " Pasting
-nnoremap p "0p
-nnoremap P "0P
+" -------------------------
+
+" paste from unnamed register
+nnoremap <leader>p "0p
+nnoremap <leader>P "0P
+
+
+" -------------------------
+" Editing
+" -------------------------
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -239,6 +230,28 @@ map <leader>sp [s
 
 " Add definition
 map <leader>sa zg
+
+
+" INSERT MODE
+" ---
+
+" escape
+imap <leader>jk <esc>
+imap <leader>kj <esc>
+
+
+" Tab completion
+" ---
+
+" open tab completion
+imap <Tab> <C-P>
+
+" pull keywords from the current file, other buffers, and from
+" the current tags file
+set complete=.,b,u,]
+
+" how vim should replace text
+set wildmode=longest,list:longest
 
 
 " Helper functions
@@ -416,8 +429,7 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 map <leader>cc :botright cope<cr>
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
+"map <leader>p :cp<cr>
 
 
 " Tab complete
