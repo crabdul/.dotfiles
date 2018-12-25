@@ -463,13 +463,12 @@ let g:ctrlp_prompt_mappings = {
     \ }
 
 
-" ----------------------------------------------------------------
-" Plugin > Silver-searcher
-" ----------------------------------------------------------------
-
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
 let g:ctrlp_use_caching = 0
+
+" order matches top to bottom
+let g:ctrlp_match_window = 'bottom,order:ttb'
 
 
 " ----------------------------------------------------------------
