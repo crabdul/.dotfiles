@@ -38,6 +38,8 @@ noremap <C-v> :r !pbpaste<CR><CR>
 " esc for terminal 
 tnoremap <Esc> <C-\><C-n>
 
+" save session
+nnoremap <leader>s :mksession<cr>
 
 " ----------------------------------------------------------------
 " UI
