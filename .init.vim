@@ -1,6 +1,6 @@
-" -------------------------
+" ----------------------------------------------------------------
 " General
-" -------------------------
+" ----------------------------------------------------------------
 
 syntax on
 set history=500				" sets how many lines of history VIM has to remember
@@ -39,9 +39,9 @@ noremap <C-v> :r !pbpaste<CR><CR>
 tnoremap <Esc> <C-\><C-n>
 
 
-" -------------------------
+" ----------------------------------------------------------------
 " UI
-" -------------------------
+" ----------------------------------------------------------------
 
 " Don't redraw while executing macros
 set lazyredraw
@@ -74,9 +74,9 @@ set showcmd
 set cursorline         
 
 
-" -------------------------
+" ----------------------------------------------------------------
 " Tabs and spaces
-" -------------------------
+" ----------------------------------------------------------------
 
 set tabstop=4
 set shiftwidth=4
@@ -92,9 +92,9 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
 
-" -------------------------
+" ----------------------------------------------------------------
 " Searching
-" -------------------------
+" ----------------------------------------------------------------
 
 " higlight matches
 set hlsearch 
@@ -112,9 +112,9 @@ set smartcase
 set incsearch
 
 
-" -------------------------
+" ----------------------------------------------------------------
 " Folding
-" -------------------------
+" ----------------------------------------------------------------
 
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
@@ -125,9 +125,9 @@ set foldmethod=indent   " fold based on indent level
 nnoremap <leader>f za    
 
 
-" -------------------------
+" ----------------------------------------------------------------
 " Movement
-" -------------------------
+" ----------------------------------------------------------------
 " source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
 " move down by visual line
@@ -190,18 +190,18 @@ endtry
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
-" -------------------------
+" ----------------------------------------------------------------
 " Pasting
-" -------------------------
+" ----------------------------------------------------------------
 
 " paste from unnamed register
 nnoremap <leader>p "0p
 nnoremap <leader>P "0P
 
 
-" -------------------------
+" ----------------------------------------------------------------
 " Editing
-" -------------------------
+" ----------------------------------------------------------------
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -216,8 +216,10 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
 endif
 
+
+" ----------------------------------------------------------------
 " Spell checking 
-" ---
+" ----------------------------------------------------------------
 
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
@@ -232,16 +234,18 @@ map <leader>sp [s
 map <leader>sa zg
 
 
+" ----------------------------------------------------------------
 " INSERT MODE
-" ---
+" ----------------------------------------------------------------
 
 " escape
 imap <leader>jk <esc>
 imap <leader>kj <esc>
 
 
+" ----------------------------------------------------------------
 " Tab completion
-" ---
+" ----------------------------------------------------------------
 
 " open tab completion
 imap <Tab> <C-P>
@@ -254,8 +258,9 @@ set complete=.,b,u,]
 set wildmode=longest,list:longest
 
 
+" ----------------------------------------------------------------
 " Helper functions
-" ---
+" ----------------------------------------------------------------
 
 function! CmdLine(str)
     call feedkeys(":" . a:str)
@@ -279,8 +284,9 @@ function! VisualSelection(direction, extra_filter) range
 endfunction<Paste>
 
 
+" ----------------------------------------------------------------
 " Python filetypes
-" ---
+" ----------------------------------------------------------------
 
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
@@ -305,8 +311,9 @@ au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
 
 
+" ----------------------------------------------------------------
 " JavaScript filetypes
-" ---
+" ----------------------------------------------------------------
 
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
@@ -330,8 +337,9 @@ function! JavaScriptFold()
 endfunction
 
 
+" ----------------------------------------------------------------
 " Plugins
-" ---
+" ----------------------------------------------------------------
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -351,9 +359,6 @@ Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vim-airline/vim-airline'          " Status bar 
 
-" Better JS function parameter completion
-" Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-
 " Super-Tab
 Plug 'ervandew/supertab'
 
@@ -370,8 +375,9 @@ Plug 'mattn/emmet-vim'
 call plug#end()
 
 
+" ----------------------------------------------------------------
 " Theme
-" ---
+" ----------------------------------------------------------------
 
 set background=dark
 colorscheme palenight
@@ -385,21 +391,27 @@ endif
 let g:palenight_terminal_italics=1
 
 
-" airblade/vim-gitgutter
-" ---
+" ----------------------------------------------------------------
+" Plugin > airblade/vim-gitgutter
+" ----------------------------------------------------------------
 
-nmap <Leader>ha <Plug>GitGutterStageHunk                " Stage hunk when cursor inside
-nmap <Leader>hr <Plug>GitGutterUndoHunk                 " Undo staged hunk when cursor inside
+" Stage hunk when cursor inside
+nmap <Leader>ha <Plug>GitGutterStageHunk                
+
+" Undo staged hunk when cursor inside
+nmap <Leader>hr <Plug>GitGutterUndoHunk                
 
 
-" Omni complete functions
-" ---
+" ----------------------------------------------------------------
+" Plugin > Omni complete functions
+" ----------------------------------------------------------------
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 
-" Ack searching and cope displaying 
-" ---
+" ----------------------------------------------------------------
+" Plugin > Ack searching and cope displaying 
+" ----------------------------------------------------------------
 
 " Use the the_silver_searcher if possible (much faster than Ack)
 if executable('ag')
@@ -432,12 +444,15 @@ map <leader>n :cn<cr>
 "map <leader>p :cp<cr>
 
 
-" Tab complete
+" ----------------------------------------------------------------
+" Plugin > Tab complete
+" ----------------------------------------------------------------
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
 
-" ctrlp
-" ---
+" ----------------------------------------------------------------
+" Plugin > ctrlp
+" ----------------------------------------------------------------
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -456,16 +471,18 @@ let g:ctrlp_prompt_mappings = {
     \ }
 
 
-" Silver-searcher
-" ---
+" ----------------------------------------------------------------
+" Plugin > Silver-searcher
+" ----------------------------------------------------------------
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
 let g:ctrlp_use_caching = 0
 
 
-" Nerd Tree
-" ---
+" ----------------------------------------------------------------
+" Plugin > Nerd Tree
+" ----------------------------------------------------------------
 
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
@@ -475,8 +492,10 @@ map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
 
-" Emmet
-" ---
+
+" ----------------------------------------------------------------
+" Plugin > Emmet
+" ----------------------------------------------------------------
 
 " Use tab for autocompletion
 let g:user_emmet_expandabbr_key='<Tab>'
