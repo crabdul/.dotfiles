@@ -410,7 +410,10 @@ endif
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ack and put the cursor in the right position
-map <leader>g :Ack 
+map <leader>g :Ack!<space>
+
+" find currently selected word
+nmap <leader>cw :Ack! "\b<cword>\b" <CR>
 
 " find and replace text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
