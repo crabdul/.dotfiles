@@ -404,6 +404,10 @@ let g:ale_pattern_options = {
     \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
     \ }
 
+" signs
+let g:ale_sign_error = '♦️'
+let g:ale_sign_warning = '🔸'
+
 " }}}
 " Plugin > airblade/vim-gitgutter {{{
 
