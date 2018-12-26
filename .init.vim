@@ -413,6 +413,18 @@ nmap <Leader>' :Marks<CR>
 " help
 nmap <leader>h :Helptags!<cr>
 
+" command
+nmap <leader>C :Commands<cr>
+
+" fuzzy search through /search history
+nmap <Leader>/ :History/<CR>
+
+" search through mappings
+nmap <Leader>M :Maps<CR>
+
+" search filetype syntaxes
+"nmap <Leader>ft :Filetypes<CR>
+
 " }}}
 " Plugin > Ack {{{
 
