@@ -159,8 +159,8 @@ map <leader>bd :Bclose<cr>:tabclose<cr>gT
 map <leader>ba :bufdo bd<cr>
 
 " Move to next / prev buffer
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
+map <leader>bl :bnext<cr>
+map <leader>bh :bprevious<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
