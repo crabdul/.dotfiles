@@ -168,6 +168,7 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<space>
 map <leader>tt :tabnext<cr>
+map <leader>tr :tabprev<cr>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
