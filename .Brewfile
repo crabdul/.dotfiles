@@ -2,6 +2,7 @@ tap "jesseduffield/lazygit"
 tap "mas-cli/tap", pin:true
 
 brew "bat"
+brew "ctags"
 brew "diff-so-fancy"
 brew "dokku"
 brew "fd"

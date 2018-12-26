@@ -69,6 +69,10 @@ fe() {
 # Grep from vim file
 function helpvim() { cat "$HOME/.dotfiles/.init.vim" | grep -A 1 -B 1 --color $*; }
 
+# ctags 
+# https://gist.github.com/nazgob/1570678
+alias ctags="`brew --prefix`/bin/ctags -R -f ./.git/tags ."
+
 # =============================================================================
 # zgen
 # =============================================================================

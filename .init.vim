@@ -410,6 +410,12 @@ nmap <Leader>l :BLines<CR>
 nmap <Leader>L :Lines<CR>
 nmap <Leader>' :Marks<CR>
 
+" tag finder
+nmap <leader>r :Tags<cr>
+
+" tags directory
+set tags=./tags;
+
 " help
 nmap <leader>h :Helptags!<cr>
 
@@ -422,6 +428,7 @@ nmap <Leader>/ :History/<CR>
 " search through mappings
 nmap <Leader>M :Maps<CR>
 
+
 " search filetype syntaxes
 "nmap <Leader>ft :Filetypes<CR>
 
@@ -430,7 +437,6 @@ let g:fzf_action = {
 	\ 'return': 'tab split', 
 	\ 'ctrl-j': 'split',
 	\ 'ctrl-k': 'vsplit' }
-
 
 " }}}
 " Plugin > Ack {{{
