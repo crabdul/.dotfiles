@@ -424,6 +424,9 @@ map <leader>cc :botright cope<cr>
 " open search result in new tab
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 
+" close QuickFix window
+map <leader>x :cclose<cr>
+
 " }}}
 " Plugin > ctrlp {{{
 
