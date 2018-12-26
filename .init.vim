@@ -344,24 +344,17 @@ call plug#begin('~/.vim/plugged')
 Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'airblade/vim-gitgutter'           " Git status in gutter
+Plug 'ctrlpvim/ctrlp.vim'               " fuzzy search
+Plug 'ervandew/supertab'                " super tab
+Plug 'mattn/emmet-vim'                  " emmet
+Plug 'mileszs/ack.vim'                  " ack
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
+Plug 'tpope/vim-unimpaired'             " bracket mappings
 Plug 'vim-airline/vim-airline'          " Status bar 
-
-" Super-Tab
-Plug 'ervandew/supertab'
-
-" Fuzzy-search
-Plug 'ctrlpvim/ctrlp.vim'
-
-" Ack
-Plug 'mileszs/ack.vim'
-
-" Emmet
-Plug 'mattn/emmet-vim'
 
 " fzf
 Plug '/usr/local/opt/fzf'
@@ -406,7 +399,7 @@ map <leader>a :Ag
 
 " }}}
 
-" Plugin > Ack searching and cope displaying {{{
+" Plugin > Ack 
 
 " Use the the_silver_searcher if possible (much faster than Ack)
 if executable('ag')
@@ -427,12 +420,6 @@ map <leader>cc :botright cope<cr>
 
 " open search result in new tab
 map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-
-" go to next search result
-map <leader>n :cn<cr>
-
-" go to previous search result
-map <leader>cp :cp<cr>
 
 " }}}
 " Plugin > ctrlp {{{
