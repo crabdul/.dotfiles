@@ -345,7 +345,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'airblade/vim-gitgutter'           " Git status in gutter
-Plug 'ctrlpvim/ctrlp.vim'               " fuzzy search
 Plug 'ervandew/supertab'                " super tab
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
@@ -461,32 +460,6 @@ map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 
 " close QuickFix window
 map <leader>x :cclose<cr>
-
-" }}}
-" Plugin > ctrlp {{{
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 0
-
-map <leader>j :CtrlP<cr>
-map <leader>b :CtrlPBuffer<cr>
-
-let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git'
-
-" Open files in a new tab on <CR>
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
-    \ 'AcceptSelection("t")': ['<cr>'],
-    \ }
-
-" Make CtrlP use ag for listing the files. Way faster and no useless files.
-let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
-let g:ctrlp_use_caching = 0
-
-" order matches top to bottom
-let g:ctrlp_match_window = 'bottom,order:ttb'
 
 " }}}
 " Plugin > Nerd Tree {{{
