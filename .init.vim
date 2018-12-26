@@ -398,6 +398,12 @@ let g:ale_fix_on_save = 1
 " don't lint while writing
 let g:ale_lint_on_text_changed = 0
 
+" Do not lint or fix minified files.
+let g:ale_pattern_options = {
+    \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+    \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+    \ }
+
 " }}}
 " Plugin > airblade/vim-gitgutter {{{
 
