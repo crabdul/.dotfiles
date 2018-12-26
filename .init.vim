@@ -355,6 +355,7 @@ Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
+Plug 'vim-scripts/indentLine.vim'       " indent guides
 Plug 'tpope/vim-unimpaired'             " bracket mappings
 Plug 'w0rp/ale' 						" asynchronous linting
 
