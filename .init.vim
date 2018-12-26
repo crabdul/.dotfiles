@@ -357,11 +357,15 @@ Plug 'ervandew/supertab'
 " Fuzzy-search
 Plug 'ctrlpvim/ctrlp.vim'
 
-" Silver searcher
+" Ack
 Plug 'mileszs/ack.vim'
 
 " Emmet
 Plug 'mattn/emmet-vim'
+
+" fzf
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -395,6 +399,13 @@ nmap <Leader>hr <Plug>GitGutterUndoHunk
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " }}}
+" Plugin > fzf {{{
+
+" Open Ag and put the cursor in the right position
+map <leader>a :Ag 
+
+" }}}
+
 " Plugin > Ack searching and cope displaying {{{
 
 " Use the the_silver_searcher if possible (much faster than Ack)
@@ -406,7 +417,7 @@ endif
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ack and put the cursor in the right position
-map <leader>a :Ack 
+map <leader>g :Ack 
 
 " find and replace text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
