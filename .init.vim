@@ -356,6 +356,7 @@ Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'tpope/vim-unimpaired'             " bracket mappings
+Plug 'w0rp/ale' 						" asynchronous linting
 
 " fzf
 Plug '/usr/local/opt/fzf'
@@ -379,6 +380,18 @@ endif
 let g:palenight_terminal_italics=1
 
 " }}}
+" Plugin > ale {{{
+
+" Fix files with ESLint then Prettier
+let b:ale_fixers = {'javascript': ['eslint', 'prettier_eslint']}
+
+" Set this variable to 1 to fix files when you save them
+let g:ale_fix_on_save = 1
+
+" don't lint while writing
+let g:ale_lint_on_text_changed = 0
+
+" }}}
 " Plugin > airblade/vim-gitgutter {{{
 
 " Stage hunk when cursor inside
@@ -396,17 +409,57 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " Plugin > lightline {{{
 
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#Head',
-      \ },
-      \ }
+    \ 'colorscheme': 'seoul256',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'filename', 'gitbranch', 'modified' ] ],
+    \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'fugitive#Head',
+    \ },
+    \ 'component_expand': {
+    \   'linter_warnings': 'LightlineLinterWarnings',
+    \   'linter_errors': 'LightlineLinterErrors',
+    \   'linter_ok': 'LightlineLinterOK'
+    \ },
+    \ 'component_type': {
+    \   'readonly': 'error',
+    \   'linter_warnings': 'warning',
+    \   'linter_errors': 'error'
+    \ }
+    \ }
 
-" }}}
+function! LightlineLinterWarnings() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+
+function! LightlineLinterErrors() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+
+function! LightlineLinterOK() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+autocmd User ALELint call s:MaybeUpdateLightline()
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+function! s:MaybeUpdateLightline()
+    if exists('#lightline')
+        call lightline#update()
+    end
+endfunction
+
 " Plugin > fzf {{{
 
 " Open Ag and put the cursor in the right position

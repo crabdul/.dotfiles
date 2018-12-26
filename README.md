@@ -51,6 +51,21 @@ vi
 :PlugInstall
 ```
 
+### ESLint
+
+```bash
+ln -s ~/.dotfiles/.eslintrc.js ~/.eslintrc.js
+ln -s ~/.dotfiles/package.json ~/package.json
+ln -s ~/.dotfiles/yarn.lock ~/yarn.lock
+```
+
+Install node modules
+
+```bash
+cd
+yarn install
+```
+
 **Setup iTerm2 👾**
 
 In General/Preferences, set custom folder path
