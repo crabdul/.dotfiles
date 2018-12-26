@@ -392,6 +392,14 @@ nmap <Leader>hr <Plug>GitGutterUndoHunk
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " }}}
+" Plugin > airline {{{
+
+" display all buffers when there's only one tab open
+let g:airline#extensions#tabline#enabled = 1
+
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+
+" }}}
 " Plugin > fzf {{{
 
 " Open Ag and put the cursor in the right position
@@ -427,7 +435,6 @@ nmap <Leader>/ :History/<CR>
 
 " search through mappings
 nmap <Leader>M :Maps<CR>
-
 
 " search filetype syntaxes
 "nmap <Leader>ft :Filetypes<CR>
