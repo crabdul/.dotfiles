@@ -151,9 +151,8 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" TODO: :Bclose editor command not found 
 " Close the current buffer without closing the window
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+map <leader>bd :BD<cr>
 
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
@@ -347,6 +346,7 @@ Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
 Plug 'scrooloose/nerdtree'              " Tree explorer
+Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open 
 Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
@@ -488,7 +488,7 @@ nmap <leader>f :GFiles<cr>
 nmap <leader>F :Files<cr>
 
 " buffer finder
-nmap <Leader>bu :Buffers<CR>
+nmap ; :Buffers<CR>
 nmap <Leader>h :History<CR>
 
 " line finder
