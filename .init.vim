@@ -405,13 +405,16 @@ nmap <leader>F :Files<cr>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>h :History<CR>
 
+" line finder
 nmap <Leader>l :BLines<CR>
 nmap <Leader>L :Lines<CR>
 nmap <Leader>' :Marks<CR>
 
-" }}}
+" help
+nmap <leader>h :Helptags!<cr>
 
-" Plugin > Ack 
+" }}}
+" Plugin > Ack {{{
 
 " Use the the_silver_searcher if possible (much faster than Ack)
 if executable('ag')
