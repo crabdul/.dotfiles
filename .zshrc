@@ -61,10 +61,13 @@ alias f="fzf --preview 'bat --color \"always\" {}'"
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
 fe() {
-  local files
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+    local files
+    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
+
+# Grep from vim file
+function helpvim() { cat "$HOME/.dotfiles/.init.vim" | grep -A 1 -B 1 --color $*; }
 
 # =============================================================================
 # zgen
