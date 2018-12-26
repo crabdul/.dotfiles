@@ -382,8 +382,15 @@ let g:palenight_terminal_italics=1
 " }}}
 " Plugin > ale {{{
 
+" check files with linters
+let b:ale_linters = {
+    \ 'python': ['flake8', 'pylint']
+    \ }
+
 " Fix files with ESLint then Prettier
-let b:ale_fixers = {'javascript': ['eslint', 'prettier_eslint']}
+let b:ale_fixers = {
+    \ 'javascript': ['eslint', 'prettier_eslint']
+    \ }
 
 " Set this variable to 1 to fix files when you save them
 let g:ale_fix_on_save = 1
