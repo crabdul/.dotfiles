@@ -397,6 +397,18 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " Open Ag and put the cursor in the right position
 map <leader>a :Ag 
 
+" file finder in extended search mode
+nmap <leader>f :GFiles<cr>
+nmap <leader>F :Files<cr>
+
+" buffer finder
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>h :History<CR>
+
+nmap <Leader>l :BLines<CR>
+nmap <Leader>L :Lines<CR>
+nmap <Leader>' :Marks<CR>
+
 " }}}
 
 " Plugin > Ack 
