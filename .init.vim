@@ -477,6 +477,7 @@ function! s:MaybeUpdateLightline()
     end
 endfunction
 
+" }}}
 " Plugin > fzf {{{
 
 " Open Ag and put the cursor in the right position
