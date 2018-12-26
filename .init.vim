@@ -346,6 +346,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'airblade/vim-gitgutter'           " Git status in gutter
 Plug 'ervandew/supertab'                " super tab
+Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
@@ -355,7 +356,6 @@ Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'tpope/vim-unimpaired'             " bracket mappings
-Plug 'vim-airline/vim-airline'          " Status bar 
 
 " fzf
 Plug '/usr/local/opt/fzf'
@@ -393,12 +393,18 @@ nmap <Leader>hr <Plug>GitGutterUndoHunk
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " }}}
-" Plugin > airline {{{
+" Plugin > lightline {{{
 
-" display all buffers when there's only one tab open
-let g:airline#extensions#tabline#enabled = 1
-
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#Head',
+      \ },
+      \ }
 
 " }}}
 " Plugin > fzf {{{
@@ -494,7 +500,6 @@ let g:user_emmet_expandabbr_key='<Tab>'
 map <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " }}}
-
 " Saved for later {{{
 
 " Loop over files
