@@ -121,7 +121,7 @@ set foldnestmax=10      " 10 nested fold max
 set foldmethod=indent   " fold based on indent level
 
 " toggle fold
-nnoremap <leader>f za    
+nnoremap <leader>d za    
 
 " }}}
 " Movement {{{
