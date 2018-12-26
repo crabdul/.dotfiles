@@ -409,6 +409,8 @@ let g:ale_pattern_options = {
 let g:ale_sign_error = '♦️'
 let g:ale_sign_warning = '🔸'
 
+autocmd User ALELint unsilent echom 'ALE run!'
+
 " }}}
 " Plugin > airblade/vim-gitgutter {{{
 
@@ -448,6 +450,7 @@ let g:lightline = {
     \ }
     \ }
 
+" TODO: get warning and error message working
 function! LightlineLinterWarnings() abort
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
