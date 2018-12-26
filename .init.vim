@@ -346,6 +346,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'airblade/vim-gitgutter'           " Git status in gutter
 Plug 'ervandew/supertab'                " super tab
+Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
 Plug 'scrooloose/nerdtree'              " Tree explorer
@@ -410,7 +411,7 @@ nmap <leader>f :GFiles<cr>
 nmap <leader>F :Files<cr>
 
 " buffer finder
-nmap <Leader>b :Buffers<CR>
+nmap <Leader>bu :Buffers<CR>
 nmap <Leader>h :History<CR>
 
 " line finder
