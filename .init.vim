@@ -426,6 +426,13 @@ nmap <Leader>M :Maps<CR>
 " search filetype syntaxes
 "nmap <Leader>ft :Filetypes<CR>
 
+" open files in new tabs or split window
+let g:fzf_action = {
+	\ 'return': 'tab split', 
+	\ 'ctrl-j': 'split',
+	\ 'ctrl-k': 'vsplit' }
+
+
 " }}}
 " Plugin > Ack {{{
 
