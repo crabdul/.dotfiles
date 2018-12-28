@@ -4,6 +4,8 @@ syntax on
 set history=500				" sets how many lines of history VIM has to remember
 let mapleader = ","              " display using :echo mapleader
 
+nnoremap ; :
+
 " Can quit with capital Q
 command! Q q
 
@@ -491,7 +493,7 @@ nmap <leader>f :GFiles<cr>
 nmap <leader>F :Files<cr>
 
 " buffer finder
-nmap ; :Buffers<CR>
+nmap <leader>b :Buffers<CR>
 nmap <Leader>h :History<CR>
 
 " line finder
