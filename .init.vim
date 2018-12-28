@@ -70,13 +70,13 @@ set foldcolumn=1
 set number
 
 " show lines number relative to current
-set relativenumber		        
+set relativenumber
 
 " show command in bottom bar
 set showcmd 
 
 " highlight current line
-set cursorline         
+set cursorline
 
 " }}}
 " Tabs and spaces {{{
@@ -91,8 +91,8 @@ set softtabstop=4
 set expandtab
 
 " highlight extra white spaces
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " }}}
 " Searching {{{
