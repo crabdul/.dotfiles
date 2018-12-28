@@ -189,6 +189,9 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 nnoremap <leader>p "0p
 nnoremap <leader>P "0P
 
+" disable smart autoindent stuff when pasting large bits of text
+set pastetoggle=<F2>
+
 " }}}
 " Editing {{{
 
