@@ -20,6 +20,7 @@ fi
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
+export PATH="/Users/$USER/miniconda3/bin:$PATH"
 
 # =============================================================================
 # NeoVim 
