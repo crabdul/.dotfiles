@@ -232,6 +232,23 @@ map <leader>sa zg
 imap <leader>jk <esc>
 imap <leader>kj <esc>
 
+" bracket completion
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+
+" skip over the closing character
+inoremap        (  ()<Left>
+inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+
+" skip over the closing single quote
+inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+
+" skip over the closing double quote
+inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
+
+
 " }}}
 " Custom functions {{{
 
