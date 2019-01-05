@@ -26,6 +26,8 @@ export PATH="/Users/$USER/miniconda3/bin:$PATH"
 
 export PATH="/usr/local/Cellar/rabbitmq/3.7.9/sbin:$PATH"
 
+export NVM_LAZY_LOAD=true
+
 # =============================================================================
 # NeoVim 
 # =============================================================================
