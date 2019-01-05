@@ -22,6 +22,10 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 export PATH="/Users/$USER/miniconda3/bin:$PATH"
 
+# rabbitmq
+
+export PATH="/usr/local/Cellar/rabbitmq/3.7.9/sbin:$PATH"
+
 # =============================================================================
 # NeoVim 
 # =============================================================================
