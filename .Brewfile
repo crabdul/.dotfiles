@@ -26,6 +26,7 @@ brew "rabbitmq"
 brew "redis"
 brew "the_silver_searcher"
 brew "tmux"
+brew "tree"
 
 cask "anki"
 cask "dash"
