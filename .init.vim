@@ -162,10 +162,12 @@ map <leader>ba :bufdo bd<cr>
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
+map <leader>td :tabclose<cr>
 map <leader>tm :tabmove<space>
-map <leader>tt :tabnext<cr>
-map <leader>tr :tabprev<cr>
+
+" hold shift to scroll left and right continuously
+nnoremap H gT
+nnoremap L gt
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
