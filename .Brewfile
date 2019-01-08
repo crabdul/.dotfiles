@@ -44,7 +44,10 @@ cask "spotify"
 
 mas 'aware', id: 1082170746
 mas 'gravitdesigner', id: 1207744923
+mas 'PopClip', id: 445189367
+mas 'SnippetsLab', id: 1006087419
 mas 'trello', id: 441258766
 mas 'quiver', id: 866773894
+mas 'Wokabulary', id: 599273012
 mas 'workflow timer Pro', id: 1292336000
 mas 'xcode', id: 497799835
