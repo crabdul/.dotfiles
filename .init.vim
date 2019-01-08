@@ -33,7 +33,7 @@ set noswapfile
 
 " copy to clipboard
 vnoremap <C-c> :w !pbcopy<CR><CR>
-noremap <C-v> :r !pbpaste<CR><CR>
+noremap <leader>v :r !pbpaste<CR><CR>
 
 " esc for terminal 
 tnoremap <Esc> <C-\><C-n>
