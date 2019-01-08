@@ -603,4 +603,3 @@ map <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " endfor
 
 " }}}
-" vim: foldmethod=marker:foldlevel=0
