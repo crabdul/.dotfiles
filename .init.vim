@@ -348,7 +348,7 @@ au FileType javascript inoremap <buffer> $f // --- PH<esc>FP2xi
 
 function! JavaScriptFold() 
     setl foldmethod=syntax
-    setl foldlevelstart=1
+    setl foldlevelstart=5
     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
     function! FoldText()
