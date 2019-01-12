@@ -465,10 +465,10 @@ autocmd User ALELint unsilent echom 'ALE run!'
 " Plugin > airblade/vim-gitgutter {{{
 
 " Stage hunk when cursor inside
-nmap <Leader>ha <Plug>GitGutterStageHunk                
+nmap <Leader>ha <Plug>GitGutterStageHunk
 
 " Undo staged hunk when cursor inside
-nmap <Leader>hr <Plug>GitGutterUndoHunk                
+nmap <Leader>hr <Plug>GitGutterUndoHunk
 
 " }}}
 " Plugin > Omni complete functions {{{
