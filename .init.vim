@@ -625,6 +625,13 @@ autocmd FileType html,css,javascript.jsx,scss EmmetInstall
 " only use in INSERT mode
 let g:user_emmet_mode = 'i'
 
+" auto-indent when expanded
+let g:user_emmet_settings = {
+\  'html' : {
+\    'indent_blockelement': 1,
+\  },
+\}
+
 
 " }}}
 " Saved for later {{{
