@@ -103,7 +103,7 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set hlsearch 
 
 " turn off search highlight
-nnoremap <leader>sh :nohlsearch<CR>
+nnoremap <leader>/ :nohlsearch<CR>
 
 " Ignore case when searching
 set ignorecase
@@ -538,9 +538,6 @@ nmap <leader>h :Helptags!<cr>
 
 " command
 nmap <leader>C :Commands<cr>
-
-" fuzzy search through /search history
-nmap <Leader>/ :History/<CR>
 
 " search through mappings
 nmap <Leader>M :Maps<CR>
