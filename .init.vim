@@ -302,6 +302,13 @@ function! VisualSelection(direction, extra_filter) range
 endfunction<Paste>
 
 " }}}
+" HTML filetypes {{{
+
+" autoclose an HTML tag
+iabbrev < <C-H></<C-X><C-O>
+
+
+" }}}
 " Python filetypes {{{
 
 let python_highlight_all = 1
