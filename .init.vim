@@ -618,8 +618,16 @@ map <leader>nf :NERDTreeFind<cr>
 " Plugin > Emmet {{{
 
 " Use tab for autocompletion
-let g:user_emmet_expandabbr_key='<Tab>'
-map <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+let g:user_emmet_leader_key=','
+
+" Enable only for html, css, jsx
+let g:user_emmet_install_global = 0
+let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
+autocmd FileType html,css,javascript.jsx,scss EmmetInstall
+
+" only use in INSERT mode
+let g:user_emmet_mode = 'i'
+
 
 " }}}
 " Saved for later {{{
