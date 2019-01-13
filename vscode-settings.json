@@ -20,13 +20,6 @@
     "files.useExperimentalFileWatcher": true,
     "git.autofetch": true,
     "git.promptToSaveFilesBeforeCommit": true,
-    "githubPullRequests.hosts": [
-        {
-            "host": "https://github.com",
-            "token": "system",
-            "username": "oauth"
-        }
-    ],
     "gitlens.advanced.messages": {
         "suppressShowKeyBindingsNotice": true
     },
