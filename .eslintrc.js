@@ -11,6 +11,7 @@ module.exports = {
     extends: [
         // Use 'eslint:recommended' as a base
         "eslint:recommended",
+        "plugin:react/recommended"
         // Turn off all rules that are unnecessary or might conflict with prettier
         require.resolve("eslint-config-prettier")
     ],
