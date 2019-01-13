@@ -13,7 +13,7 @@ module.exports = {
         "eslint:recommended",
         "plugin:react/recommended"
         // Turn off all rules that are unnecessary or might conflict with prettier
-        require.resolve("eslint-config-prettier")
+        "prettier"
     ],
 
     plugins: [
