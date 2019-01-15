@@ -254,8 +254,6 @@ if command -v ag 1>/dev/null 2>&1; then
     "
 fi
 
-# [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
 
 # =============================================================================
 # Source work config
