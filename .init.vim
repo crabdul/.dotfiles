@@ -10,10 +10,10 @@ nnoremap ; :
 command! Q q
 
 " edit vimrc
-nmap <leader>ev :e $MYVIMRC<cr>
+nmap <leader>ve :tabe $MYVIMRC<cr>
 
 " source vimrc
-nmap <leader>sv :source $MYVIMRC<cr>
+nmap <leader>vs :source $MYVIMRC<cr>
 
 " Enable filetype plugins
 filetype plugin on
