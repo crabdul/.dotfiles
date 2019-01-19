@@ -230,6 +230,9 @@ inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\
 " skip over the closing double quote
 inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
 
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+
 
 " }}}
 " NORMAL MODE {{{
@@ -244,6 +247,25 @@ nnoremap Y y$
 " Put result in centre of window when jumping between search results
 nnoremap n nzz
 nnoremap N Nzz
+
+" move line up/down
+nnoremap <C-k> :m--<CR>==
+nnoremap <C-j> :m+<CR>==
+
+
+" }}}
+" VISUAL MODE {{{
+
+" leave cursor at the end of the yanked block
+vnoremap y y']
+
+" move visual block
+vnoremap K :move '<-2<CR>gv=gv
+vnoremap J :move '>+1<CR>gv=gv
+
+" move line up/down
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 
 " }}}
