@@ -91,7 +91,7 @@ set cursorline                   " highlight current line
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " turn off search highlight
-nnoremap <leader>/ :nohlsearch<CR>
+nnoremap <bs> :nohlsearch<CR>
 
 
 " }}}
@@ -240,6 +240,11 @@ nnoremap gD <c-w>v<c-w>l<c-]>
 
 " Make yank consistent with other commands
 nnoremap Y y$
+
+" Put result in centre of window when jumping between search results
+nnoremap n nzz
+nnoremap N Nzz
+
 
 " }}}
 " Custom functions {{{
