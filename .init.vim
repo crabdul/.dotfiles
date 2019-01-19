@@ -229,12 +229,11 @@ inoremap {}     {}
 inoremap        (  ()<Left>
 inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
-" skip over the closing single quote
-inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
+" autocomplete quotation marks
+inoremap ' ''<left>
+inoremap " ""<left>
 
-" skip over the closing double quote
-inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
-
+" move lines up/down
 inoremap <C-k> <Esc>:m .-2<CR>==gi
 inoremap <C-j> <Esc>:m .+1<CR>==gi
 
