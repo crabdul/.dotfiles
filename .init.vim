@@ -47,80 +47,52 @@ set modelines=1
 " }}}
 " UI {{{
 
-" Don't redraw while executing macros
-set lazyredraw
+set lazyredraw                   " Don't redraw while executing macros 
+set magic                        " For regular expressions turn magic on 
+set showmatch                    " Show matching brackets when text indicator is over them 
+set mat=2                        " How many tenths of a second to blink when matching brackets 
+set foldcolumn=1                 " Add a bit extra margin to the left 
+set number                       " show current line number 
+set relativenumber               " show lines number relative to current 
+set showcmd                      " show command in bottom bar 
+set cursorline                   " highlight current line 
 
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch
-
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" No annoying sounds on errors
-set noerrorbells
+set noerrorbells                 " No annoying sounds on errors 
 set novisualbell
 set t_vb=
 set tm=500
 
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-" show current line number
-set number
-
-" show lines number relative to current
-set relativenumber
-
-" show command in bottom bar
-set showcmd 
-
-" highlight current line
-set cursorline
 
 " }}}
 " Tabs and spaces {{{
 
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4                " number of spaces in tab when editing 
+set expandtab                    " tabs are spaces 
 
-" number of spaces in tab when editing
-set softtabstop=4
-
-" tabs are spaces
-set expandtab
-
-" highlight extra white spaces
-set list
+set list                         " highlight extra white spaces 
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " }}}
 " Searching {{{
 
-" higlight matches
-set hlsearch 
+set hlsearch                     " higlight matches 
+set ignorecase                   " Ignore case when searching 
+set smartcase                    " When searching try to be smart about cases 
+set incsearch                    " search as characters are entered 
 
 " turn off search highlight
 nnoremap <leader>/ :nohlsearch<CR>
 
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
-
-" search as characters are entered
-set incsearch
 
 " }}}
 " Folding {{{
 
-set foldenable          " enable folding
-set foldlevelstart=10   " open most folds by default
-set foldnestmax=10      " 10 nested fold max
-set foldmethod=indent   " fold based on indent level
+set foldenable                   " enable folding
+set foldlevelstart=10            " open most folds by default
+set foldnestmax=10               " 10 nested fold max
+set foldmethod=indent            " fold based on indent level
 
 " toggle fold
 nnoremap <leader>d za    
