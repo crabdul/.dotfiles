@@ -42,6 +42,7 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap <leader>s :mksession<cr>
 
 set mouse=a                     " enable use of mouse in all modes
+set mousehide                   " hide mouse when typing
 
 " declare lines from end of file just for vim
 set modelines=1
