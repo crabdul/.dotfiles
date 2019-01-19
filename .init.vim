@@ -41,6 +41,8 @@ tnoremap <Esc> <C-\><C-n>
 " save session
 nnoremap <leader>s :mksession<cr>
 
+set mouse=a                     " enable use of mouse in all modes
+
 " declare lines from end of file just for vim
 set modelines=1
 
