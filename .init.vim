@@ -235,8 +235,8 @@ inoremap ' ''<left>
 inoremap " ""<left>
 
 " move lines up/down
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+inoremap <A-j> <Esc>:m .+1<CR>==gi
 
 
 " }}}
@@ -254,8 +254,8 @@ nnoremap n nzz
 nnoremap N Nzz
 
 " move line up/down
-nnoremap <C-k> :m--<CR>==
-nnoremap <C-j> :m+<CR>==
+nnoremap <A-k> :m--<CR>==
+nnoremap <A-j> :m+<CR>==
 
 " revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
@@ -271,8 +271,8 @@ vnoremap K :move '<-2<CR>gv=gv
 vnoremap J :move '>+1<CR>gv=gv
 
 " move line up/down
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 
 " }}}
