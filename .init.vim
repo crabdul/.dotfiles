@@ -87,6 +87,9 @@ set incsearch                    " search as characters are entered
 
 set cursorline                   " highlight current line 
 
+" highlight conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
 " turn off search highlight
 nnoremap <leader>/ :nohlsearch<CR>
 
