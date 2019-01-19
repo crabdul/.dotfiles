@@ -44,6 +44,7 @@ set mousehide                   " hide mouse when typing
 " declare lines from end of file just for vim
 set modelines=1
 
+
 " }}}
 " UI {{{
 
@@ -693,3 +694,5 @@ let g:user_emmet_settings = {
 " endfor
 
 " }}}
+
+" vim:foldmethod=marker:foldlevel=0
