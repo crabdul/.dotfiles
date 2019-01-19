@@ -413,6 +413,18 @@ Plug 'w0rp/ale' 						" asynchronous linting
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
+" Use 'i' as a text obj for an indented block
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-user'  " requirement of vim-textobj-indent
+
+" Use 'f' for function, 'c' for class
+Plug 'bps/vim-textobj-python'
+
+" Provides lots of textobjects
+" Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
+Plug 'wellle/targets.vim'
+
+
 " Initialize plugin system
 call plug#end()
 
