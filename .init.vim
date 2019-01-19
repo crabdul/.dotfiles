@@ -4,8 +4,6 @@ syntax on
 set history=500				" sets how many lines of history VIM has to remember
 let mapleader = ","              " display using :echo mapleader
 
-nnoremap ; :
-
 " Can quit with capital Q
 command! Q q
 
@@ -27,6 +25,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Fast saving
 nmap <leader>w :w!<cr>
+
+" Fast quiting
+nmap <leader>q :q!<cr>
 
 " No swap file
 set noswapfile
