@@ -60,7 +60,6 @@ set number                       " show current line number
 set relativenumber               " show lines number relative to current 
 set showcmd                      " show command in bottom bar 
 
-set cursorline                   " highlight current line 
 set equalalways                 " keep windows equally sized
 set title                       " Set window title to filename
 
@@ -82,12 +81,14 @@ set list                         " highlight extra white spaces
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 " }}}
-" Searching {{{
+" Searching and highlighting {{{
 
 set hlsearch                     " higlight matches 
 set ignorecase                   " Ignore case when searching 
 set smartcase                    " When searching try to be smart about cases 
 set incsearch                    " search as characters are entered 
+
+set cursorline                   " highlight current line 
 
 " turn off search highlight
 nnoremap <leader>/ :nohlsearch<CR>
