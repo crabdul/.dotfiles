@@ -256,6 +256,8 @@ nnoremap N Nzz
 nnoremap <C-k> :m--<CR>==
 nnoremap <C-j> :m+<CR>==
 
+" revert buffer to state when file was opened
+nnoremap gu :u1\|u<CR>
 
 " }}}
 " VISUAL MODE {{{
