@@ -530,8 +530,7 @@ endfunction
 map <leader>a :Ag 
 
 " file finder in extended search mode
-nmap <leader>f :GFiles<cr>
-nmap <leader>F :Files<cr>
+nmap <leader>f :Files<cr>
 
 " buffer finder
 nmap <leader>b :Buffers<CR>
