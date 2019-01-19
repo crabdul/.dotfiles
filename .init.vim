@@ -94,6 +94,10 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " turn off search highlight
 nnoremap <bs> :nohlsearch<CR>
 
+" keep working directory as the one from where vim was opened in Insert mode
+autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
+autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+
 
 " }}}
 " Folding {{{
