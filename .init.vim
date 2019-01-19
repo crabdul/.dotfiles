@@ -232,6 +232,16 @@ inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\
 
 
 " }}}
+" NORMAL MODE {{{
+
+" Jump to definition of word under cursor
+nnoremap gd <c-]>
+nnoremap gD <c-w>v<c-w>l<c-]> 
+
+" Make yank consistent with other commands
+nnoremap Y y$
+
+" }}}
 " Custom functions {{{
 
 " toggle between number and relativenumber
