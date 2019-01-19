@@ -10,7 +10,7 @@ nnoremap ; :
 command! Q q
 
 " edit vimrc
-nmap <leader>ev :sp $MYVIMRC<cr>
+nmap <leader>ev :e $MYVIMRC<cr>
 
 " source vimrc
 nmap <leader>sv :source $MYVIMRC<cr>
