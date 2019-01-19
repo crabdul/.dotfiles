@@ -51,11 +51,15 @@ set lazyredraw                   " Don't redraw while executing macros
 set magic                        " For regular expressions turn magic on 
 set showmatch                    " Show matching brackets when text indicator is over them 
 set mat=2                        " How many tenths of a second to blink when matching brackets 
+
 set foldcolumn=1                 " Add a bit extra margin to the left 
 set number                       " show current line number 
 set relativenumber               " show lines number relative to current 
 set showcmd                      " show command in bottom bar 
+
 set cursorline                   " highlight current line 
+set equalalways                 " keep windows equally sized
+set title                       " Set window title to filename
 
 set noerrorbells                 " No annoying sounds on errors 
 set novisualbell
