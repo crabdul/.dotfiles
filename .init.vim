@@ -500,11 +500,19 @@ autocmd User ALELint unsilent echom 'ALE run!'
 " }}}
 " Plugin > airblade/vim-gitgutter {{{
 
+" Jump to next/previous hunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+
 " Stage hunk when cursor inside
 nmap <Leader>ha <Plug>GitGutterStageHunk
 
 " Undo staged hunk when cursor inside
 nmap <Leader>hr <Plug>GitGutterUndoHunk
+
+
+" Preview a hunk's changes
+nmap <Leader>hv <Plug>GitGutterPreviewHunk
 
 " }}}
 " Plugin > Omni complete functions {{{
