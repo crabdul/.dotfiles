@@ -181,6 +181,7 @@
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
 	subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
 	human = name-rev --name-only --refs=refs/heads/*
+	ctags = !.git/hooks/ctags
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [color "diff-highlight"]
@@ -207,3 +208,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[init]
+	templatedir = ~/.git_template

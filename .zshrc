@@ -72,7 +72,7 @@ function helpvim() { cat "$HOME/.dotfiles/.init.vim" | grep -A 1 -B 1 --color $*
 
 # ctags 
 # https://gist.github.com/nazgob/1570678
-alias ctags="`brew --prefix`/bin/ctags -R --exclude=.git --exclude=node_modules ."
+alias ctags="`brew --prefix`/bin/ctags"
 
 # =============================================================================
 # zgen
