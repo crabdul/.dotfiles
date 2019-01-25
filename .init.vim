@@ -419,11 +419,11 @@ call plug#begin('~/.vim/plugged')
 " Palenight theme
 Plug 'drewtempelmeyer/palenight.vim'
 
-Plug 'airblade/vim-gitgutter'           " Git status in gutter
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
+Plug 'mhinz/vim-signify'                " git status along file
 Plug 'mxw/vim-jsx'                      " jsx syntax-highlighting and indentation
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'pangloss/vim-javascript'          " js syntax highlighting and indentation
