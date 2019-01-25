@@ -173,7 +173,10 @@ endtry
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " }}}
-" Pasting {{{
+" Copy and pasting {{{
+
+" Use system clipboard as default clipboard
+set clipboard=unnamed
 
 " paste from unnamed register
 nnoremap <leader>p "0p
