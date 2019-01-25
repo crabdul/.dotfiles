@@ -217,6 +217,15 @@ map <leader>sp [s
 map <leader>sa zg
 
 " }}}
+" Exploring {{{
+
+" change to directory of current file
+nnoremap <leader>sd :lchdir %:p:h<CR>:pwd<CR>
+
+" change to global directory
+nnoremap <leader>ds :execute 'cd' getcwd(-1)
+
+" }}}
 " INSERT MODE {{{
 
 " escape
