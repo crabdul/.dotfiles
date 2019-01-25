@@ -99,6 +99,8 @@ nnoremap <bs> :nohlsearch<CR>
 autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
 autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 
+" pull <cword> onto search/command line
+nnoremap <leader>sc /<C-R><C-W>
 
 " }}}
 " Folding {{{
