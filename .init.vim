@@ -32,10 +32,6 @@ nmap <leader>q :q!<cr>
 " No swap file
 set noswapfile
 
-" copy to clipboard
-vnoremap <C-c> :w !pbcopy<CR><CR>
-noremap <leader>v :r !pbpaste<CR><CR>
-
 " esc for terminal 
 tnoremap <Esc> <C-\><C-n>
 
