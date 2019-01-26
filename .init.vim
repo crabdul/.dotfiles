@@ -357,8 +357,10 @@ endfunction<Paste>
 " }}}
 " HTML filetypes {{{
 
-" autoclose an HTML tag
-iabbrev < <C-H></<C-X><C-O>
+" Wrap <tag></tag> around VISUALLY selected Text
+vmap sp "zdi<p><C-R>z</p><ESC>
+vmap sd "zdi<div><C-R>z</div><ESC>
+vmap ss "zdi<span><C-R>z</span><ESC>
 
 
 " }}}
