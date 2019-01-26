@@ -218,7 +218,7 @@ map <leader>sa zg
 nnoremap <leader>sd :lchdir %:p:h<CR>:pwd<CR>
 
 " change to global directory
-nnoremap <leader>ds :execute 'cd' getcwd(-1)
+nnoremap <leader>ds :execute 'cd' getcwd(-1)<CR>
 
 " }}}
 " INSERT MODE {{{
@@ -423,6 +423,7 @@ call plug#begin('~/.vim/plugged')
 " Palenight theme
 Plug 'drewtempelmeyer/palenight.vim'
 
+Plug 'chrisbra/vim-diff-enhanced'
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
