@@ -423,6 +423,7 @@ call plug#begin('~/.vim/plugged')
 " Palenight theme
 Plug 'drewtempelmeyer/palenight.vim'
 
+Plug 'airblade/vim-gitgutter'           " git stage hunks
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
