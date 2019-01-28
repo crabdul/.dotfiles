@@ -106,3 +106,11 @@ Install from [github](https://github.com/Hammerspoon/hammerspoon)
 ```bash
 ln -s ~/.dotfiles/.hammerspoon/init.lua ~/.hammerspoon/init.lua
 ```
+### Git templates
+
+Symlink folder containing git templates
+
+```bash
+ln -s ~/.dotfiles/.git_template ~/.git_template
+```
+
