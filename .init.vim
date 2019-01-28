@@ -423,7 +423,6 @@ call plug#begin('~/.vim/plugged')
 " Palenight theme
 Plug 'drewtempelmeyer/palenight.vim'
 
-Plug 'airblade/vim-gitgutter'           " git stage hunks
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
@@ -506,21 +505,28 @@ let g:ale_sign_warning = '🔸'
 autocmd User ALELint unsilent echom 'ALE run!'
 
 " }}}
-" Plugin > airblade/vim-gitgutter {{{
+" Plugin > vim-signify/signify {{{
+" docs: :h signify-modus-operandi
 
-" Jump to next/previous hunk
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+" hunk text object
+omap ic <plug>(signify-motion-inner-pending)
+xmap ic <plug>(signify-motion-inner-visual)
+omap ac <plug>(signify-motion-outer-pending)
+xmap ac <plug>(signify-motion-outer-visual)
 
-" Stage hunk when cursor inside
-nmap <Leader>ha <Plug>GitGutterStageHunk
+" colours
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
 
-" Undo staged hunk when cursor inside
-nmap <Leader>hr <Plug>GitGutterUndoHunk
+" highlight signs in Sy
+highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 
+" view diff
+nnoremap <leader>hv :SignifyDiff<cr>
 
-" Preview a hunk's changes
-nmap <Leader>hv <Plug>GitGutterPreviewHunk
 
 " }}}
 " Plugin > Omni complete functions {{{
