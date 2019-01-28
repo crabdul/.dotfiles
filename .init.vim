@@ -430,9 +430,8 @@ Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
 Plug 'mhinz/vim-signify'                " git status along file
-Plug 'mxw/vim-jsx'                      " jsx syntax-highlighting and indentation
 Plug 'scrooloose/nerdtree'              " Tree explorer
-Plug 'pangloss/vim-javascript'          " js syntax highlighting and indentation
+Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open 
 Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-fugitive'               " Git wrapper
