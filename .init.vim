@@ -423,16 +423,14 @@ call plug#begin('~/.vim/plugged')
 " Palenight theme
 Plug 'drewtempelmeyer/palenight.vim'
 
-Plug 'airblade/vim-gitgutter'           " git stage hunks
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
 Plug 'mhinz/vim-signify'                " git status along file
-Plug 'mxw/vim-jsx'                      " jsx syntax-highlighting and indentation
 Plug 'scrooloose/nerdtree'              " Tree explorer
-Plug 'pangloss/vim-javascript'          " js syntax highlighting and indentation
+Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open 
 Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-fugitive'               " Git wrapper
@@ -507,21 +505,25 @@ let g:ale_sign_warning = '🔸'
 autocmd User ALELint unsilent echom 'ALE run!'
 
 " }}}
-" Plugin > airblade/vim-gitgutter {{{
+" Plugin > vim-signify/signify {{{
+" docs: :h signify-modus-operandi
 
-" Jump to next/previous hunk
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+" hunk text object
+omap ic <plug>(signify-motion-inner-pending)
+xmap ic <plug>(signify-motion-inner-visual)
+omap ac <plug>(signify-motion-outer-pending)
+xmap ac <plug>(signify-motion-outer-visual)
 
-" Stage hunk when cursor inside
-nmap <Leader>ha <Plug>GitGutterStageHunk
+" colours
+highlight DiffAdd guifg=#00d75f guibg=#fff 
+highlight DiffChange guifg=#00afff guibg=#fff 
+highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff 
 
-" Undo staged hunk when cursor inside
-nmap <Leader>hr <Plug>GitGutterUndoHunk
+" view diff
+nnoremap <leader>hv :SignifyDiff<cr>
 
-
-" Preview a hunk's changes
-nmap <Leader>hv <Plug>GitGutterPreviewHunk
+" refresh
+nnoremap <leader>gr :SignifyRefresh<CR>
 
 " }}}
 " Plugin > Omni complete functions {{{
