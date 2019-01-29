@@ -515,18 +515,15 @@ omap ac <plug>(signify-motion-outer-pending)
 xmap ac <plug>(signify-motion-outer-visual)
 
 " colours
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-
-" highlight signs in Sy
-highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
+highlight DiffAdd guifg=#00d75f guibg=#fff 
+highlight DiffChange guifg=#00afff guibg=#fff 
+highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff 
 
 " view diff
 nnoremap <leader>hv :SignifyDiff<cr>
 
+" refresh
+nnoremap <leader>gr :SignifyRefresh<CR>
 
 " }}}
 " Plugin > Omni complete functions {{{
