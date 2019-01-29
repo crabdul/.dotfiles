@@ -424,6 +424,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'chrisbra/vim-diff-enhanced'
+Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
