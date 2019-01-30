@@ -84,6 +84,8 @@ set incsearch                    " search as characters are entered
 
 set cursorline                   " highlight current line 
 
+set inccommand=nosplit           " replace in realtime
+
 " highlight conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
