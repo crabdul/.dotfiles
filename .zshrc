@@ -56,7 +56,6 @@ alias shelloadtime="/usr/bin/time zsh -i -c exit"
 function killport() { lsof -ti:$1 | xargs kill; }
 
 # Plugins
-alias cat="bat"
 alias f="fzf --preview 'bat --color \"always\" {}'"
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor

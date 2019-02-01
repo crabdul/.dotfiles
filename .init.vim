@@ -84,6 +84,8 @@ set incsearch                    " search as characters are entered
 
 set cursorline                   " highlight current line 
 
+set inccommand=nosplit           " replace in realtime
+
 " highlight conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
@@ -424,6 +426,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'chrisbra/vim-diff-enhanced'
+Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'mattn/emmet-vim'                  " emmet
