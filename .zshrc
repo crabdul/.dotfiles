@@ -263,3 +263,4 @@ if [ -s "$HOME/.zshrc.work" ]; then
     source "$HOME/.zshrc.work"
 fi
 
+export PATH="/usr/local/opt/ruby/bin:$PATH"
