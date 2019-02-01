@@ -507,6 +507,9 @@ let g:ale_pattern_options = {
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
+" don't run on file enter
+let g:ale_lint_on_enter = 0
+
 autocmd User ALELint unsilent echom 'ALE run!'
 
 " }}}
