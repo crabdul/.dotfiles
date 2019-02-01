@@ -476,6 +476,8 @@ let g:palenight_terminal_italics=1
 " }}}
 " Plugin > ale {{{
 
+" use global version of eslint
+let g:ale_javascript_eslint_executable = $HOME."/.nvm/versions/node/v10.15.0/bin/eslint"
 " check files with linters
 let b:ale_linters = {
     \ 'python': ['flake8', 'pylint']
