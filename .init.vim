@@ -432,6 +432,7 @@ Plug 'mhinz/vim-signify'                " git status along file
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open 
+Plug 'rizzatti/dash.vim'                " dash docs
 Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
