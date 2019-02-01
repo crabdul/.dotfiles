@@ -488,6 +488,7 @@ let g:ale_linters = {
 " Fix files with ESLint then Prettier
 let g:ale_fixers = {
     \ 'javascript': ['eslint', 'prettier_eslint'],
+    \ 'python': ['black'],
     \ }
 
 " Set this variable to 1 to fix files when you save them
