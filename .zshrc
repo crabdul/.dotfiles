@@ -93,7 +93,6 @@ if ! zgen saved; then
     zgen prezto prompt theme 'sorin'
     
     # Prezto modules
-    zgen prezto git
     zgen prezto command-not-found
 
     # Modules
