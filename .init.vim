@@ -503,8 +503,8 @@ let g:ale_pattern_options = {
     \ }
 
 " signs
-let g:ale_sign_error = '♦️'
-let g:ale_sign_warning = '🔸'
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 
 autocmd User ALELint unsilent echom 'ALE run!'
 
