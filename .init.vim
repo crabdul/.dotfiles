@@ -510,6 +510,9 @@ let g:ale_sign_warning = '--'
 " don't run on file enter
 let g:ale_lint_on_enter = 0
 
+" only run when file saved
+let g:ale_lint_on_text_changed = 'never'
+
 autocmd User ALELint unsilent echom 'ALE run!'
 
 " }}}
