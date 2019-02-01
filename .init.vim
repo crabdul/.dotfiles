@@ -476,14 +476,19 @@ let g:palenight_terminal_italics=1
 " }}}
 " Plugin > ale {{{
 
+" use global version of eslint
+let g:ale_javascript_eslint_executable = $HOME."/.nvm/versions/node/v10.15.0/bin/eslint"
+
 " check files with linters
-let b:ale_linters = {
+let g:ale_linters = {
+    \ 'javascript': ['eslint', 'prettier_eslint'],
     \ 'python': ['flake8', 'pylint']
     \ }
 
 " Fix files with ESLint then Prettier
-let b:ale_fixers = {
-    \ 'javascript': ['eslint', 'prettier_eslint']
+let g:ale_fixers = {
+    \ 'javascript': ['eslint', 'prettier_eslint'],
+    \ 'python': ['black'],
     \ }
 
 " Set this variable to 1 to fix files when you save them
@@ -499,8 +504,14 @@ let g:ale_pattern_options = {
     \ }
 
 " signs
-let g:ale_sign_error = '♦️'
-let g:ale_sign_warning = '🔸'
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
+" don't run on file enter
+let g:ale_lint_on_enter = 0
+
+" only run when file saved
+let g:ale_lint_on_text_changed = 'never'
 
 autocmd User ALELint unsilent echom 'ALE run!'
 

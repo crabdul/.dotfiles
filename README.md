@@ -114,3 +114,6 @@ Symlink folder containing git templates
 ln -s ~/.dotfiles/.git_template ~/.git_template
 ```
 
+Remember to make the files executable using `chmod +x`
+
+``

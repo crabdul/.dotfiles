@@ -4,23 +4,24 @@
 
 export PATH="$HOME/bin:$PATH"
 
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+export PATH="/Users/$USER/miniconda3/bin:$PATH"
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+export PATH="/usr/local/Cellar/rabbitmq/3.7.9/sbin:$PATH"
+
 export PYENV_ROOT="$HOME/.pyenv"
 
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
-export PATH="/Users/$USER/miniconda3/bin:$PATH"
-
-# rabbitmq
-
-export PATH="/usr/local/Cellar/rabbitmq/3.7.9/sbin:$PATH"
-
 export NVM_LAZY_LOAD=true
+
 
 # =============================================================================
 # NeoVim 
@@ -92,7 +93,6 @@ if ! zgen saved; then
     zgen prezto prompt theme 'sorin'
     
     # Prezto modules
-    zgen prezto git
     zgen prezto command-not-found
 
     # Modules
