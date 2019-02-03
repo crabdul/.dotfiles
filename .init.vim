@@ -388,6 +388,8 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+Plug 'mhinz/vim-startify'
+
 " Palenight theme
 Plug 'drewtempelmeyer/palenight.vim'
 
