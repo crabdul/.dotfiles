@@ -134,7 +134,7 @@ nnoremap E $
 nnoremap gV `[v`]
 
 " Map <Space> to / (search)
-nnoremap <space> /
+nnoremap <leader><space> /
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -253,10 +253,6 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 " }}}
 " NORMAL MODE {{{
 
-" Jump to definition of word under cursor
-nnoremap gd <c-]>
-nnoremap gD <c-w>v<c-w>l<c-]> 
-
 " Make yank consistent with other commands
 nnoremap Y y$
 
@@ -270,6 +266,7 @@ nnoremap <A-j> :m+<CR>==
 
 " revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
+
 
 " }}}
 " VISUAL MODE {{{
@@ -427,6 +424,13 @@ Plug 'bps/vim-textobj-python'
 " Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
 Plug 'wellle/targets.vim'
 
+" RUN:
+" :CocInstall coc-css
+" :CocInstall coc-pyls
+" :CocInstall coc-tsserver
+" :CocInstall coc-highlight
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
 
 " Initialize plugin system
 call plug#end()
@@ -521,10 +525,13 @@ let g:lightline = {
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'filename', 'gitbranch', 'modified' ] ],
-    \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+    \   'right': [ ['lineinfo'], ['percent'],
+    \              ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok'],
+    \              ['cocstatus'] ]
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#Head',
+    \   'cocstatus': 'coc#status'
     \ },
     \ 'component_expand': {
     \   'linter_warnings': 'LightlineLinterWarnings',
@@ -593,17 +600,11 @@ nmap <leader>r :Tags<cr>
 " tags directory
 set tags=./tags;
 
-" help
-nmap <leader>h :Helptags!<cr>
-
 " command
 nmap <leader>C :Commands<cr>
 
 " search through mappings
 nmap <Leader>M :Maps<CR>
-
-" search filetype syntaxes
-"nmap <Leader>ft :Filetypes<CR>
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -692,6 +693,80 @@ let g:user_emmet_settings = {
 \  },
 \}
 
+
+" }}}
+" Plugin > coc.nvim
+
+" if hidden not set, TextEdit might fail.
+set hidden
+
+" Better display for messages
+set cmdheight=2
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-d> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <c-w>v<c-w>l<Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Using CocList
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <leader>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+" }}}
 
 " }}}
 " Saved for later {{{
