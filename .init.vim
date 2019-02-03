@@ -134,7 +134,7 @@ nnoremap E $
 nnoremap gV `[v`]
 
 " Map <Space> to / (search)
-nnoremap <space> /
+nnoremap <leader><space> /
 
 " Smart way to move between windows
 map <C-j> <C-W>j
