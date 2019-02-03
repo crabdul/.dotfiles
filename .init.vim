@@ -380,6 +380,13 @@ function! JavaScriptFold()
 endfunction
 
 " }}}
+" Markdown filetypes {{{
+
+" wrap text
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
+
+" }}}
 " Plugins {{{
 
 " Specify a directory for plugins
