@@ -427,6 +427,13 @@ Plug 'bps/vim-textobj-python'
 " Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
 Plug 'wellle/targets.vim'
 
+" RUN:
+" :CocInstall coc-css
+" :CocInstall coc-pyls
+" :CocInstall coc-tsserver
+" :CocInstall coc-highlight
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
 
 " Initialize plugin system
 call plug#end()
@@ -521,10 +528,13 @@ let g:lightline = {
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'filename', 'gitbranch', 'modified' ] ],
-    \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+    \   'right': [ ['lineinfo'], ['percent'],
+    \              ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok'],
+    \              ['cocstatus'] ]
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#Head',
+    \   'cocstatus': 'coc#status'
     \ },
     \ 'component_expand': {
     \   'linter_warnings': 'LightlineLinterWarnings',
@@ -691,6 +701,31 @@ let g:user_emmet_settings = {
 \    'indent_blockelement': 1,
 \  },
 \}
+
+" if hidden not set, TextEdit might fail.
+set hidden
+
+" Better display for messages
+set cmdheight=2
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 
 " }}}
