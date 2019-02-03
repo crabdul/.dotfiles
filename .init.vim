@@ -60,6 +60,7 @@ set showcmd                      " show command in bottom bar
 
 set equalalways                 " keep windows equally sized
 set title                       " Set window title to filename
+set colorcolumn=80              " set column width
 
 set noerrorbells                 " No annoying sounds on errors 
 set novisualbell
