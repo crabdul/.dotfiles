@@ -253,10 +253,6 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 " }}}
 " NORMAL MODE {{{
 
-" Jump to definition of word under cursor
-"nnoremap gd <c-]>
-nnoremap gD <c-w>v<c-w>l<c-]> 
-
 " Make yank consistent with other commands
 nnoremap Y y$
 
@@ -270,6 +266,7 @@ nnoremap <A-j> :m+<CR>==
 
 " revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
+
 
 " }}}
 " VISUAL MODE {{{
@@ -751,6 +748,7 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <c-w>v<c-w>l<Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
