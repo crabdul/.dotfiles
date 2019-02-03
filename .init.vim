@@ -603,9 +603,6 @@ nmap <leader>r :Tags<cr>
 " tags directory
 set tags=./tags;
 
-" help
-nmap <leader>h :Helptags!<cr>
-
 " command
 nmap <leader>C :Commands<cr>
 
