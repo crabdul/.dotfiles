@@ -67,6 +67,9 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" Open new split panes to right and bottom
+set splitbelow
+set splitright
 
 " }}}
 " Tabs and spaces {{{
