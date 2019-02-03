@@ -733,8 +733,8 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-d> coc#refresh()
+" trigger completion.
+inoremap <silent><expr> <leader>t coc#refresh()
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
