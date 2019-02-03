@@ -609,9 +609,6 @@ nmap <leader>C :Commands<cr>
 " search through mappings
 nmap <Leader>M :Maps<CR>
 
-" search filetype syntaxes
-"nmap <Leader>ft :Filetypes<CR>
-
 " This is the default extra key bindings
 let g:fzf_action = {
     \ 'space': 'tab split',
