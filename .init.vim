@@ -1,5 +1,9 @@
 " General {{{
 
+" Python source
+let g:python_host_prog = $HOME."/neovim2/bin/python"
+let g:python3_host_prog = $HOME."/neovim3/bin/python"
+
 syntax on
 set history=500				" sets how many lines of history VIM has to remember
 let mapleader = ","              " display using :echo mapleader
