@@ -101,7 +101,7 @@ autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
 autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 
 " pull <cword> onto search/command line
-nnoremap <leader>sc /<C-R><C-W>
+nnoremap gs /<C-R><C-W>
 
 " }}}
 " Folding {{{
@@ -647,7 +647,7 @@ vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 map <leader>g :Ack!<space>
 
 " find currently selected word
-nmap <leader>gc :Ack! "\b<cword>\b" <CR>
+nmap gc :Ack! "\b<cword>\b" <CR>
 
 " find and replace text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
