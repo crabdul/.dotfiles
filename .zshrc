@@ -12,6 +12,8 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PATH="/usr/local/Cellar/rabbitmq/3.7.9/sbin:$PATH"
 
+export PATH="$HOME/.nvm/versions/node/v10.15.0/bin:$PATH"
+
 export PYENV_ROOT="$HOME/.pyenv"
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
