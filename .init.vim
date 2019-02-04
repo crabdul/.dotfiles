@@ -608,7 +608,7 @@ nmap <Leader>L :Lines<CR>
 nmap <Leader>' :Marks<CR>
 
 " tag finder
-nmap <leader>r :Tags<cr>
+nmap <leader>t :Tags<cr>
 
 " tags directory
 set tags=./tags;
