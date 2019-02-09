@@ -388,6 +388,8 @@ endfunction
 " wrap text
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
+autocmd FileType markdown set conceallevel=0
+
 
 " }}}
 " Plugins {{{
