@@ -699,12 +699,25 @@ autocmd FileType html,css,javascript.jsx,scss EmmetInstall
 " only use in INSERT mode
 let g:user_emmet_mode = 'i'
 
-" auto-indent when expanded
-let g:user_emmet_settings = {
-\  'html' : {
-\    'indent_blockelement': 1,
-\  },
-\}
+function! Expander()
+
+    let line   = getline(".")
+    let col    = col(".")
+    let first  = line[col-2]
+    let second = line[col-1]
+    let third  = line[col]
+
+    if first ==# ">" && second ==# "<" && third ==# "/"
+        return "\<CR>\<C-o>==\<C-o>O"
+    else
+        " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+        " Coc only does snippet and additional edit on confirm.
+        return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    endif
+
+endfunction
+
+inoremap <expr> <CR> Expander()
 
 
 " }}}
@@ -748,10 +761,6 @@ endfunction
 
 " trigger completion.
 inoremap <silent><expr> <leader>t coc#refresh()
-
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
