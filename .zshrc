@@ -76,6 +76,14 @@ function helpvim() { cat "$HOME/.dotfiles/.init.vim" | grep -A 1 -B 1 --color $*
 # https://gist.github.com/nazgob/1570678
 alias ctags="`brew --prefix`/bin/ctags"
 
+function gctags() {
+    dir="`git rev-parse --git-dir`"
+    git ls-files | \
+        ctags --tag-relative=yes -L - -f "$dir/$$.tags" --languages=-sql
+    mv "$dir/$$.tags" "$dir/tags"
+}
+
+
 # =============================================================================
 # zgen
 # =============================================================================
