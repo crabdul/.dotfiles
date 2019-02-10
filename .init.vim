@@ -111,12 +111,16 @@ nnoremap gs /<C-R><C-W>
 " Folding {{{
 
 set foldenable                   " enable folding
-set foldlevelstart=10            " open most folds by default
-set foldnestmax=10               " 10 nested fold max
+set foldlevel=0
+set foldlevelstart=1
+set foldnestmax=2
 set foldmethod=indent            " fold based on indent level
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 
 " toggle fold
-nnoremap <leader>d za    
+nnoremap <leader>d zA
+nnoremap <leader>e za
+
 
 " }}}
 " Movement {{{
@@ -227,7 +231,7 @@ map <leader>sa zg
 nnoremap <leader>sd :lchdir %:p:h<CR>:pwd<CR>
 
 " change to global directory
-nnoremap <leader>ds :execute 'cd' getcwd(-1)<CR>
+nnoremap <leader>sf :execute 'cd' getcwd(-1)<CR>
 
 nmap <silent> gF <c-w>v<c-w>lgf
 
@@ -384,6 +388,10 @@ function! JavaScriptFold()
     endfunction
     setl foldtext=FoldText()
 endfunction
+
+" }}}
+" SCSS, CSS filetypes {{{
+
 
 " }}}
 " Markdown filetypes {{{
