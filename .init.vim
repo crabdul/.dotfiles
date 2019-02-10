@@ -413,6 +413,7 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'            " status bar
 Plug 'junegunn/goyo.vim'                " distraction-free writing
+Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
 Plug 'mhinz/vim-signify'                " git status along file
@@ -449,6 +450,7 @@ Plug 'wellle/targets.vim'
 " :CocInstall coc-tsserver
 " :CocInstall coc-highlight
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
 
 
 " Initialize plugin system
@@ -545,12 +547,13 @@ let g:lightline = {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'filename', 'gitbranch', 'modified' ] ],
     \   'right': [ ['lineinfo'], ['percent'],
-    \              ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok'],
-    \              ['cocstatus'] ]
+    \              ['cocstatus', 'gutentags'],
+    \              ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok'] ]
     \ },
     \ 'component_function': {
     \   'gitbranch': 'fugitive#Head',
-    \   'cocstatus': 'coc#status'
+    \   'cocstatus': 'coc#status',
+    \   'gutentags': 'gutentags#statusline'
     \ },
     \ 'component_expand': {
     \   'linter_warnings': 'LightlineLinterWarnings',
@@ -615,9 +618,6 @@ nmap <Leader>' :Marks<CR>
 
 " tag finder
 nmap <leader>t :Tags<cr>
-
-" tags directory
-set tags=./tags;
 
 " command
 nmap <leader>C :Commands<cr>
@@ -732,7 +732,19 @@ inoremap <expr> <CR> Expander()
 
 
 " }}}
-" Plugin > coc.nvim
+" Plugin > vim-gutentags {{{
+
+let g:gutentags_project_root = ['.git']
+
+let g:gutentags_ctags_tagfile = '.git/tags'
+
+let g:gutentags_generate_on_new = 1
+
+let g:gutentags_generate_on_write = 1
+
+
+" }}}
+" Plugin > coc.nvim {{{
 
 " if hidden not set, TextEdit might fail.
 set hidden
