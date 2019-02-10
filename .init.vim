@@ -229,6 +229,9 @@ nnoremap <leader>sd :lchdir %:p:h<CR>:pwd<CR>
 " change to global directory
 nnoremap <leader>ds :execute 'cd' getcwd(-1)<CR>
 
+nmap <silent> gF <c-w>v<c-w>lgf
+
+
 " }}}
 " INSERT MODE {{{
 
