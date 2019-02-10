@@ -424,6 +424,7 @@ Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vim-scripts/indentLine.vim'       " indent guides
+Plug 'vim-scripts/matchit.zip'          " extend % for matching for HTML
 Plug 'tpope/vim-unimpaired'             " bracket mappings
 Plug 'w0rp/ale' 						" asynchronous linting
 
