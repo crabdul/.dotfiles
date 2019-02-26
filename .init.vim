@@ -215,23 +215,13 @@ endif
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Move to spelling-mistake
-" Next
-map <leader>sn ]s
-" Previous 
-map <leader>sp [s
-
 " Add definition
 map <leader>sa zg
 
 " }}}
 " Exploring {{{
 
-" change to directory of current file
-nnoremap <leader>sd :lchdir %:p:h<CR>:pwd<CR>
-
-" change to global directory
-nnoremap <leader>sf :execute 'cd' getcwd(-1)<CR>
+nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR>
 
 nmap <silent> gF <c-w>v<c-w>lgf
 
