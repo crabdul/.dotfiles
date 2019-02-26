@@ -12,10 +12,10 @@ let mapleader = ","              " display using :echo mapleader
 command! Q q
 
 " edit vimrc
-nmap <leader>ve :tabe $MYVIMRC<cr>
+nmap <leader>se :tabe $MYVIMRC<cr>
 
 " source vimrc
-nmap <leader>vs :source $MYVIMRC<cr>
+nmap <leader>sv :source $MYVIMRC<cr>
 
 " Enable filetype plugins
 filetype plugin on
