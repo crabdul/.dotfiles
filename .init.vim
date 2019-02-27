@@ -459,6 +459,16 @@ Plug 'wellle/targets.vim'
 " :CocInstall coc-highlight
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
+Plug 'honza/vim-snippets'
+
+" ES2015 code snippets (Optional)
+Plug 'epilande/vim-es2015-snippets'
+
+" React code snippets
+Plug 'epilande/vim-react-snippets'
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
 
 
 " Initialize plugin system
@@ -820,6 +830,12 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
 " }}}
+" UltiSnips {{{ "
+
+let g:UltiSnipsExpandTrigger=",,"
+
+
+" }}} UltiSnips "
 
 " }}}
 " Saved for later {{{
