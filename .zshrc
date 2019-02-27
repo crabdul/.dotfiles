@@ -272,3 +272,6 @@ if [ -s "$HOME/.zshrc.work" ]; then
     source "$HOME/.zshrc.work"
 fi
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

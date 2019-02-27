@@ -82,6 +82,8 @@ set expandtab                    " tabs are spaces
 set list                         " highlight extra white spaces 
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
+autocmd FileType ruby setlocal expandtab shiftwidth=4 tabstop=4
+
 " }}}
 " Searching and highlighting {{{
 
