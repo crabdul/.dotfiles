@@ -243,18 +243,16 @@ nmap <silent> gF <c-w>v<c-w>lgf
 imap <leader>jk <esc>
 imap <leader>kj <esc>
 
-" bracket completion
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
-
-" skip over the closing character
-inoremap        (  ()<Left>
-inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap (; ();<left><left>
+inoremap (, ()<left>
+inoremap {; {};<left><left>
+inoremap {, {}<left>
+inoremap [; [];<left><left>
+inoremap [, []<left>
 
 " autocomplete quotation marks
 inoremap " ""<left>
+inoremap ', ''<left>
 
 " move lines up/down
 inoremap <A-k> <Esc>:m .-2<CR>==gi
