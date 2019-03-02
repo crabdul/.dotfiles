@@ -833,7 +833,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " UltiSnips {{{ "
 
 let g:UltiSnipsExpandTrigger=",,"
-
+let g:UltiSnipsJumpForwardTrigger="<leader>f"
+let g:UltiSnipsJumpBackwardTrigger="<leader>d"
 
 " }}} UltiSnips "
 
