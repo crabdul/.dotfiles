@@ -470,6 +470,7 @@ Plug 'epilande/vim-react-snippets'
 " Track the engine.
 Plug 'SirVer/ultisnips'
 
+Plug 'machakann/vim-highlightedyank'
 
 " Initialize plugin system
 call plug#end()
