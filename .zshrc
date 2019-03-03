@@ -83,6 +83,7 @@ function gctags() {
     mv "$dir/$$.tags" "$dir/tags"
 }
 
+alias snips="cd $HOME/.vim/plugged/vim-snippets/UltiSnips"
 
 # =============================================================================
 # zgen
