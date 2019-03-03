@@ -226,7 +226,7 @@ map <leader>sa zg
 " }}}
 " Exploring {{{
 
-nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR>
+nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 
 nmap <silent> gF <c-w>v<c-w>lgf
 
