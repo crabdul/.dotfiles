@@ -396,6 +396,12 @@ autocmd FileType markdown set conceallevel=0
 
 
 " }}}
+" Rails {{{ "
+
+autocmd BufNewFile,BufRead *.html.erb set filetype=html
+autocmd BufNewFile,BufRead *.html.erb set filetype=html.eruby
+
+" }}}
 " Plugins {{{
 
 " Specify a directory for plugins
