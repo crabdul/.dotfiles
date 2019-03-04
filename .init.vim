@@ -396,7 +396,7 @@ autocmd FileType markdown set conceallevel=0
 
 
 " }}}
-" Rails {{{ "
+" Rails {{{
 
 autocmd BufNewFile,BufRead *.html.erb set filetype=html
 autocmd BufNewFile,BufRead *.html.erb set filetype=html.eruby
@@ -756,8 +756,6 @@ inoremap <expr> <CR> Expander()
 " Plugin > vim-gutentags {{{
 
 let g:gutentags_project_root = ['.git']
-
-let g:gutentags_ctags_tagfile = '.git/tags'
 
 let g:gutentags_generate_on_new = 1
 
