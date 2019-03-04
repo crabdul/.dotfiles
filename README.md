@@ -116,4 +116,11 @@ ln -s ~/.dotfiles/.git_template ~/.git_template
 
 Remember to make the files executable using `chmod +x`
 
+
+**ctags**
+
+```bash
+ln -s ~/.dotfiles/.ctags ~/.ctags
+ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
+```
 ``
