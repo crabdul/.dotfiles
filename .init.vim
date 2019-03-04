@@ -428,7 +428,6 @@ Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open 
 Plug 'tpope/vim-commentary'             " Comment out stuff
-Plug 'tpope/vim-fugitive'               " Git wrapper
 Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vim-scripts/indentLine.vim'       " indent guides
@@ -473,6 +472,7 @@ Plug 'machakann/vim-highlightedyank'
 
 Plug 'tpope/vim-rails'
 
+Plug 'lambdalisue/gina.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -566,13 +566,13 @@ let g:lightline = {
     \ 'colorscheme': 'seoul256',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'filename', 'gitbranch', 'modified' ] ],
+    \             [ 'filename', 'git', 'modified' ] ],
     \   'right': [ ['lineinfo'], ['percent'],
     \              ['cocstatus', 'gutentags'],
     \              ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok'] ]
     \ },
     \ 'component_function': {
-    \   'gitbranch': 'fugitive#Head',
+    \   'git': 'gina#component#repo#preset',
     \   'cocstatus': 'coc#status',
     \   'gutentags': 'gutentags#statusline'
     \ },
@@ -839,6 +839,9 @@ let g:UltiSnipsJumpBackwardTrigger="<leader>d"
 let g:UltiSnipsListSnippets="<leader>z"
 
 " }}} UltiSnips "
+
+command! G Gina
+command! Gs Gina status -s
 
 " }}}
 " Saved for later {{{
