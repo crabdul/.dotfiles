@@ -474,6 +474,8 @@ Plug 'tpope/vim-rails'
 
 Plug 'lambdalisue/gina.vim'
 
+Plug 'Raimondi/delimitMate'
+
 " Initialize plugin system
 call plug#end()
 
@@ -749,7 +751,6 @@ function! Expander()
 
 endfunction
 
-inoremap <expr> <CR> Expander()
 
 
 " }}}
@@ -765,6 +766,8 @@ let g:gutentags_generate_on_write = 1
 " }}}
 " Plugin > coc.nvim {{{
 
+
+set updatetime=300
 " if hidden not set, TextEdit might fail.
 set hidden
 
@@ -776,6 +779,9 @@ set shortmess+=c
 
 " always show signcolumns
 set signcolumn=yes
+
+set completeopt-=preview
+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -839,6 +845,8 @@ let g:UltiSnipsJumpBackwardTrigger="<leader>d"
 let g:UltiSnipsListSnippets="<leader>z"
 
 " }}} UltiSnips "
+
+let delimitMate_expand_cr = 1
 
 command! G Gina
 command! Gs Gina status -s
