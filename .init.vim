@@ -728,7 +728,7 @@ let g:user_emmet_leader_key=','
 " Enable only for html, css, jsx
 let g:user_emmet_install_global = 0
 let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
-autocmd FileType html,html.erb,css,javascript.jsx,scss EmmetInstall
+autocmd FileType html,css,javascript.jsx,scss EmmetInstall
 
 " only use in INSERT mode
 let g:user_emmet_mode = 'i'
@@ -751,6 +751,7 @@ function! Expander()
 
 endfunction
 
+inoremap <expr> <CR> Expander()
 
 
 " }}}
@@ -839,7 +840,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " }}}
 " UltiSnips {{{ "
 
-let g:UltiSnipsExpandTrigger=",,"
 let g:UltiSnipsJumpForwardTrigger="<leader>f"
 let g:UltiSnipsJumpBackwardTrigger="<leader>d"
 let g:UltiSnipsListSnippets="<leader>z"
