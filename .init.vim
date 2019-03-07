@@ -420,7 +420,6 @@ Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open 
 Plug 'tpope/vim-commentary'             " Comment out stuff
-Plug 'tpope/vim-surround'               " Quoting / paranthesizing
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vim-scripts/indentLine.vim'       " indent guides
 Plug 'vim-scripts/matchit.zip'          " extend % for matching for HTML
@@ -467,6 +466,10 @@ Plug 'tpope/vim-rails'
 Plug 'lambdalisue/gina.vim'
 
 Plug 'Raimondi/delimitMate'
+
+Plug 'machakann/vim-sandwich'
+
+Plug 'bkad/CamelCaseMotion'
 
 " Initialize plugin system
 call plug#end()
@@ -840,13 +843,37 @@ let g:UltiSnipsJumpBackwardTrigger="<leader>d"
 let g:UltiSnipsListSnippets="<leader>z"
 
 " }}} UltiSnips "
-
+" DelimitMate: {{{
 let delimitMate_expand_cr = 1
 
+" }}}
+" Gina: {{{
 command! G Gina
 command! Gs Gina status -s
 
 " }}}
+" CamelCaseMotion: {{{
+
+map <silent> W <Plug>CamelCaseMotion_w
+map <silent> B <Plug>CamelCaseMotion_b
+map <silent> E <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap W
+sunmap B
+sunmap E
+sunmap ge
+
+omap <silent> iW <Plug>CamelCaseMotion_iw
+xmap <silent> iW <Plug>CamelCaseMotion_iw
+omap <silent> iB <Plug>CamelCaseMotion_ib
+xmap <silent> iB <Plug>CamelCaseMotion_ib
+omap <silent> iE <Plug>CamelCaseMotion_ie
+xmap <silent> iE <Plug>CamelCaseMotion_ie
+
+
+" }}}
+
+
 " Saved for later {{{
 
 " Loop over files
