@@ -873,14 +873,4 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 " }}}
 
-
-" Saved for later {{{
-
-" Loop over files
-" for f in split(glob('~/.config/nvim/config/*.vim'), '\n')
-"     exe 'source' f
-" endfor
-
-" }}}
-
 " vim:foldmethod=marker:foldlevel=0
