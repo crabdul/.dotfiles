@@ -362,14 +362,6 @@ au FileType python set indentkeys-=0#
 " JavaScript filetypes {{{
 
 au FileType javascript call JavaScriptFold()
-au FileType javascript setl fen
-au FileType javascript setl nocindent
-
-" au FileType javascript imap <c-t> $log();<esc>hi
-au FileType javascript imap <c-a> alert();<esc>hi
-
-au FileType javascript inoremap <buffer> $r return 
-au FileType javascript inoremap <buffer> $f // --- PH<esc>FP2xi
 
 function! JavaScriptFold() 
     setl foldmethod=syntax
@@ -743,15 +735,17 @@ function! Expander()
 
     if first ==# ">" && second ==# "<" && third ==# "/"
         return "\<CR>\<C-o>==\<C-o>O"
-    else
+    elseif pumvisible()
+        return "\<C-Y>"
         " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
         " Coc only does snippet and additional edit on confirm.
-        return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    else
+        return "\<Plug>delimitMateCR"
     endif
 
 endfunction
 
-inoremap <expr> <CR> Expander()
+imap <expr> <CR> Expander()
 
 
 " }}}
