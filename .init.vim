@@ -743,15 +743,17 @@ function! Expander()
 
     if first ==# ">" && second ==# "<" && third ==# "/"
         return "\<CR>\<C-o>==\<C-o>O"
-    else
+    elseif pumvisible()
+        return "\<C-Y>"
         " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
         " Coc only does snippet and additional edit on confirm.
-        return pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    else
+        return "\<Plug>delimitMateCR"
     endif
 
 endfunction
 
-inoremap <expr> <CR> Expander()
+imap <expr> <CR> Expander()
 
 
 " }}}
