@@ -410,7 +410,6 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'easymotion/vim-easymotion'
-Plug 'vim-airline/vim-airline'
 Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
 Plug 'mattn/emmet-vim'                  " emmet
@@ -556,16 +555,33 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " }}}
 " Plugin > lightline {{{
 
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified', 'helloworld' ] ]
-      \ },
-      \ 'component': {
-      \   'helloworld': 'Hello, world!'
-      \ },
-      \ }
+" Function: display errors from Ale in statusline
+function! LinterStatus() abort
+   let l:counts = ale#statusline#Count(bufnr(''))
+   let l:all_errors = l:counts.error + l:counts.style_error
+   let l:all_non_errors = l:counts.total - l:all_errors
+   return l:counts.total == 0 ? '' : printf(
+   \ 'W:%d E:%d',
+   \ l:all_non_errors,
+   \ l:all_errors
+   \)
+endfunction
+set laststatus=2
+set statusline=
+set statusline+=\ %l
+set statusline+=\ %*
+set statusline+=\ ‹‹
+set statusline+=\ %f\ %*
+set statusline+=\ ››
+set statusline+=\ %m
+set statusline+=\ %F
+set statusline+=%=
+set statusline+=\ %{LinterStatus()}
+set statusline+=\ ‹‹
+set statusline+=\ ::
+set statusline+=\ %n
+set statusline+=\ ››\ %*
+
 
 " }}}
 " Plugin > fzf {{{
