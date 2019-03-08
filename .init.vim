@@ -568,20 +568,23 @@ function! LinterStatus() abort
 endfunction
 set laststatus=2
 set statusline=
-set statusline+=\ %l
+set statusline+=%2*\ %l
 set statusline+=\ %*
-set statusline+=\ ‹‹
-set statusline+=\ %f\ %*
-set statusline+=\ ››
-set statusline+=\ %m
-set statusline+=\ %F
+set statusline+=%1*\ ‹‹
+set statusline+=%1*\ %f\ %*
+set statusline+=%1*\ ››
+set statusline+=%1*\ %m
+set statusline+=%3*\ %F
 set statusline+=%=
-set statusline+=\ %{LinterStatus()}
-set statusline+=\ ‹‹
-set statusline+=\ ::
-set statusline+=\ %n
-set statusline+=\ ››\ %*
-
+set statusline+=%3*\ %{LinterStatus()}
+set statusline+=%3*\ ‹‹
+set statusline+=%3*\ %{strftime('%R',getftime(expand('%')))}
+set statusline+=%3*\ ::
+set statusline+=%3*\ %n
+set statusline+=%3*\ ››\ %*
+hi User1 guifg=#FFFFFF guibg=#191f26 gui=BOLD
+hi User2 guifg=#000000 guibg=#959ca6
+hi User3 guifg=#000000 guibg=#4cbf99
 
 " }}}
 " Plugin > fzf {{{
