@@ -84,6 +84,17 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 autocmd FileType ruby setlocal expandtab shiftwidth=4 tabstop=4
 
+
+" Dynamically set window size
+" source https://forum.upcase.com/t/vimrc-winminwidth-e36-not-enough-room-error/4334
+set winheight=6
+set winminheight=6
+let &winheight = &lines - 5
+set winwidth=40
+set winminwidth=40
+let &winwidth = &columns - 40
+
+
 " }}}
 " Searching and highlighting {{{
 
