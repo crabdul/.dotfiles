@@ -249,6 +249,7 @@ nmap <silent> gF <c-w>v<c-w>lgf
 imap <leader>jk <esc>
 imap <leader>kj <esc>
 
+" TODO: delete?
 inoremap (; ();<left><left>
 inoremap (, ()<left>
 inoremap {; {};<left><left>
@@ -567,38 +568,75 @@ nnoremap <leader>gr :SignifyRefresh<CR>
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " }}}
-" Plugin > lightline {{{
+" StatusLine: {{{
+
+let g:currentmode={
+            \ 'n'      : 'NORMAL',
+            \ 'no'     : 'N·Operator Pending',
+            \ 'v'      : 'VISUAL',
+            \ 'V'      : 'V·LINE',
+            \ '\<C-V>' : 'V·BLOCK',
+            \ 's'      : 'Select',
+            \ 'S'      : 'S·Line',
+            \ '\<C-S>' : 'S·Block',
+            \ 'i'      : 'INSERT',
+            \ 'R'      : 'R',
+            \ 'Rv'     : 'V·Replace',
+            \ 'c'      : 'Command',
+            \ 'cv'     : 'Vim Ex',
+            \ 'ce'     : 'Ex',
+            \ 'r'      : 'Prompt',
+            \ 'rm'     : 'More',
+            \ 'r?'     : 'Confirm',
+            \ '!'      : 'Shell',
+            \ 't'      : 'TERMINAL '
+            \}
+
+
+" Automatically change the statusline color depending on mode
+function! ChangeStatuslineColor()
+    if (mode() =~# '\v(n|no)')
+        exe 'hi! StatusLine guifg=#ffdad8 guibg=#880c0e'
+    elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
+        exe 'hi! StatusLine guifg=#ffffff guibg=#dd6188'
+    elseif (mode() ==# 'i')
+        exe 'hi! StatusLine guifg=#051d00 guibg=#88ae88'
+    else
+        exe 'hi! StatusLine guifg=#ffffff guibg=#d6afb0'
+    endif
+
+    return ''
+endfunction
 
 " Function: display errors from Ale in statusline
 function! LinterStatus() abort
-   let l:counts = ale#statusline#Count(bufnr(''))
-   let l:all_errors = l:counts.error + l:counts.style_error
-   let l:all_non_errors = l:counts.total - l:all_errors
-   return l:counts.total == 0 ? '' : printf(
-   \ 'W:%d E:%d',
-   \ l:all_non_errors,
-   \ l:all_errors
-   \)
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : printf(
+                \ '▲:%d ✖︎:%d',
+                \ l:all_non_errors,
+                \ l:all_errors
+                \)
 endfunction
+
 set laststatus=2
 set statusline=
-set statusline+=%2*\ %l
+set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
 set statusline+=\ %*
-set statusline+=%1*\ ‹‹
-set statusline+=%1*\ %f\ %*
-set statusline+=%1*\ ››
-set statusline+=%1*\ %m
 set statusline+=%3*\ %F
+set statusline+=%1*\ %m                 " Modified flag
+set statusline+=%1*\ %r                 " Read only flag
 set statusline+=%=
 set statusline+=%3*\ %{LinterStatus()}
-set statusline+=%3*\ ‹‹
-set statusline+=%3*\ %{strftime('%R',getftime(expand('%')))}
-set statusline+=%3*\ ::
-set statusline+=%3*\ %n
-set statusline+=%3*\ ››\ %*
-hi User1 guifg=#FFFFFF guibg=#191f26 gui=BOLD
-hi User2 guifg=#000000 guibg=#959ca6
-hi User3 guifg=#000000 guibg=#4cbf99
+set statusline+=%3*\ %*
+set statusline+=%3*\ %3p%%\                 " total (%)
+set statusline+=%3*\ %*
+
+hi User1 guifg=#ffffff  guibg=#222222
+hi User2 guifg=#ffffff guibg=#111111
+hi User3 guifg=#ffffff guibg=#222222
 
 " }}}
 " Plugin > fzf {{{
