@@ -596,7 +596,7 @@ let g:currentmode={
 " Automatically change the statusline color depending on mode
 function! ChangeStatuslineColor()
     if (mode() =~# '\v(n|no)')
-        exe 'hi! StatusLine guifg=#ffdad8 guibg=#880c0e'
+        exe 'hi! StatusLine guifg=#ffffff guibg=#5b7fbb'
     elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
         exe 'hi! StatusLine guifg=#ffffff guibg=#dd6188'
     elseif (mode() ==# 'i')
