@@ -508,7 +508,7 @@ let g:ale_javascript_eslint_executable = $HOME."/.nvm/versions/node/v10.15.0/bin
 " check files with linters
 let g:ale_linters = {
     \ 'javascript': ['eslint', 'prettier_eslint'],
-    \ 'python': ['flake8', 'pylint']
+    \ 'python': ['black']
     \ }
 
 " Fix files with ESLint then Prettier
