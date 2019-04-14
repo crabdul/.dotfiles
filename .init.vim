@@ -237,10 +237,6 @@ nmap <silent> gF <c-w>v<c-w>lgf
 " }}}
 " INSERT MODE {{{
 
-" escape
-imap <leader>jk <esc>
-imap <leader>kj <esc>
-
 " autocomplete quotation marks
 inoremap " ""<left>
 inoremap ', ''<left>
