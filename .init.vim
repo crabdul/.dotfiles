@@ -145,17 +145,8 @@ nnoremap <expr> j v:count ? 'j' : 'gj'
 " move up by visual line
 nnoremap <expr> k v:count ? 'k' : 'gk' 
 
-" move to beginning of line
-nnoremap B ^
-
-" move to end of line
-nnoremap E $
-
 " highlight last inserted text
 nnoremap gV `[v`]
-
-" Map <Space> to / (search)
-nnoremap <leader><space> /
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -239,6 +230,7 @@ map <leader>sa zg
 
 nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 
+" Open file under cursor in new tab
 nmap <silent> gF <c-w>v<c-w>lgf
 
 
