@@ -241,14 +241,6 @@ nmap <silent> gF <c-w>v<c-w>lgf
 imap <leader>jk <esc>
 imap <leader>kj <esc>
 
-" TODO: delete?
-inoremap (; ();<left><left>
-inoremap (, ()<left>
-inoremap {; {};<left><left>
-inoremap {, {}<left>
-inoremap [; [];<left><left>
-inoremap [, []<left>
-
 " autocomplete quotation marks
 inoremap " ""<left>
 inoremap ', ''<left>
