@@ -237,14 +237,9 @@ nmap <silent> gF <c-w>v<c-w>lgf
 " }}}
 " INSERT MODE {{{
 
-" autocomplete quotation marks
-inoremap " ""<left>
-inoremap ', ''<left>
-
 " move lines up/down
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-
+inoremap ˚ <Esc>:m .-2<CR>==gi
+inoremap ∆ <Esc>:m .+1<CR>==gi
 
 " }}}
 " NORMAL MODE {{{
