@@ -536,8 +536,6 @@ highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff
 " view diff
 nnoremap <leader>hv :SignifyDiff<cr>
 
-" refresh
-nnoremap <leader>gr :SignifyRefresh<CR>
 
 " }}}
 " Plugin > Omni complete functions {{{
