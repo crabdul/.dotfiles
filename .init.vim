@@ -688,7 +688,7 @@ vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 map <leader>g :Ack!<space>
 
 " find currently selected word
-nmap gc :Ack! "\b<cword>\b" <CR>
+nmap gw :Ack! "\b<cword>\b" <CR>
 
 " find and replace text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
