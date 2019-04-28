@@ -71,6 +71,10 @@ set tm=500
 set splitbelow
 set splitright
 
+" Do not use diff mode for a buffer when it becomes hidden.
+set diffopt+=hiddenoff
+
+
 " }}}
 " Tabs and spaces {{{
 
