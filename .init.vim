@@ -423,6 +423,7 @@ Plug 'junegunn/fzf.vim'
 
 " Use 'i' as a text obj for an indented block
 Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-user'  " requirement of vim-textobj-indent
 
 " Use 'f' for function, 'c' for class
 Plug 'bps/vim-textobj-python'
