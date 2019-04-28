@@ -403,6 +403,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
@@ -449,9 +450,6 @@ Plug 'lambdalisue/gina.vim'
 
 Plug 'Raimondi/delimitMate'
 
-" saiw( makes foo to (foo)
-" sdb or sd( makes (foo) to foo
-" srb' or sr(' makes (foo) to 'foo'
 Plug 'machakann/vim-sandwich'
 
 Plug 'bkad/CamelCaseMotion'
@@ -839,14 +837,19 @@ let g:UltiSnipsSnippetDirectories=['/Users/abdulkarim/.vim/ultisnips']
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+
 " }}} UltiSnips "
 " DelimitMate: {{{
+
 let delimitMate_expand_cr = 1
+
 
 " }}}
 " Gina: {{{
+
 command! G Gina
 command! Gs Gina status -s
+
 
 " }}}
 " CamelCaseMotion: {{{
@@ -854,11 +857,11 @@ command! Gs Gina status -s
 map <silent> W <Plug>CamelCaseMotion_w
 map <silent> B <Plug>CamelCaseMotion_b
 map <silent> E <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
+map <silent> gE <Plug>CamelCaseMotion_ge
 sunmap W
 sunmap B
 sunmap E
-sunmap ge
+sunmap gE
 
 omap <silent> iW <Plug>CamelCaseMotion_iw
 xmap <silent> iW <Plug>CamelCaseMotion_iw
