@@ -403,7 +403,6 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
@@ -837,7 +836,6 @@ let g:UltiSnipsSnippetDirectories=['/Users/abdulkarim/.vim/ultisnips']
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-
 " }}} UltiSnips "
 " DelimitMate: {{{
 
@@ -849,7 +847,6 @@ let delimitMate_expand_cr = 1
 
 command! G Gina
 command! Gs Gina status -s
-
 
 " }}}
 " CamelCaseMotion: {{{
