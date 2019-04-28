@@ -440,15 +440,6 @@ Plug 'wellle/targets.vim'
 " :CocInstall coc-highlight
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
-Plug 'honza/vim-snippets'
-
-" ES2015 code snippets (Optional)
-Plug 'epilande/vim-es2015-snippets'
-
-" React code snippets
-Plug 'epilande/vim-react-snippets'
-
-" Track the engine.
 Plug 'SirVer/ultisnips'
 
 Plug 'machakann/vim-highlightedyank'
@@ -841,9 +832,10 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " UltiSnips {{{ "
 
 let g:UltiSnipsExpandTrigger="mm"
-let g:UltiSnipsJumpForwardTrigger="<leader>f"
-let g:UltiSnipsJumpBackwardTrigger="<leader>d"
-let g:UltiSnipsListSnippets="<leader>z"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=['/Users/abdulkarim/.vim/ultisnips']
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " }}} UltiSnips "
 " DelimitMate: {{{

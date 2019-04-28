@@ -123,4 +123,8 @@ Remember to make the files executable using `chmod +x`
 ln -s ~/.dotfiles/.ctags ~/.ctags
 ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
 ```
-``
+
+**Ultisnips**
+```
+ln -s ~/.dotfiles/.vim/ultisnips ~/.vim/ultisnips
+```
