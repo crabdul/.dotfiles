@@ -253,6 +253,10 @@ nnoremap Y y$
 nnoremap n nzz
 nnoremap N Nzz
 
+" Centre when scrolling
+nnoremap <c-f> <c-f>zz
+nnoremap <c-b> <c-b>zz
+
 " move line up/down
 nnoremap ˚ :m--<CR>==
 nnoremap ∆ :m+<CR>==
