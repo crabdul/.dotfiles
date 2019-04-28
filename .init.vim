@@ -449,6 +449,9 @@ Plug 'lambdalisue/gina.vim'
 
 Plug 'Raimondi/delimitMate'
 
+" saiw( makes foo to (foo)
+" sdb or sd( makes (foo) to foo
+" srb' or sr(' makes (foo) to 'foo'
 Plug 'machakann/vim-sandwich'
 
 Plug 'bkad/CamelCaseMotion'
