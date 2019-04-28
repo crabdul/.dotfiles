@@ -58,5 +58,6 @@
     "workbench.startupEditor": "newUntitledFile",
     "gitlens.views.repositories.files.layout": "auto",
     "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true
+    "gitlens.views.lineHistory.enabled": true,
+    "editor.suggestSelection": "first"
 }

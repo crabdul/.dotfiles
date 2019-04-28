@@ -71,6 +71,10 @@ set tm=500
 set splitbelow
 set splitright
 
+" Do not use diff mode for a buffer when it becomes hidden.
+set diffopt+=hiddenoff
+
+
 " }}}
 " Tabs and spaces {{{
 
@@ -84,6 +88,8 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 autocmd FileType ruby setlocal expandtab shiftwidth=4 tabstop=4
 
+" tabline
+set guitablabel=%N\ %f
 
 " Dynamically set window size
 " source https://forum.upcase.com/t/vimrc-winminwidth-e36-not-enough-room-error/4334
@@ -251,9 +257,13 @@ nnoremap Y y$
 nnoremap n nzz
 nnoremap N Nzz
 
+" Centre when scrolling
+nnoremap <c-f> <c-f>zz
+nnoremap <c-b> <c-b>zz
+
 " move line up/down
-nnoremap <A-k> :m--<CR>==
-nnoremap <A-j> :m+<CR>==
+nnoremap ˚ :m--<CR>==
+nnoremap ∆ :m+<CR>==
 
 " revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
@@ -270,8 +280,8 @@ vnoremap K :move '<-2<CR>gv=gv
 vnoremap J :move '>+1<CR>gv=gv
 
 " move line up/down
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
 
 
 " }}}
@@ -397,7 +407,6 @@ Plug 'drewtempelmeyer/palenight.vim'
 
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/goyo.vim'                " distraction-free writing
 Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
@@ -434,15 +443,6 @@ Plug 'wellle/targets.vim'
 " :CocInstall coc-highlight
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
-Plug 'honza/vim-snippets'
-
-" ES2015 code snippets (Optional)
-Plug 'epilande/vim-es2015-snippets'
-
-" React code snippets
-Plug 'epilande/vim-react-snippets'
-
-" Track the engine.
 Plug 'SirVer/ultisnips'
 
 Plug 'machakann/vim-highlightedyank'
@@ -477,18 +477,15 @@ let g:palenight_terminal_italics=1
 " }}}
 " Plugin > ale {{{
 
-" use global version of eslint
-let g:ale_javascript_eslint_executable = $HOME."/.nvm/versions/node/v10.15.0/bin/eslint"
-
 " check files with linters
 let g:ale_linters = {
-    \ 'javascript': ['eslint', 'prettier_eslint'],
+    \ 'javascript': ['eslint', 'prettier'],
     \ 'python': ['black']
     \ }
 
 " Fix files with ESLint then Prettier
 let g:ale_fixers = {
-    \ 'javascript': ['eslint', 'prettier_eslint'],
+    \ 'javascript': ['eslint', 'prettier'],
     \ 'python': ['black'],
     \ }
 
@@ -534,8 +531,6 @@ highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff
 " view diff
 nnoremap <leader>hv :SignifyDiff<cr>
 
-" refresh
-nnoremap <leader>gr :SignifyRefresh<CR>
 
 " }}}
 " Plugin > Omni complete functions {{{
@@ -688,7 +683,7 @@ vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 map <leader>g :Ack!<space>
 
 " find currently selected word
-nmap gc :Ack! "\b<cword>\b" <CR>
+nmap gw :Ack! "\b<cword>\b" <CR>
 
 " find and replace text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
@@ -837,16 +832,20 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " UltiSnips {{{ "
 
 let g:UltiSnipsExpandTrigger="mm"
-let g:UltiSnipsJumpForwardTrigger="<leader>f"
-let g:UltiSnipsJumpBackwardTrigger="<leader>d"
-let g:UltiSnipsListSnippets="<leader>z"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=['/Users/abdulkarim/.vim/ultisnips']
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " }}} UltiSnips "
 " DelimitMate: {{{
+
 let delimitMate_expand_cr = 1
+
 
 " }}}
 " Gina: {{{
+
 command! G Gina
 command! Gs Gina status -s
 
@@ -856,11 +855,11 @@ command! Gs Gina status -s
 map <silent> W <Plug>CamelCaseMotion_w
 map <silent> B <Plug>CamelCaseMotion_b
 map <silent> E <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
+map <silent> gE <Plug>CamelCaseMotion_ge
 sunmap W
 sunmap B
 sunmap E
-sunmap ge
+sunmap gE
 
 omap <silent> iW <Plug>CamelCaseMotion_iw
 xmap <silent> iW <Plug>CamelCaseMotion_iw

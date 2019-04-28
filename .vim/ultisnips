@@ -1,0 +1,56 @@
+snippet r
+import React from 'react';
+endsnippet
+
+snippet const
+const ${1} = ${0};
+endsnippet
+
+snippet rp
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+endsnippet
+
+snippet rcc
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+class ${1:MyComponent} extends Component {
+	render() {
+		return (
+			${0:<div></div>}
+		)
+	}
+};
+
+${1:MyComponent}.propTypes = {
+
+};
+
+export default ${1:MyComponent};
+endsnippet
+
+snippet rpc
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const ${1:MyComponent} = ({ }) => {
+	return (
+		${0:<div></div>}
+	)
+};
+
+${1:MyComponent}.propTypes = {
+
+};
+
+export default ${1:MyComponent};
+endsnippet
+	
+snippet pta "Prop type array"
+PropTypes.array
+endsnippet
+
+snippet cl
+console.log("${1:value}", $1)
+endsnippet
