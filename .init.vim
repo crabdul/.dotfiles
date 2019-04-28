@@ -477,18 +477,15 @@ let g:palenight_terminal_italics=1
 " }}}
 " Plugin > ale {{{
 
-" use global version of eslint
-let g:ale_javascript_eslint_executable = $HOME."/.nvm/versions/node/v10.15.0/bin/eslint"
-
 " check files with linters
 let g:ale_linters = {
-    \ 'javascript': ['eslint', 'prettier_eslint'],
+    \ 'javascript': ['eslint', 'prettier'],
     \ 'python': ['black']
     \ }
 
 " Fix files with ESLint then Prettier
 let g:ale_fixers = {
-    \ 'javascript': ['eslint', 'prettier_eslint'],
+    \ 'javascript': ['eslint', 'prettier'],
     \ 'python': ['black'],
     \ }
 
