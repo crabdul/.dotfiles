@@ -1,0 +1,17 @@
+{
+	"coc.preferences.triggerAfterInsertEnter": true,
+	"coc.preferences.minTriggerInputLength": 2,
+	"coc.preferences.snippetIndicator": "⭐︎",
+	"coc.preferences.noselect": false,
+    "coc.preferences.diagnostic.enable": false,
+    "snippets.ultisnips.directories": [
+        "UltiSnips",
+        "~/.snippets/javascript.snippets",
+        "snippets",
+        "/Users/abdulkarim/.vim/plugged/vim-snippets/snippets",
+        "/Users/abdulkarim/.vim/plugged/vim-snippets"
+    ],
+    "snippets.ultisnips.enable": true,
+    "list.maxHeight": 4,
+}
+
