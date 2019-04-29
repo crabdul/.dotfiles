@@ -485,6 +485,7 @@ let g:ale_linters = {
 
 " Fix files with ESLint then Prettier
 let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
     \ 'javascript': ['eslint', 'prettier'],
     \ 'python': ['black'],
     \ }
