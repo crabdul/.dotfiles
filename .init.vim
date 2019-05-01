@@ -460,6 +460,9 @@ Plug 'machakann/vim-sandwich'
 
 Plug 'bkad/CamelCaseMotion'
 
+Plug 'junegunn/vim-peekaboo'
+
+
 " Initialize plugin system
 call plug#end()
 
