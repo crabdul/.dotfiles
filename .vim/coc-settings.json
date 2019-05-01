@@ -13,5 +13,6 @@
     ],
     "snippets.ultisnips.enable": true,
     "list.maxHeight": 4,
+    "python.jediEnabled": false,
     "pyls.trace.server": "verbose"
 }

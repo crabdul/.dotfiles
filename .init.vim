@@ -439,12 +439,11 @@ Plug 'bps/vim-textobj-python'
 " Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
 Plug 'wellle/targets.vim'
 
-" RUN:
-" :CocInstall coc-css
-" :CocInstall coc-pyls
-" :CocInstall coc-tsserver
-" :CocInstall coc-highlight
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'SirVer/ultisnips'
 
@@ -461,7 +460,6 @@ Plug 'machakann/vim-sandwich'
 Plug 'bkad/CamelCaseMotion'
 
 Plug 'junegunn/vim-peekaboo'
-
 
 " Initialize plugin system
 call plug#end()
