@@ -128,3 +128,9 @@ ln -s ~/.dotfiles/.gitignore_global ~/.gitignore_global
 ```
 ln -s ~/.dotfiles/.vim/ultisnips ~/.vim/ultisnips
 ```
+
+**coc nvim**
+``
+ln -s ~/.dotfiles/.vim/coc-settings.json ~/.vim/coc-settings.json
+``
+``
