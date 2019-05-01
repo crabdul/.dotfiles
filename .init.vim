@@ -36,7 +36,7 @@ nmap <leader>q :q!<cr>
 " No swap file
 set noswapfile
 
-" esc for terminal 
+" esc for terminal
 tnoremap <Esc> <C-\><C-n>
 
 set mouse=a                     " enable use of mouse in all modes
@@ -45,24 +45,27 @@ set mousehide                   " hide mouse when typing
 " declare lines from end of file just for vim
 set modelines=1
 
+" make swapfiles be kept in a central location to avoid polluting file system
+set directory=$HOME/.vim/swapfiles//
+
 
 " }}}
 " UI {{{
 
-set lazyredraw                   " Don't redraw while executing macros 
-set magic                        " For regular expressions turn magic on 
-set showmatch                    " Show matching brackets when text indicator is over them 
-set mat=2                        " How many tenths of a second to blink when matching brackets 
+set lazyredraw                   " Don't redraw while executing macros
+set magic                        " For regular expressions turn magic on
+set showmatch                    " Show matching brackets when text indicator is over them
+set mat=2                        " How many tenths of a second to blink when matching brackets
 
-set number                       " show current line number 
-set relativenumber               " show lines number relative to current 
-set showcmd                      " show command in bottom bar 
+set number                       " show current line number
+set relativenumber               " show lines number relative to current
+set showcmd                      " show command in bottom bar
 
 set equalalways                 " keep windows equally sized
 set title                       " Set window title to filename
 set colorcolumn=80              " set column width
 
-set noerrorbells                 " No annoying sounds on errors 
+set noerrorbells                 " No annoying sounds on errors
 set novisualbell
 set t_vb=
 set tm=500
@@ -80,10 +83,10 @@ set diffopt+=hiddenoff
 
 set tabstop=4
 set shiftwidth=4
-set softtabstop=4                " number of spaces in tab when editing 
-set expandtab                    " tabs are spaces 
+set softtabstop=4                " number of spaces in tab when editing
+set expandtab                    " tabs are spaces
 
-set list                         " highlight extra white spaces 
+set list                         " highlight extra white spaces
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 autocmd FileType ruby setlocal expandtab shiftwidth=4 tabstop=4
@@ -104,12 +107,12 @@ let &winwidth = &columns - 40
 " }}}
 " Searching and highlighting {{{
 
-set hlsearch                     " higlight matches 
-set ignorecase                   " Ignore case when searching 
-set smartcase                    " When searching try to be smart about cases 
-set incsearch                    " search as characters are entered 
+set hlsearch                     " higlight matches
+set ignorecase                   " Ignore case when searching
+set smartcase                    " When searching try to be smart about cases
+set incsearch                    " search as characters are entered
 
-set cursorline                   " highlight current line 
+set cursorline                   " highlight current line
 
 set inccommand=nosplit           " replace in realtime
 
@@ -149,7 +152,7 @@ nnoremap <leader>e za
 nnoremap <expr> j v:count ? 'j' : 'gj'
 
 " move up by visual line
-nnoremap <expr> k v:count ? 'k' : 'gk' 
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 " highlight last inserted text
 nnoremap gV `[v`]
@@ -180,7 +183,7 @@ nnoremap L gt
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
       set switchbuf=useopen,usetab,newtab
       set stal=2
@@ -302,7 +305,7 @@ endfunc
 
 function! CmdLine(str)
     call feedkeys(":" . a:str)
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -343,14 +346,14 @@ au BufRead,BufNewFile *.py set expandtab
 
 au FileType python map <buffer> F :set foldmethod=indent<cr>
 
-au FileType python inoremap <buffer> $r return 
-au FileType python inoremap <buffer> $i import 
-au FileType python inoremap <buffer> $p print 
+au FileType python inoremap <buffer> $r return
+au FileType python inoremap <buffer> $i import
+au FileType python inoremap <buffer> $p print
 au FileType python inoremap <buffer> $f # --- <esc>a
-au FileType python map <buffer> <leader>1 /class 
-au FileType python map <buffer> <leader>2 /def 
-au FileType python map <buffer> <leader>C ?class 
-au FileType python map <buffer> <leader>D ?def 
+au FileType python map <buffer> <leader>1 /class
+au FileType python map <buffer> <leader>2 /def
+au FileType python map <buffer> <leader>C ?class
+au FileType python map <buffer> <leader>D ?def
 au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
@@ -360,7 +363,7 @@ au FileType python set indentkeys-=0#
 
 au FileType javascript call JavaScriptFold()
 
-function! JavaScriptFold() 
+function! JavaScriptFold()
     setl foldmethod=syntax
     setl foldlevelstart=5
     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
@@ -413,7 +416,7 @@ Plug 'mileszs/ack.vim'                  " ack
 Plug 'mhinz/vim-signify'                " git status along file
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'sheerun/vim-polyglot'             " Language starter pack
-Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open 
+Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open
 Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vim-scripts/indentLine.vim'       " indent guides
@@ -527,9 +530,9 @@ omap ac <plug>(signify-motion-outer-pending)
 xmap ac <plug>(signify-motion-outer-visual)
 
 " colours
-highlight DiffAdd guifg=#00d75f guibg=#fff 
-highlight DiffChange guifg=#00afff guibg=#fff 
-highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff 
+highlight DiffAdd guifg=#00d75f guibg=#fff
+highlight DiffChange guifg=#00afff guibg=#fff
+highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff
 
 " view diff
 nnoremap <leader>hv :SignifyDiff<cr>
@@ -615,7 +618,7 @@ hi User3 guifg=#ffffff guibg=#222222
 " Plugin > fzf {{{
 
 " Open Ag and put the cursor in the right position
-map <leader>a :Ag 
+map <leader>a :Ag
 
 " file finder in extended search mode
 nmap <leader>f :Files<cr>
