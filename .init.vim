@@ -620,6 +620,7 @@ set statusline+=%3*\ %F
 set statusline+=%1*\ %m                 " Modified flag
 set statusline+=%1*\ %r                 " Read only flag
 set statusline+=%=
+set statusline+=%3{coc#status()}
 set statusline+=%3*\ %{LinterStatus()}
 set statusline+=%3*\ %*
 set statusline+=%3*\ %3p%%\                 " total (%)
