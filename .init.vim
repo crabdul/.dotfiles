@@ -332,6 +332,9 @@ vmap sp "zdi<p><C-R>z</p><ESC>
 vmap sd "zdi<div><C-R>z</div><ESC>
 vmap ss "zdi<span><C-R>z</span><ESC>
 
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 
 " }}}
 " Python filetypes {{{
