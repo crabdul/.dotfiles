@@ -244,6 +244,17 @@ nmap <silent> gF <c-w>v<c-w>lgf
 
 
 " }}}
+" Sessions: {{{
+
+" Must create this directory first
+let g:session_dir = '~/.vim-sessions'
+
+" Shortcuts to execute session saves and restores
+exec 'nnoremap <Leader>ss :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
+
+
+" }}}
 " INSERT MODE {{{
 
 " move lines up/down
