@@ -439,12 +439,6 @@ Plug 'bps/vim-textobj-python'
 " Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
 Plug 'wellle/targets.vim'
 
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-
 Plug 'SirVer/ultisnips'
 
 Plug 'machakann/vim-highlightedyank'
@@ -461,9 +455,32 @@ Plug 'bkad/CamelCaseMotion'
 
 Plug 'junegunn/vim-peekaboo'
 
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+" After vim-lsp, etc
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
 " Initialize plugin system
 call plug#end()
 
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+au User lsp_setup call lsp#register_server({
+            \ 'name': 'tsserver',
+            \ 'cmd': { server_info->['tsserver --stdio']},
+            \ 'whitelist': ['javascript', 'javascript.jsx']
+            \ })
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 " }}}
 " Theme {{{
 
@@ -618,7 +635,6 @@ set statusline+=%3*\ %F
 set statusline+=%1*\ %m                 " Modified flag
 set statusline+=%1*\ %r                 " Read only flag
 set statusline+=%=
-set statusline+=%3{coc#status()}
 set statusline+=%3*\ %{LinterStatus()}
 set statusline+=%3*\ %*
 set statusline+=%3*\ %3p%%\                 " total (%)
@@ -794,36 +810,6 @@ set signcolumn=yes
 
 set completeopt-=preview
 
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" trigger completion.
-inoremap <silent><expr> <leader>t coc#refresh()
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
