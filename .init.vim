@@ -256,6 +256,25 @@ nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 " Open file under cursor in new tab
 nmap <silent> gF <c-w>v<c-w>lgf
 
+function! QuickFixListWithChangeFilesFromMaster()
+    " Get the result of git show in a list
+    let flist = system('git diff master... --name-only')
+    let flist = split(flist, '\n')
+
+    " Create the dictionnaries used to populate the quickfix list
+    let list = []
+    for f in flist
+        let dic = {'filename': f, "lnum": 1}
+        call add(list, dic)
+    endfor
+
+    " Populate the qf list
+    call setqflist(list)
+    copen
+endfunction
+
+nnoremap <leader>cf :call QuickFixListWithChangeFilesFromMaster()<cr>
+
 
 " }}}
 " Sessions: {{{
