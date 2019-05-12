@@ -48,6 +48,12 @@ set modelines=1
 " make swapfiles be kept in a central location to avoid polluting file system
 set directory=$HOME/.vim/swapfiles//
 
+nmap < [
+nmap > ]
+omap < [
+omap > ]
+xmap < [
+xmap > ]
 
 " }}}
 " UI {{{
