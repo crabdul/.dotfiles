@@ -250,6 +250,10 @@ nmap <silent> gF <c-w>v<c-w>lgf
 inoremap ˚ <Esc>:m .-2<CR>==gi
 inoremap ∆ <Esc>:m .+1<CR>==gi
 
+" Make Ctrl-e jump to the end of the current line
+inoremap <C-e> <C-o>$
+
+
 " }}}
 " NORMAL MODE {{{
 
