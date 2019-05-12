@@ -270,6 +270,10 @@ exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS
 inoremap ˚ <Esc>:m .-2<CR>==gi
 inoremap ∆ <Esc>:m .+1<CR>==gi
 
+" Make Ctrl-e jump to the end of the current line
+inoremap <C-e> <C-o>$
+
+
 " }}}
 " NORMAL MODE {{{
 
@@ -291,6 +295,12 @@ nnoremap ∆ :m+<CR>==
 " revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
 
+" replace the current word and all its occurrences.
+nnoremap <Leader>rc :%s:\<<C-r><C-w>\>:
+
+" same as above but prefill
+nnoremap <Leader>cc :%s:\<<C-r><C-w>\>:<C-r><C-w>
+
 
 " }}}
 " VISUAL MODE {{{
@@ -305,6 +315,24 @@ vnoremap J :move '>+1<CR>gv=gv
 " move line up/down
 vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
+
+" Stay in visual mode when indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" replace the current word and all its occurrences.
+vnoremap <Leader>rc y:%s:<C-r>":
+
+" same as above but prefill
+vnoremap <Leader>cc y:%s:<C-r>":<C-r>"
+
+
+" }}}
+" COMMAND MODE: {{{
+
+" In command mode (i.e. after pressing ':'), expand %% to the path of the current
+" buffer
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 
 " }}}
