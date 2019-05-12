@@ -275,6 +275,12 @@ nnoremap ∆ :m+<CR>==
 " revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
 
+" replace the current word and all its occurrences.
+nnoremap <Leader>rc :%s:\<<C-r><C-w>\>:
+
+" same as above but prefill
+nnoremap <Leader>cc :%s:\<<C-r><C-w>\>:<C-r><C-w>
+
 
 " }}}
 " VISUAL MODE {{{
@@ -293,6 +299,13 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 " Stay in visual mode when indenting
 vnoremap < <gv
 vnoremap > >gv
+
+" replace the current word and all its occurrences.
+vnoremap <Leader>rc y:%s:<C-r>":
+
+" same as above but prefill
+vnoremap <Leader>cc y:%s:<C-r>":<C-r>"
+
 
 " }}}
 " COMMAND MODE: {{{
