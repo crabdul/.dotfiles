@@ -136,6 +136,15 @@ autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 nnoremap gs /<C-R><C-W>
 
 " }}}
+" Regex: {{{
+
+" From http://www.vimregex.com
+noremap ;; :%s:::g<Left><Left><Left>
+noremap ;' :%s:::cg<Left><Left><Left><Left>
+cmap ;\ \(\)<Left><Left>
+
+
+" }}}
 " Folding {{{
 
 set foldenable                   " enable folding
