@@ -295,6 +295,14 @@ vnoremap < <gv
 vnoremap > >gv
 
 " }}}
+" COMMAND MODE: {{{
+
+" In command mode (i.e. after pressing ':'), expand %% to the path of the current
+" buffer
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+
+" }}}
 " Custom functions {{{
 
 " toggle between number and relativenumber
