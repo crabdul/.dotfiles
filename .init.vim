@@ -636,6 +636,9 @@ command! -bang -nargs=* GGrep
   \   'git diff master... --name-only', 0,
   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 " Open Ag and put the cursor in the right position
 map <leader>a :Ag
 
