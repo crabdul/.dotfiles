@@ -163,12 +163,6 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Close the current buffer without closing the window
-map <leader>bd :BD<cr>
-
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
