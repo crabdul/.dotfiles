@@ -242,6 +242,25 @@ nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 " Open file under cursor in new tab
 nmap <silent> gF <c-w>v<c-w>lgf
 
+function! QuickFixListWithChangeFilesFromMaster()
+    " Get the result of git show in a list
+    let flist = system('git diff master... --name-only')
+    let flist = split(flist, '\n')
+
+    " Create the dictionnaries used to populate the quickfix list
+    let list = []
+    for f in flist
+        let dic = {'filename': f, "lnum": 1}
+        call add(list, dic)
+    endfor
+
+    " Populate the qf list
+    call setqflist(list)
+    copen
+endfunction
+
+nnoremap <leader>cf :call QuickFixListWithChangeFilesFromMaster()<cr>
+
 
 " }}}
 " INSERT MODE {{{
@@ -630,14 +649,6 @@ hi User3 guifg=#ffffff guibg=#222222
 
 " }}}
 " Plugin > fzf {{{
-
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git diff master... --name-only', 0,
-  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
-
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " Open Ag and put the cursor in the right position
 map <leader>a :Ag
