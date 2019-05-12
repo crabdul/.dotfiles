@@ -48,6 +48,12 @@ set modelines=1
 " make swapfiles be kept in a central location to avoid polluting file system
 set directory=$HOME/.vim/swapfiles//
 
+nmap < [
+nmap > ]
+omap < [
+omap > ]
+xmap < [
+xmap > ]
 
 " }}}
 " UI {{{
@@ -128,6 +134,15 @@ autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 
 " pull <cword> onto search/command line
 nnoremap gs /<C-R><C-W>
+
+" }}}
+" Regex: {{{
+
+" From http://www.vimregex.com
+noremap ;; :%s:::g<Left><Left><Left>
+noremap ;' :%s:::cg<Left><Left><Left><Left>
+cmap ;\ \(\)<Left><Left>
+
 
 " }}}
 " Folding {{{
