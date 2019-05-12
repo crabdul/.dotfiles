@@ -286,6 +286,9 @@ vnoremap J :move '>+1<CR>gv=gv
 vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
+" Stay in visual mode when indenting
+vnoremap < <gv
+vnoremap > >gv
 
 " }}}
 " Custom functions {{{
