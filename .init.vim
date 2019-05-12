@@ -631,6 +631,11 @@ hi User3 guifg=#ffffff guibg=#222222
 " }}}
 " Plugin > fzf {{{
 
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git diff master... --name-only', 0,
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+
 " Open Ag and put the cursor in the right position
 map <leader>a :Ag
 
