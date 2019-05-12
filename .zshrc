@@ -26,7 +26,7 @@ export NVM_LAZY_LOAD=true
 
 
 # =============================================================================
-# NeoVim 
+# NeoVim
 # =============================================================================
 
 export EDITOR='nvim'
@@ -46,7 +46,7 @@ alias sourcezsh='source ~/.zshrc'
 # Navigation
 alias dot="~/.dotfiles"
 
-# Hub 
+# Hub
 alias hpr='hub pull-request'
 alias pulls='hub browse -- pulls'
 alias wiki='hub browse -- wiki'
@@ -69,10 +69,15 @@ fe() {
     [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
+if type fd > /dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git node_modules'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
 # Grep from vim file
 function helpvim() { cat "$HOME/.dotfiles/.init.vim" | grep -A 1 -B 1 --color $*; }
 
-# ctags 
+# ctags
 # https://gist.github.com/nazgob/1570678
 alias ctags="`brew --prefix`/bin/ctags"
 
@@ -101,7 +106,7 @@ if ! zgen saved; then
 
     # Prezto options
     zgen prezto prompt theme 'sorin'
-    
+
     # Prezto modules
     zgen prezto command-not-found
 
