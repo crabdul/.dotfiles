@@ -536,6 +536,9 @@ Plug 'bkad/CamelCaseMotion'
 
 Plug 'junegunn/vim-peekaboo'
 
+Plug 'itchyny/lightline.vim'
+
+
 " Initialize plugin system
 call plug#end()
 
@@ -634,44 +637,6 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " }}}
 " StatusLine: {{{
 
-let g:currentmode={
-            \ 'n'      : 'NORMAL',
-            \ 'no'     : 'N·Operator Pending',
-            \ 'v'      : 'VISUAL',
-            \ 'V'      : 'V·LINE',
-            \ '\<C-V>' : 'V·BLOCK',
-            \ 's'      : 'Select',
-            \ 'S'      : 'S·Line',
-            \ '\<C-S>' : 'S·Block',
-            \ 'i'      : 'INSERT',
-            \ 'R'      : 'R',
-            \ 'Rv'     : 'V·Replace',
-            \ 'c'      : 'Command',
-            \ 'cv'     : 'Vim Ex',
-            \ 'ce'     : 'Ex',
-            \ 'r'      : 'Prompt',
-            \ 'rm'     : 'More',
-            \ 'r?'     : 'Confirm',
-            \ '!'      : 'Shell',
-            \ 't'      : 'TERMINAL '
-            \}
-
-
-" Automatically change the statusline color depending on mode
-function! ChangeStatuslineColor()
-    if (mode() =~# '\v(n|no)')
-        exe 'hi! StatusLine guifg=#ffffff guibg=#5b7fbb'
-    elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-        exe 'hi! StatusLine guifg=#ffffff guibg=#dd6188'
-    elseif (mode() ==# 'i')
-        exe 'hi! StatusLine guifg=#051d00 guibg=#88ae88'
-    else
-        exe 'hi! StatusLine guifg=#ffffff guibg=#d6afb0'
-    endif
-
-    return ''
-endfunction
-
 " Function: display errors from Ale in statusline
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -684,24 +649,76 @@ function! LinterStatus() abort
                 \)
 endfunction
 
-set laststatus=2
-set statusline=
-set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
-set statusline+=\ %*
-set statusline+=%3*\ %F
-set statusline+=%1*\ %m                 " Modified flag
-set statusline+=%1*\ %r                 " Read only flag
-set statusline+=%=
-set statusline+=%3{coc#status()}
-set statusline+=%3*\ %{LinterStatus()}
-set statusline+=%3*\ %*
-set statusline+=%3*\ %3p%%\                 " total (%)
-set statusline+=%3*\ %*
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ ['percent'], [ 'linterStatus', 'coc' ] ]
+      \ },
+      \ 'component_function': {
+      \   'linterStatus': 'LinterStatus',
+      \   'coc': 'coc#status'
+      \ },
+      \ }
 
-hi User1 guifg=#ffffff  guibg=#222222
-hi User2 guifg=#ffffff guibg=#111111
-hi User3 guifg=#ffffff guibg=#222222
+" let g:currentmode={
+"             \ 'n'      : 'NORMAL',
+"             \ 'no'     : 'N·Operator Pending',
+"             \ 'v'      : 'VISUAL',
+"             \ 'V'      : 'V·LINE',
+"             \ '\<C-V>' : 'V·BLOCK',
+"             \ 's'      : 'Select',
+"             \ 'S'      : 'S·Line',
+"             \ '\<C-S>' : 'S·Block',
+"             \ 'i'      : 'INSERT',
+"             \ 'R'      : 'R',
+"             \ 'Rv'     : 'V·Replace',
+"             \ 'c'      : 'Command',
+"             \ 'cv'     : 'Vim Ex',
+"             \ 'ce'     : 'Ex',
+"             \ 'r'      : 'Prompt',
+"             \ 'rm'     : 'More',
+"             \ 'r?'     : 'Confirm',
+"             \ '!'      : 'Shell',
+"             \ 't'      : 'TERMINAL '
+"             \}
+
+
+" " Automatically change the statusline color depending on mode
+" function! ChangeStatuslineColor()
+"     if (mode() =~# '\v(n|no)')
+"         exe 'hi! StatusLine guifg=#ffffff guibg=#5b7fbb'
+"     elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
+"         exe 'hi! StatusLine guifg=#ffffff guibg=#dd6188'
+"     elseif (mode() ==# 'i')
+"         exe 'hi! StatusLine guifg=#051d00 guibg=#88ae88'
+"     else
+"         exe 'hi! StatusLine guifg=#ffffff guibg=#d6afb0'
+"     endif
+
+"     return ''
+" endfunction
+
+
+" set laststatus=2
+" set statusline=
+" set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
+" set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
+" set statusline+=\ %*
+" set statusline+=%3*\ %F
+" set statusline+=%1*\ %m                 " Modified flag
+" set statusline+=%1*\ %r                 " Read only flag
+" set statusline+=%=
+" set statusline+=%3{coc#status()}
+" set statusline+=%3*\ %{LinterStatus()}
+" set statusline+=%3*\ %*
+" set statusline+=%3*\ %3p%%\                 " total (%)
+" set statusline+=%3*\ %*
+
+" hi User1 guifg=#ffffff  guibg=#222222
+" hi User2 guifg=#ffffff guibg=#111111
+" hi User3 guifg=#ffffff guibg=#222222
 
 " }}}
 " Plugin > fzf {{{
