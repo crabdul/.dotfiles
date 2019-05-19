@@ -131,6 +131,6 @@ ln -s ~/.dotfiles/.vim/ultisnips ~/.vim/ultisnips
 
 **coc nvim**
 ``
-ln -s ~/.dotfiles/.vim/coc-settings.json ~/.vim/coc-settings.json
+ln -s ~/.dotfiles/.vim/coc-settings.json ~/.config/nvim/coc-settings.json
 ``
 ``
