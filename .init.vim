@@ -274,6 +274,7 @@ endfunction
 
 nnoremap <leader>cf :call QuickFixListWithChangeFilesFromMaster()<cr>
 
+autocmd! FileType qf nnoremap <buffer> <c-x> <C-w><Enter><C-w>K
 
 " }}}
 " Sessions: {{{
