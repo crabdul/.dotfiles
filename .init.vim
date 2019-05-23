@@ -107,12 +107,16 @@ set guitablabel=%N\ %f
 
 " Dynamically set window size
 " source https://forum.upcase.com/t/vimrc-winminwidth-e36-not-enough-room-error/4334
-set winheight=6
-set winminheight=6
-let &winheight = &lines - 5
-set winwidth=40
-set winminwidth=40
-let &winwidth = &columns - 40
+fun! SetWindowSizes()
+    set winheight=6
+    set winminheight=6
+    let &winheight = &lines - 5
+    " set winwidth=84
+    " silent set winminwidth=84
+    " let &winwidth = &columns - 40
+endfun
+
+autocmd WinEnter * call SetWindowSizes()
 
 
 " }}}
