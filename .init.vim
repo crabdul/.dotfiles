@@ -542,6 +542,8 @@ Plug 'junegunn/vim-peekaboo'
 
 Plug 'itchyny/lightline.vim'
 
+" mappings for enhancing in-buffer search
+Plug 'junegunn/vim-slash'
 
 " Initialize plugin system
 call plug#end()
@@ -984,6 +986,11 @@ xmap <silent> iB <Plug>CamelCaseMotion_ib
 omap <silent> iE <Plug>CamelCaseMotion_ie
 xmap <silent> iE <Plug>CamelCaseMotion_ie
 
+
+" }}}
+" VimSlash: {{{
+
+noremap <plug>(slash-after) zz
 
 " }}}
 
