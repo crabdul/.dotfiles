@@ -163,9 +163,11 @@ set foldmethod=indent            " fold based on indent level
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 
 " toggle fold
-nnoremap <leader>d zA
-nnoremap <leader>e za
+nnoremap <leader>d za
+nnoremap <leader>e zA
 
+" zR - open all folds
+" zM - close all folds
 
 " }}}
 " Movement {{{
