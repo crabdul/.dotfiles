@@ -278,6 +278,9 @@ endfunction
 
 nnoremap <leader>cf :call QuickFixListWithChangeFilesFromMaster()<cr>
 
+" Copy current file path
+nmap <leader>cp :let @*=expand("%:p")<CR>
+
 autocmd! FileType qf nnoremap <buffer> <c-x> <C-w><Enter><C-w>K
 
 " }}}
