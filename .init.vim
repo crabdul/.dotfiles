@@ -365,6 +365,9 @@ vnoremap <Leader>cc y:%s:<C-r>":<C-r>"
 " buffer
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+" In command mode (i.e. after pressing ':'), expand %% to the path of the current file
+" buffer
+cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:p') : '$$'
 
 " }}}
 " Custom functions {{{
