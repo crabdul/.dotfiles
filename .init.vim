@@ -545,6 +545,7 @@ Plug 'junegunn/vim-peekaboo'
 
 Plug 'itchyny/lightline.vim'
 
+Plug 'rhysd/git-messenger.vim'
 
 " Initialize plugin system
 call plug#end()
