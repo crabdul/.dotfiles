@@ -734,8 +734,12 @@ let g:lightline = {
 " }}}
 " Plugin > fzf {{{
 
+" alt-a to select items
+" ald-d to deselect items
+" tab or shift-tab can be used to toggle individual selected items
+" enter to populate quickfix list with selected items
 " Open Ag and put the cursor in the right position
-map <leader>a :Ag
+map <leader>a :Ag<space>
 
 " file finder in extended search mode
 nmap <leader>f :Files<cr>
