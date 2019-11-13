@@ -502,6 +502,7 @@ Plug 'mhinz/vim-signify'                " git status along file
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open
+Plug 'tpope/vim-abolish'                " case-insensitive search and replace
 Plug 'tpope/vim-commentary'             " Comment out stuff
 Plug 'tpope/vim-repeat'                 " repeat last command
 Plug 'vim-scripts/indentLine.vim'       " indent guides
