@@ -665,7 +665,7 @@ let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified' ] ],
+      \             [ 'readonly', 'absolutepath', 'modified' ] ],
       \   'right': [ ['percent'], [ 'linterStatus', 'coc' ] ]
       \ },
       \ 'component_function': {
