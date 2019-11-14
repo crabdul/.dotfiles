@@ -134,6 +134,9 @@ set inccommand=nosplit           " replace in realtime
 " highlight conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
+" center search
+cnoremap <expr> <CR> getcmdtype() == '/' ? '<CR>zz' : '<CR>'
+
 " turn off search highlight
 nnoremap <bs> :nohlsearch<CR>
 
