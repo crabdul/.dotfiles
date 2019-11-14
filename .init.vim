@@ -957,6 +957,11 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
 " }}}
+" Plugin > Gina {{{
+
+:abbrev G Gina
+
+" }}}
 " UltiSnips {{{ "
 
 let g:UltiSnipsExpandTrigger="mm"
