@@ -297,18 +297,7 @@ exec 'nnoremap <Leader>ss :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><B
 exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 
 " }}}
-" INSERT MODE: {{{
-
-" move lines up/down
-inoremap ˚ <Esc>:m .-2<CR>==gi
-inoremap ∆ <Esc>:m .+1<CR>==gi
-
-" Make Ctrl-e jump to the end of the current line
-inoremap <C-e> <C-o>$
-
-
-" }}}
-" NORMAL MODE {{{
+" NORMAL MODE: {{{
 
 " Make yank consistent with other commands
 nnoremap Y y$
@@ -329,14 +318,14 @@ nnoremap ∆ :m+<CR>==
 nnoremap gu :u1\|u<CR>
 
 " replace the current word and all its occurrences.
-nnoremap <Leader>rc :%s:\<<C-r><C-w>\>:
+nnoremap <Leader>rr :%s:\<<C-r><C-w>\>:
 
 " same as above but prefill
-nnoremap <Leader>cc :%s:\<<C-r><C-w>\>:<C-r><C-w>
+nnoremap <Leader>re :%s:\<<C-r><C-w>\>:<C-r><C-w>
 
 
 " }}}
-" VISUAL MODE {{{
+" VISUAL MODE: {{{
 
 " leave cursor at the end of the yanked block
 vnoremap y y']
@@ -354,10 +343,10 @@ vnoremap < <gv
 vnoremap > >gv
 
 " replace the current word and all its occurrences.
-vnoremap <Leader>rc y:%s:<C-r>":
+vnoremap <Leader>rr y:%s:<C-r>":
 
 " same as above but prefill
-vnoremap <Leader>cc y:%s:<C-r>":<C-r>"
+vnoremap <Leader>re y:%s:<C-r>":<C-r>"
 
 
 " }}}
