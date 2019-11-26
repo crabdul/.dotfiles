@@ -576,9 +576,9 @@ let g:palenight_terminal_italics=1
 
 " check files with linters
 let g:ale_linters = {
-    \ 'javascript': ['eslint', 'prettier'],
-    \ 'python': ['black']
+    \ 'javascript': ['eslint'],
     \ }
+
 
 " Fix files with ESLint then Prettier
 let g:ale_fixers = {
@@ -606,24 +606,13 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 
 " Set ALE's 200ms delay to zero
-let g:ale_lint_delay = 0
-
-" Set gorgeous colors for marked lines to sane, readable combinations
-" working with any colorscheme
-au VimEnter,BufEnter,ColorScheme *
-  \ exec "hi! ALEInfoLine
-    \ guifg=".(&background=='light'?'#808000':'#ffff00')."
-    \ guibg=".(&background=='light'?'#ffff00':'#555500') |
-  \ exec "hi! ALEWarningLine
-    \ guifg=".(&background=='light'?'#808000':'#ffff00')."
-    \ guibg=".(&background=='light'?'#ffff00':'#555500') |
-  \ exec "hi! ALEErrorLine
-    \ guifg=".(&background=='light'?'#ff0000':'#ff0000')."
-    \ guibg=".(&background=='light'?'#ffcccc':'#550000')
+let g:ale_lint_delay = 200
 
 " don't run on file enter
 let g:ale_lint_on_enter = 0
 
+" only run explicitly stated linters
+let g:ale_linters_explicit = 1
 
 " }}}
 " Plugin > vim-signify/signify {{{
