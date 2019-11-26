@@ -150,9 +150,6 @@ nnoremap gs /<C-R><C-W>
 " highlight last inserted text
 nnoremap gV `[v`]
 
-" }}}
-" Regex: {{{
-
 " From http://www.vimregex.com
 noremap <leader>; :%s:::g<Left><Left><Left>
 cmap ;\ \(\)<Left><Left>
