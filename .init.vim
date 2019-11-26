@@ -232,6 +232,9 @@ set clipboard=unnamed
 " disable smart autoindent stuff when pasting large bits of text
 set pastetoggle=<F2>
 
+" Copy current file path
+nmap <leader>cp :let @*=expand("%:p")<CR>
+
 " }}}
 " Editing {{{
 
@@ -250,12 +253,10 @@ set pastetoggle=<F2>
 
 
 " }}}
-" Exploring {{{
+" File searching {{{
 
+" files in current directory
 nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
-
-" Open file under cursor in new tab
-nmap <silent> gF <c-w>v<c-w>lgf
 
 function! QuickFixListWithChangeFilesFromMaster()
     " Get the result of git show in a list
@@ -276,24 +277,27 @@ endfunction
 
 nnoremap <leader>cf :call QuickFixListWithChangeFilesFromMaster()<cr>
 
-" Copy current file path
-nmap <leader>cp :let @*=expand("%:p")<CR>
-
+" open item from quickfix list in horizontal split
 autocmd! FileType qf nnoremap <buffer> <c-x> <C-w><Enter><C-w>K
+
+" }}}
+" Goto Shortcuts: {{{
+" more in coc-nvim section
+
+" Open file under cursor in new tab
+nmap <silent> gF <c-w>v<c-w>lgf
 
 " }}}
 " Sessions: {{{
 
-" Must create this directory first
 let g:session_dir = '~/.vim-sessions'
 
-" Shortcuts to execute session saves and restores
+" shortcuts to execute session saves and restores
 exec 'nnoremap <Leader>ss :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
 exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 
-
 " }}}
-" INSERT MODE {{{
+" INSERT MODE: {{{
 
 " move lines up/down
 inoremap ˚ <Esc>:m .-2<CR>==gi
