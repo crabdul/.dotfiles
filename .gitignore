@@ -5,3 +5,5 @@ Session.vim
 
 # vscode
 .vscode/
+
+node_modules
