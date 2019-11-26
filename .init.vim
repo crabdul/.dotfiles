@@ -899,6 +899,7 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Plugin > Gina {{{
 
 :abbrev G Gina
+command! Gs Gina status -s
 
 " }}}
 " UltiSnips {{{ "
@@ -914,12 +915,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 let delimitMate_expand_cr = 1
 
-
-" }}}
-" Gina: {{{
-
-command! G Gina
-command! Gs Gina status -s
 
 " }}}
 " CamelCaseMotion: {{{
