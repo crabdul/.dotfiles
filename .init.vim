@@ -233,17 +233,17 @@ set pastetoggle=<F2>
 " Editing {{{
 
 " Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
+" fun! CleanExtraSpaces()
+"     let save_cursor = getpos(".")
+"     let old_query = getreg('/')
+"     silent! %s/\s\+$//e
+"     call setpos('.', save_cursor)
+"     call setreg('/', old_query)
+" endfun
 
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
-endif
+" if has("autocmd")
+"     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
+" endif
 
 au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')
 
