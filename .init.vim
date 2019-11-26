@@ -202,6 +202,9 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<space>
 
+" create directory if :tabedit references one that doesn't exist
+au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')
+
 " cycle through tabs
 nnoremap H gT
 nnoremap L gt
@@ -245,17 +248,6 @@ set pastetoggle=<F2>
 "     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
 " endif
 
-au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')
-
-
-" }}}
-" Spell checking {{{
-
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Add definition
-map <leader>sa zg
 
 " }}}
 " Exploring {{{
