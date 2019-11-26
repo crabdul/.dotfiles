@@ -778,9 +778,6 @@ map <leader>g :Ack!<space>
 " find currently selected word
 nmap gw :Ack! "\b<cword>\b" <CR>
 
-" find and replace text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
 " display results in cope
 map <leader>cc :botright cope<cr>
 
