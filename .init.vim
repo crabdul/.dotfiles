@@ -464,7 +464,6 @@ Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
 Plug 'mhinz/vim-signify'                " git status along file
-Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open
 Plug 'tpope/vim-abolish'                " case-insensitive search and replace
@@ -775,17 +774,6 @@ map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 
 " close QuickFix window
 map <leader>x :cclose<cr>
-
-" }}}
-" Plugin > Nerd Tree {{{
-
-let NERDTreeShowHidden=0
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=35
-
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark<Space>
-map <leader>nf :NERDTreeFind<cr>
 
 " }}}
 " Plugin > Emmet {{{
