@@ -359,19 +359,6 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:p') : '$$'
 
 " }}}
-" Custom functions {{{
-
-" toggle between number and relativenumber
-function! ToggleNumber()
-    if(&relativenumber == 0)
-        set relativenumber
-    else
-        set norelativenumber
-        set number
-    endif
-endfunc
-
-" }}}
 " Helper functions {{{
 
 function! CmdLine(str)
