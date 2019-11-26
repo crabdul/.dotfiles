@@ -897,6 +897,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 :abbrev G Gina
 command! Gs Gina status -s
+command! Gc Gina compare
+command! Gd Gina diff
 
 " }}}
 " UltiSnips {{{ "
