@@ -352,12 +352,10 @@ vnoremap <Leader>re y:%s:<C-r>":<C-r>"
 " }}}
 " COMMAND MODE: {{{
 
-" In command mode (i.e. after pressing ':'), expand %% to the path of the current
-" buffer
+" expand %% to the current diretory
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" In command mode (i.e. after pressing ':'), expand %% to the path of the current file
-" buffer
+" expand $$ to the path of the current buffer
 cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:p') : '$$'
 
 " }}}
