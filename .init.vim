@@ -147,6 +147,9 @@ autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 " pull <cword> onto search/command line
 nnoremap gs /<C-R><C-W>
 
+" highlight last inserted text
+nnoremap gV `[v`]
+
 " }}}
 " Regex: {{{
 
@@ -171,7 +174,7 @@ nnoremap <leader>e za
 
 
 " }}}
-" Movement {{{
+" Buffer Navigation {{{
 " source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
 " move down by visual line
@@ -180,38 +183,42 @@ nnoremap <expr> j v:count ? 'j' : 'gj'
 " move up by visual line
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
-" highlight last inserted text
-nnoremap gV `[v`]
 
-" Smart way to move between windows
+" }}}
+" Window Navigation {{{
+
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Useful mappings for managing tabs
+" }}}
+" Tabs {{{
+
 map <leader>tn :tabnew<cr>
+" opens a new tab with the current buffer's path
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<space>
 
-" hold shift to scroll left and right continuously
+" cycle through tabs
 nnoremap H gT
 nnoremap L gt
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+" Buffers {{{
 
-" Specify the behavior when switching between buffers
+" if a buffer is already open :sb filename will jump to it
+" rather than opening it in the current buffer
 try
-      set switchbuf=useopen,usetab,newtab
-      set stal=2
+    set switchbuf=useopen,usetab,newtab
+    set stal=2
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
+" return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 
 " }}}
 " Copy and pasting {{{
