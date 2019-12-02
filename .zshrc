@@ -104,6 +104,10 @@ if ! zgen saved; then
 
     # Prezto modules
     zgen prezto command-not-found
+    zgen prezto history
+    zgen prezto directory
+    zgen prezto git
+    zgen prezto history-substring-search
 
     # Modules
     zgen load djui/alias-tips

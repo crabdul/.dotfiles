@@ -1,5 +1,0 @@
-zstyle ':prezto:load' pmodule \
-    'history' \
-    'directory' \
-    'git' \
-    'history-substring-search'
