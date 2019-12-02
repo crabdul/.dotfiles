@@ -936,5 +936,10 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 
 " }}}
+" Plugin > GitMessenger {{{
+
+command! Gm GitMessenger
+
+" }}}
 
 " vim:foldmethod=marker:foldlevel=0
