@@ -26,7 +26,7 @@ export NVM_LAZY_LOAD=true
 
 
 # =============================================================================
-# NeoVim 
+# NeoVim
 # =============================================================================
 
 export EDITOR='nvim'
@@ -46,7 +46,7 @@ alias sourcezsh='source ~/.zshrc'
 # Navigation
 alias dot="~/.dotfiles"
 
-# Hub 
+# Hub
 alias hpr='hub pull-request'
 alias pulls='hub browse -- pulls'
 alias wiki='hub browse -- wiki'
@@ -72,7 +72,7 @@ fe() {
 # Grep from vim file
 function helpvim() { cat "$HOME/.dotfiles/.init.vim" | grep -A 1 -B 1 --color $*; }
 
-# ctags 
+# ctags
 # https://gist.github.com/nazgob/1570678
 alias ctags="`brew --prefix`/bin/ctags"
 
@@ -101,18 +101,19 @@ if ! zgen saved; then
 
     # Prezto options
     zgen prezto prompt theme 'sorin'
-    
+
     # Prezto modules
     zgen prezto command-not-found
+    zgen prezto history
+    zgen prezto directory
+    zgen prezto git
+    zgen prezto history-substring-search
 
     # Modules
     zgen load djui/alias-tips
     zgen load junegunn/fzf
     zgen load lukechilds/zsh-nvm
     zgen load zdharma/fast-syntax-highlighting
-    zgen load zsh-users/zsh-autosuggestions
-    zgen load zsh-users/zsh-completions
-    zgen load zsh-users/zsh-history-substring-search
 
     # Save all to init script
     zgen save
@@ -240,6 +241,10 @@ unsetopt flow_control
 [ -n "${terminfo[kcub1]}" ] && bindkey "${terminfo[kcub1]}" backward-char
 # Right-arrow
 [ -n "${terminfo[kcuf1]}" ] && bindkey "${terminfo[kcuf1]}" forward-char
+
+# Prezto history substring search
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
 # =============================================================================
