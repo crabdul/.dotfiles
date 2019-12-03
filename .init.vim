@@ -1,8 +1,8 @@
 " General {{{
 
 " Python source
-let g:python_host_prog = $HOME."/neovim2/bin/python"
-let g:python3_host_prog = $HOME."/neovim3/bin/python"
+let g:python_host_prog = $HOME."/.pyenv/versions/2.7.17/envs/neovim2/bin/python"
+let g:python3_host_prog = $HOME."/.pyenv/versions/3.7.5/envs/neovim3/bin/python"
 
 syntax on
 set history=500				" sets how many lines of history VIM has to remember
