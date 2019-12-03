@@ -554,6 +554,8 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'rhysd/git-messenger.vim'
 
+Plug 'editorconfig/editorconfig-vim'
+
 " Initialize plugin system
 call plug#end()
 
