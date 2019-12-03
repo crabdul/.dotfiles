@@ -66,8 +66,15 @@ bracketSpacing	.eslintrc.js	/^                bracketSpacing: true,$/;"	P
 jsxBracketSameLine	.eslintrc.js	/^                jsxBracketSameLine: false,$/;"	P
 rangeStart	.eslintrc.js	/^                rangeStart: 0,$/;"	P
 rangeEnd	.eslintrc.js	/^                rangeEnd: Infinity$/;"	P
-g:python_host_prog	.init.vim	/^let g:python_host_prog = $HOME."\/neovim2\/bin\/python"$/;"	v
-g:python3_host_prog	.init.vim	/^let g:python3_host_prog = $HOME."\/neovim3\/bin\/python"$/;"	v
+) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'J', function() hs.application.launchOrFocus('Google Chrome') end)$/;"	f
+) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'M', function() hs.application.launchOrFocus('Safari') end)$/;"	f
+) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'K', function() hs.application.launchOrFocus('iTerm') end)$/;"	f
+) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus('Spotify') end)$/;"	f
+) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'L', function() hs.application.launchOrFocus('Slack') end)$/;"	f
+) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'H', function() hs.application.launchOrFocus('TickTick') end)$/;"	f
+) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'U', function() hs.application.launchOrFocus('Quiver') end)$/;"	f
+g:python_host_prog	.init.vim	/^let g:python_host_prog = $HOME."\/.pyenv\/versions\/2.7.17\/envs\/neovim2\/bin\/python"$/;"	v
+g:python3_host_prog	.init.vim	/^let g:python3_host_prog = $HOME."\/.pyenv\/versions\/3.7.5\/envs\/neovim3\/bin\/python"$/;"	v
 mapleader	.init.vim	/^let mapleader = ","              " display using :echo mapleader$/;"	v
 Q	.init.vim	/^command! Q q$/;"	c
 <leader>se	.init.vim	/^nmap <leader>se :tabe $MYVIMRC<cr>$/;"	m
@@ -230,10 +237,3 @@ gE	.init.vim	/^map <silent> gE <Plug>CamelCaseMotion_ge$/;"	m
 iW	.init.vim	/^omap <silent> iW <Plug>CamelCaseMotion_iw$/;"	m
 iB	.init.vim	/^omap <silent> iB <Plug>CamelCaseMotion_ib$/;"	m
 iE	.init.vim	/^omap <silent> iE <Plug>CamelCaseMotion_ie$/;"	m
-) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'J', function() hs.application.launchOrFocus('Google Chrome') end)$/;"	f
-) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'M', function() hs.application.launchOrFocus('Safari') end)$/;"	f
-) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'K', function() hs.application.launchOrFocus('iTerm') end)$/;"	f
-) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus('Spotify') end)$/;"	f
-) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'L', function() hs.application.launchOrFocus('Slack') end)$/;"	f
-) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'H', function() hs.application.launchOrFocus('TickTick') end)$/;"	f
-) hs.application.launchOrFocus	.hammerspoon/init.lua	/^hs.hotkey.bind(mash, 'U', function() hs.application.launchOrFocus('Quiver') end)$/;"	f

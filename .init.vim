@@ -584,7 +584,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
     \ 'javascript': ['eslint', 'prettier'],
-    \ 'python': ['black', 'isort'],
+    \ 'python': ['autopep8', 'isort'],
     \ }
 
 " Set this variable to 1 to fix files when you save them
