@@ -262,6 +262,11 @@ nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 " Open file under cursor in new tab
 nmap <silent> gF <c-w>v<c-w>lgf
 
+" Search following directories with gf
+set path=.,src,node_nodules,
+set inex=substitute(v:fname,'^\\@zego','/Users/karim.elkhazaani/workspace/tego/website-next/src','')
+set suffixesadd=.js,.jsx
+
 function! QuickFixListWithChangeFilesFromMaster()
     " Get the result of git show in a list
     let flist = system('git diff master... --name-only')
@@ -613,7 +618,8 @@ let g:ale_lint_on_enter = 0
 let g:ale_linters_explicit = 1
 
 " }}}
-" Plugin > vim-signify/signify {{{
+" Plugin > vim-signify/signify {{{g:gutentags_ctags_exclude_wildignore
+
 " docs: :h signify-modus-operandi
 
 " hunk text object
@@ -993,5 +999,10 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 
 " }}}
+
+" let g:gutentags_ctags_exclude = ['**/node_modules/**', '**/build/**']
+set wildignore=*/node_modules/*,*/build/*
+
+let g:gutentags_ctags_exclude_wildignore = 1
 
 " vim:foldmethod=marker:foldlevel=0
