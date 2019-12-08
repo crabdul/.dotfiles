@@ -872,11 +872,69 @@ imap <expr> <CR> Expander()
 " }}}
 " Plugin > vim-gutentags {{{
 
+let g:gutentags_add_default_project_roots = 0
 let g:gutentags_project_root = ['.git']
+let g:gutentags_file_list_command = 'rg --files'
+
+" let g:gutentags_ctags_tagfile = 'tags.files'
 
 let g:gutentags_generate_on_new = 1
-
+let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+
+" collect extra information
+" a: Access (or export) of class members
+" i: Inheritance information
+" l: Language of input file containing tag
+" m: Implementation information
+" n: Line number of tag definition
+" S: Signature of routine (e.g. prototype or parameter list)
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
+
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ '*/node_modules/*',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.tmp',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
 
 
 " }}}
@@ -999,10 +1057,5 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 
 " }}}
-
-let g:gutentags_ctags_exclude = ['*/node_modules/*', '*/build/*']
-set wildignore=*/node_modules/*,*/build/*
-
-let g:gutentags_ctags_exclude_wildignore = 1
 
 " vim:foldmethod=marker:foldlevel=0
