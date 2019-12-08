@@ -2,3 +2,14 @@
 tags
 tags.lock
 tags.temp
+
+# nuxt
+__generated__
+build
+cache
+
+# vscode
+__pycache__
+
+# graphql
+schema.json

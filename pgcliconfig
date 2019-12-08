@@ -101,7 +101,7 @@ syntax_style = default
 # When Vi mode is enabled you can use modal editing features offered by Vi in the REPL.
 # When Vi mode is disabled emacs keybindings such as Ctrl-A for home and Ctrl-E
 # for end are available in the REPL.
-vi = True 
+vi = True
 
 # Error handling
 # When one of multiple SQL statements causes an error, choose to either
@@ -140,7 +140,7 @@ null_string = '<null>'
 # manage pager on startup
 enable_pager = True
 
-# Use keyring to automatically save and load password in a secure manner 
+# Use keyring to automatically save and load password in a secure manner
 keyring = True
 
 # Custom colors for the completion menu, toolbar, etc.
@@ -167,7 +167,7 @@ Token.Toolbar.Transaction.Valid = 'bg:#222222 #00ff5f bold'
 Token.Toolbar.Transaction.Failed = 'bg:#222222 #ff005f bold'
 
 # color of table
-# you can use token or custom colors 
+# you can use token or custom colors
 Token.Output.Header = "#00ff5f bold"
 Token.Output.OddRow = ""
 Token.Output.EvenRow = ""
@@ -185,6 +185,3 @@ Token.Output.EvenRow = ""
 [data_formats]
 decimal = ""
 float = ""
-
-
-
