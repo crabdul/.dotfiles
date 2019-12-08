@@ -1000,7 +1000,7 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 " }}}
 
-" let g:gutentags_ctags_exclude = ['**/node_modules/**', '**/build/**']
+let g:gutentags_ctags_exclude = ['*/node_modules/*', '*/build/*']
 set wildignore=*/node_modules/*,*/build/*
 
 let g:gutentags_ctags_exclude_wildignore = 1
