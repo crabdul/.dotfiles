@@ -451,6 +451,9 @@ au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
 
+" Shortcut to insert pdb
+abbrev pdb import ipdb; ipdb.set_trace()
+
 " }}}
 " JavaScript filetypes {{{
 
@@ -993,6 +996,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD <c-w>v<c-w>l<Plug>(coc-definition)
+nmap <silent> gx <c-w>v<c-w>k<Plug>(coc-definition)
 " nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gy <Plug>(coc-references)
