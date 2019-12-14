@@ -118,7 +118,6 @@ endfun
 
 autocmd WinEnter * call SetWindowSizes()
 
-
 " }}}
 " Searching and highlighting {{{
 
@@ -321,6 +320,18 @@ nnoremap <Leader>rr :%s:\<<C-r><C-w>\>:
 " same as above but prefill
 nnoremap <Leader>re :%s:\<<C-r><C-w>\>:<C-r><C-w>
 
+" format paragraph
+nnoremap Q gqap
+
+" format file
+nnoremap F gg=G
+
+
+" }}}
+" INSERT MODE: {{{
+
+" Escape and save
+inoremap <leader><leader> <ESC>:w<CR>
 
 " }}}
 " VISUAL MODE: {{{
@@ -523,7 +534,7 @@ colorscheme palenight
 
 " enable true colours
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
 
 " Italics for my favorite color scheme
@@ -534,25 +545,25 @@ let g:palenight_terminal_italics=1
 
 " check files with linters
 let g:ale_linters = {
-    \ 'javascript': ['eslint'],
-    \ }
+            \ 'javascript': ['eslint'],
+            \ }
 
 
 " Fix files with ESLint then Prettier
 let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'javascript': ['eslint', 'prettier'],
-    \ 'python': ['black', 'isort'],
-    \ }
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'javascript': ['eslint', 'prettier'],
+            \ 'python': ['black', 'isort'],
+            \ }
 
 " Set this variable to 1 to fix files when you save them
 let g:ale_fix_on_save = 1
 
 " Do not lint or fix minified files.
 let g:ale_pattern_options = {
-    \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-    \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-    \ }
+            \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+            \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+            \ }
 
 " Don't use the sign column/gutter for ALE
 let g:ale_set_signs = 0
@@ -612,17 +623,17 @@ function! LinterStatus() abort
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'absolutepath', 'modified' ] ],
-      \   'right': [ ['percent'], [ 'linterStatus', 'coc' ] ]
-      \ },
-      \ 'component_function': {
-      \   'linterStatus': 'LinterStatus',
-      \   'coc': 'coc#status'
-      \ },
-      \ }
+            \ 'colorscheme': 'seoul256',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'readonly', 'absolutepath', 'modified' ] ],
+            \   'right': [ ['percent'], [ 'linterStatus', 'coc' ] ]
+            \ },
+            \ 'component_function': {
+            \   'linterStatus': 'LinterStatus',
+            \   'coc': 'coc#status'
+            \ },
+            \ }
 
 " let g:currentmode={
 "             \ 'n'      : 'NORMAL',
@@ -714,44 +725,44 @@ nmap <leader>C :Commands<cr>
 nmap <Leader>M :Maps<CR>
 
 command! Fzfc call fzf#run(fzf#wrap(
-  \ {'source': 'git ls-files --exclude-standard --others --modified'}))
+            \ {'source': 'git ls-files --exclude-standard --others --modified'}))
 
 noremap <Leader>c :Fzfc<cr>
 
 " This is the default extra key bindings
 let g:fzf_action = {
-    \ 'space': 'tab split',
-    \ 'ctrl-x': 'split',
-    \ 'ctrl-v': 'vsplit' }
+            \ 'space': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1"
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
-    \ { 'fg':      ['fg', 'Normal'],
-    \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Comment'],
-    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Statement'],
-    \ 'info':    ['fg', 'PreProc'],
-    \ 'border':  ['fg', 'Ignore'],
-    \ 'prompt':  ['fg', 'Conditional'],
-    \ 'pointer': ['fg', 'Exception'],
-    \ 'marker':  ['fg', 'Keyword'],
-    \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
 
 " }}}
 " Plugin > Ack {{{
 
 " Use the the_silver_searcher if possible (much faster than Ack)
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case'
+    let g:ackprg = 'ag --vimgrep --smart-case'
 endif
 
 " find selected text
@@ -842,25 +853,25 @@ set completeopt-=preview
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if &filetype == 'vim'
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 " trigger completion.
