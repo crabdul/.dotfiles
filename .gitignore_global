@@ -4,7 +4,6 @@ tags.lock
 tags.temp
 
 # nuxt
-__generated__
 build
 cache
 

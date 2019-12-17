@@ -560,6 +560,9 @@ Plug 'rhysd/git-messenger.vim'
 
 Plug 'editorconfig/editorconfig-vim'
 
+" File explorer
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+
 " Initialize plugin system
 call plug#end()
 
