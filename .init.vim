@@ -118,7 +118,6 @@ endfun
 
 autocmd WinEnter * call SetWindowSizes()
 
-
 " }}}
 " Searching and highlighting {{{
 
@@ -147,8 +146,8 @@ autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 " pull <cword> onto search/command line
 nnoremap gs /<C-R><C-W>
 
-" }}}
-" Regex: {{{
+" highlight last inserted text
+nnoremap gV `[v`]
 
 " From http://www.vimregex.com
 noremap <leader>; :%s:::g<Left><Left><Left>
@@ -171,7 +170,7 @@ nnoremap <leader>e za
 
 
 " }}}
-" Movement {{{
+" Buffer Navigation {{{
 " source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
 " move down by visual line
@@ -180,87 +179,81 @@ nnoremap <expr> j v:count ? 'j' : 'gj'
 " move up by visual line
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
-" highlight last inserted text
-nnoremap gV `[v`]
 
-" Smart way to move between windows
+" }}}
+" Window Navigation {{{
+
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Useful mappings for managing tabs
+" }}}
+" Tabs {{{
+
 map <leader>tn :tabnew<cr>
+" opens a new tab with the current buffer's path
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<space>
 
-" hold shift to scroll left and right continuously
+" create directory if :tabedit references one that doesn't exist
+au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')
+
+" cycle through tabs
 nnoremap H gT
 nnoremap L gt
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+" }}}
+" Buffers {{{
 
-" Specify the behavior when switching between buffers
+" if a buffer is already open :sb filename will jump to it
+" rather than opening it in the current buffer
 try
-      set switchbuf=useopen,usetab,newtab
-      set stal=2
+    set switchbuf=useopen,usetab,newtab
+    set stal=2
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
+" return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 
 " }}}
 " Copy and pasting {{{
 
-" Use system clipboard as default clipboard
+" use system clipboard as default clipboard
 set clipboard=unnamed
-
-" paste from unnamed register
-nnoremap <leader>p "0p
-nnoremap <leader>P "0P
 
 " disable smart autoindent stuff when pasting large bits of text
 set pastetoggle=<F2>
+
+" Copy current file path
+nmap <leader>cp :let @*=expand("%:p")<CR>
 
 " }}}
 " Editing {{{
 
 " Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
+" fun! CleanExtraSpaces()
+"     let save_cursor = getpos(".")
+"     let old_query = getreg('/')
+"     silent! %s/\s\+$//e
+"     call setpos('.', save_cursor)
+"     call setreg('/', old_query)
+" endfun
 
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
-endif
-
-au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')
+" if has("autocmd")
+"     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
+" endif
 
 
 " }}}
-" Spell checking {{{
+" File searching {{{
 
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Add definition
-map <leader>sa zg
-
-" }}}
-" Exploring {{{
-
+" files in current directory
 nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
-
-" Open file under cursor in new tab
-nmap <silent> gF <c-w>v<c-w>lgf
 
 function! QuickFixListWithChangeFilesFromMaster()
     " Get the result of git show in a list
@@ -281,35 +274,27 @@ endfunction
 
 nnoremap <leader>cf :call QuickFixListWithChangeFilesFromMaster()<cr>
 
-" Copy current file path
-nmap <leader>cp :let @*=expand("%:p")<CR>
-
+" open item from quickfix list in horizontal split
 autocmd! FileType qf nnoremap <buffer> <c-x> <C-w><Enter><C-w>K
+
+" }}}
+" Goto Shortcuts: {{{
+" more in coc-nvim section
+
+" Open file under cursor in new tab
+nmap <silent> gF <c-w>v<c-w>lgf
 
 " }}}
 " Sessions: {{{
 
-" Must create this directory first
 let g:session_dir = '~/.vim-sessions'
 
-" Shortcuts to execute session saves and restores
+" shortcuts to execute session saves and restores
 exec 'nnoremap <Leader>ss :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
 exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 
-
 " }}}
-" INSERT MODE {{{
-
-" move lines up/down
-inoremap ˚ <Esc>:m .-2<CR>==gi
-inoremap ∆ <Esc>:m .+1<CR>==gi
-
-" Make Ctrl-e jump to the end of the current line
-inoremap <C-e> <C-o>$
-
-
-" }}}
-" NORMAL MODE {{{
+" NORMAL MODE: {{{
 
 " Make yank consistent with other commands
 nnoremap Y y$
@@ -330,14 +315,26 @@ nnoremap ∆ :m+<CR>==
 nnoremap gu :u1\|u<CR>
 
 " replace the current word and all its occurrences.
-nnoremap <Leader>rc :%s:\<<C-r><C-w>\>:
+nnoremap <Leader>rr :%s:\<<C-r><C-w>\>:
 
 " same as above but prefill
-nnoremap <Leader>cc :%s:\<<C-r><C-w>\>:<C-r><C-w>
+nnoremap <Leader>re :%s:\<<C-r><C-w>\>:<C-r><C-w>
+
+" format paragraph
+nnoremap Q gqap
+
+" format file
+nnoremap F gg=G
 
 
 " }}}
-" VISUAL MODE {{{
+" INSERT MODE: {{{
+
+" Escape and save
+inoremap <leader><leader> <ESC>:w<CR>
+
+" }}}
+" VISUAL MODE: {{{
 
 " leave cursor at the end of the yanked block
 vnoremap y y']
@@ -355,35 +352,20 @@ vnoremap < <gv
 vnoremap > >gv
 
 " replace the current word and all its occurrences.
-vnoremap <Leader>rc y:%s:<C-r>":
+vnoremap <Leader>rr y:%s:<C-r>":
 
 " same as above but prefill
-vnoremap <Leader>cc y:%s:<C-r>":<C-r>"
+vnoremap <Leader>re y:%s:<C-r>":<C-r>"
 
 
 " }}}
 " COMMAND MODE: {{{
 
-" In command mode (i.e. after pressing ':'), expand %% to the path of the current
-" buffer
+" expand %% to the current diretory
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" In command mode (i.e. after pressing ':'), expand %% to the path of the current file
-" buffer
+" expand $$ to the path of the current buffer
 cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:p') : '$$'
-
-" }}}
-" Custom functions {{{
-
-" toggle between number and relativenumber
-function! ToggleNumber()
-    if(&relativenumber == 0)
-        set relativenumber
-    else
-        set norelativenumber
-        set number
-    endif
-endfunc
 
 " }}}
 " Helper functions {{{
@@ -417,6 +399,9 @@ vmap sp "zdi<p><C-R>z</p><ESC>
 vmap sd "zdi<div><C-R>z</div><ESC>
 vmap ss "zdi<span><C-R>z</span><ESC>
 
+" }}}
+" Django filetypes {{{
+
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
@@ -427,21 +412,6 @@ autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 
-au BufNewFile,BufRead *.jinja set syntax=htmljinja
-
-" configure expanding of tabs for various file types
-au BufRead,BufNewFile *.py set expandtab
-
-au FileType python map <buffer> F :set foldmethod=indent<cr>
-
-au FileType python inoremap <buffer> $r return
-au FileType python inoremap <buffer> $i import
-au FileType python inoremap <buffer> $p print
-au FileType python inoremap <buffer> $f # --- <esc>a
-au FileType python map <buffer> <leader>1 /class
-au FileType python map <buffer> <leader>2 /def
-au FileType python map <buffer> <leader>C ?class
-au FileType python map <buffer> <leader>D ?def
 au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
@@ -502,7 +472,6 @@ Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
 Plug 'mattn/emmet-vim'                  " emmet
 Plug 'mileszs/ack.vim'                  " ack
 Plug 'mhinz/vim-signify'                " git status along file
-Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'sheerun/vim-polyglot'             " Language starter pack
 Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open
 Plug 'tpope/vim-abolish'                " case-insensitive search and replace
@@ -565,7 +534,7 @@ colorscheme palenight
 
 " enable true colours
 if (has("termguicolors"))
-  set termguicolors
+    set termguicolors
 endif
 
 " Italics for my favorite color scheme
@@ -576,25 +545,25 @@ let g:palenight_terminal_italics=1
 
 " check files with linters
 let g:ale_linters = {
-    \ 'javascript': ['eslint'],
-    \ }
+            \ 'javascript': ['eslint'],
+            \ }
 
 
 " Fix files with ESLint then Prettier
 let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'javascript': ['eslint', 'prettier'],
-    \ 'python': ['black', 'isort'],
-    \ }
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'javascript': ['eslint', 'prettier'],
+            \ 'python': ['black', 'isort'],
+            \ }
 
 " Set this variable to 1 to fix files when you save them
 let g:ale_fix_on_save = 1
 
 " Do not lint or fix minified files.
 let g:ale_pattern_options = {
-    \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-    \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-    \ }
+            \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+            \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+            \ }
 
 " Don't use the sign column/gutter for ALE
 let g:ale_set_signs = 0
@@ -654,17 +623,17 @@ function! LinterStatus() abort
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'absolutepath', 'modified' ] ],
-      \   'right': [ ['percent'], [ 'linterStatus', 'coc' ] ]
-      \ },
-      \ 'component_function': {
-      \   'linterStatus': 'LinterStatus',
-      \   'coc': 'coc#status'
-      \ },
-      \ }
+            \ 'colorscheme': 'seoul256',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'readonly', 'absolutepath', 'modified' ] ],
+            \   'right': [ ['percent'], [ 'linterStatus', 'coc' ] ]
+            \ },
+            \ 'component_function': {
+            \   'linterStatus': 'LinterStatus',
+            \   'coc': 'coc#status'
+            \ },
+            \ }
 
 " let g:currentmode={
 "             \ 'n'      : 'NORMAL',
@@ -756,44 +725,44 @@ nmap <leader>C :Commands<cr>
 nmap <Leader>M :Maps<CR>
 
 command! Fzfc call fzf#run(fzf#wrap(
-  \ {'source': 'git ls-files --exclude-standard --others --modified'}))
+            \ {'source': 'git ls-files --exclude-standard --others --modified'}))
 
 noremap <Leader>c :Fzfc<cr>
 
 " This is the default extra key bindings
 let g:fzf_action = {
-    \ 'space': 'tab split',
-    \ 'ctrl-x': 'split',
-    \ 'ctrl-v': 'vsplit' }
+            \ 'space': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1"
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
-    \ { 'fg':      ['fg', 'Normal'],
-    \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Comment'],
-    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Statement'],
-    \ 'info':    ['fg', 'PreProc'],
-    \ 'border':  ['fg', 'Ignore'],
-    \ 'prompt':  ['fg', 'Conditional'],
-    \ 'pointer': ['fg', 'Exception'],
-    \ 'marker':  ['fg', 'Keyword'],
-    \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
 
 " }}}
 " Plugin > Ack {{{
 
 " Use the the_silver_searcher if possible (much faster than Ack)
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case'
+    let g:ackprg = 'ag --vimgrep --smart-case'
 endif
 
 " find selected text
@@ -805,9 +774,6 @@ map <leader>g :Ack!<space>
 " find currently selected word
 nmap gw :Ack! "\b<cword>\b" <CR>
 
-" find and replace text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
 " display results in cope
 map <leader>cc :botright cope<cr>
 
@@ -816,17 +782,6 @@ map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 
 " close QuickFix window
 map <leader>x :cclose<cr>
-
-" }}}
-" Plugin > Nerd Tree {{{
-
-let NERDTreeShowHidden=0
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=35
-
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark<Space>
-map <leader>nf :NERDTreeFind<cr>
 
 " }}}
 " Plugin > Emmet {{{
@@ -898,25 +853,25 @@ set completeopt-=preview
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if &filetype == 'vim'
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 " trigger completion.
@@ -952,6 +907,9 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Plugin > Gina {{{
 
 :abbrev G Gina
+command! Gs Gina status -s
+command! Gc Gina compare
+command! Gd Gina diff
 
 " }}}
 " UltiSnips {{{ "
@@ -967,12 +925,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 let delimitMate_expand_cr = 1
 
-
-" }}}
-" Gina: {{{
-
-command! G Gina
-command! Gs Gina status -s
 
 " }}}
 " CamelCaseMotion: {{{
@@ -993,6 +945,11 @@ xmap <silent> iB <Plug>CamelCaseMotion_ib
 omap <silent> iE <Plug>CamelCaseMotion_ie
 xmap <silent> iE <Plug>CamelCaseMotion_ie
 
+
+" }}}
+" Plugin > GitMessenger {{{
+
+command! Gm GitMessenger
 
 " }}}
 
