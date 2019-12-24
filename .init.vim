@@ -563,6 +563,8 @@ Plug 'editorconfig/editorconfig-vim'
 " File explorer
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 
+Plug 'tell-k/vim-autopep8'
+
 " Initialize plugin system
 call plug#end()
 
@@ -743,6 +745,7 @@ let g:lightline = {
 " enter to populate quickfix list with selected items
 " Open Ag and put the cursor in the right position
 map <leader>a :Ag<space>
+map ga :Ag! \b<cword>\b
 
 " file finder in extended search mode
 nmap <leader>f :Files<cr>
@@ -1064,5 +1067,7 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 
 " }}}
-
+" let g:autopep8_on_save = 1
+let g:autopep8_disable_show_diff=1
+let g:autopep8_max_line_length=100
 " vim:foldmethod=marker:foldlevel=0
