@@ -1,7 +1,5 @@
 {
-	"coc.preferences.triggerAfterInsertEnter": true,
-	"coc.preferences.minTriggerInputLength": 2,
-	"coc.preferences.noselect": false,
-    "coc.preferences.diagnostic.enable": false,
-    "list.maxHeight": 4
+    "list.maxHeight": 4,
+    "python.jediEnabled": false,
+    "python.globalModuleInstallation": true
 }

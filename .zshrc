@@ -32,8 +32,8 @@ export NVM_LAZY_LOAD=true
 export EDITOR='nvim'
 
 if type nvim > /dev/null 2>&1; then
-    alias vim='nvim'
-    alias vi='nvim'
+    alias vim='nvim -u ~/.dotfiles/.vimrc'
+    alias vi='nvim -u ~/.dotfiles/.vimrc'
 fi
 
 # =============================================================================
@@ -259,7 +259,7 @@ fi
 
 # fzf + ag configuration
 if command -v ag 1>/dev/null 2>&1; then
-    export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --vimgrep'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_DEFAULT_OPTS="
