@@ -340,8 +340,8 @@ inoremap <leader><leader> <ESC>:w<CR>
 vnoremap y y']
 
 " move visual block
-vnoremap K :move '<-2<CR>gv=gv
 vnoremap J :move '>+1<CR>gv=gv
+vnoremap K :move '<-2<CR>gv=gv
 
 " move line up/down
 vnoremap ∆ :m '>+1<CR>gv=gv
@@ -792,7 +792,7 @@ let g:user_emmet_leader_key=','
 " Enable only for html, css, jsx
 let g:user_emmet_install_global = 0
 let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
-autocmd FileType html,css,javascript.jsx,scss EmmetInstall
+autocmd FileType html,css,javascript,javascript.jsx,scss EmmetInstall
 
 " only use in INSERT mode
 let g:user_emmet_mode = 'i'

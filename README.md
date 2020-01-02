@@ -14,6 +14,7 @@ This moves all the necesary files that should be in the `$HOME` directory and sy
 
 ```bash
 bash ~/.dotfiles/install.sh
+ln -s ~/.dotfiles/.zshenv ~/.zshenv
 ```
 
 **Install brew packages 🍺**
