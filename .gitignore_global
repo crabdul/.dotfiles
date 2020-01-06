@@ -3,6 +3,9 @@ tags
 tags.lock
 tags.temp
 
+# fzf
+.ignore
+
 # nuxt
 __generated__
 build
