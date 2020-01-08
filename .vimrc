@@ -314,10 +314,10 @@ nnoremap <c-b> <c-b>zz
 nmap <leader>r :e %<CR>
 
 " Edit vimrc
-nmap <leader>ve :tabe $MYVIMRC<cr>
+command! Vimrc :tabe $MYVIMRC<cr>
 
 " Source vimrc
-nmap <leader>vv :source /Users/abdulkarim/.dotfiles/.vimrc<cr>
+command! Sauce :source /Users/abdulkarim/.dotfiles/.vimrc
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -348,8 +348,8 @@ nnoremap ∆ :m+<CR>==
 nnoremap <space> za
 
 " Open folds after jumping
-nnoremap n nzO
-nnoremap N NzO
+nnoremap n nzzzO
+nnoremap N NzzzO
 
 " Jump to last file
 " nnoremap  <c-^>
@@ -372,6 +372,8 @@ nmap B :bd<CR>
 noremap <leader>/ :%s:<c-r>=expand("<cword>")<cr>::g<Left><Left>
 noremap <leader>; :%s:<c-r>=expand("<cword>")<cr>:
             \<c-r>=expand("<cword>")<cr>:g<Left><Left>
+
+noremap <leader>v :vsp<enter>
 
 " INSERT MODE:
 " ============
@@ -409,8 +411,8 @@ tnoremap <Esc> <C-\><C-n>
 let g:session_dir = '~/.vim-sessions'
 
 " Shortcuts to execute session saves and restores
-exec 'nnoremap <Leader>vm :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>vr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>ts :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>tr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 
 " }}}
 
@@ -580,8 +582,12 @@ endfunction
 let g:lightline = {
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'readonly', 'absolutepath', 'modified' ] ],
+            \             [ 'readonly', 'relativepath', 'modified' ] ],
             \   'right': [ ['percent'], [ 'linterStatus', 'coc', 'ctags' ] ]
+            \ },
+            \ 'inactive': {
+            \   'left': [ [ 'mode' ],
+            \             [ 'relativepath'] ],
             \ },
             \ 'component_function': {
             \   'linterStatus': 'LinterStatus',
@@ -592,6 +598,8 @@ let g:lightline = {
 
 " Don't show --INSERT--
 set noshowmode
+
+set showtabline=1
 
 " }}}
 
