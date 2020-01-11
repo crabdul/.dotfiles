@@ -28,6 +28,13 @@ source "$(pyenv which virtualenvwrapper.sh)"
 
 export NVM_LAZY_LOAD=true
 
+# =============================================================================
+# Tmux
+# =============================================================================
+
+if [ -z "$TMUX" ]; then
+    tmux attach -t d || tmux new -s d
+fi
 
 # =============================================================================
 # NeoVim
@@ -88,6 +95,12 @@ function gctags() {
 }
 
 alias snips="cd $HOME/.vim/plugged/vim-snippets/UltiSnips"
+
+# Tmux
+alias tm="tmux"
+alias tma="tmux attach -t d || tmux new -s d"
+alias tmd="tmux detach"
+alias tml="tmux ls"
 
 # =============================================================================
 # zgen

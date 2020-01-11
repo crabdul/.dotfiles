@@ -11,6 +11,17 @@ else
     let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
 endif
 
+if exists('$TMUX')
+    " Colors in tmux
+    let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+set termguicolors
+set background=dark
+
+" colorscheme base16-flat
+
 " }}}
 
 " Plugins: {{{
@@ -85,6 +96,10 @@ Plug 'Raimondi/delimitMate'
 Plug 'mattn/emmet-vim'
 
 Plug 'lambdalisue/gina.vim'
+
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'benmills/vimux'
 
 " Initialize plugin system
 call plug#end()
@@ -791,5 +806,14 @@ nmap <leader>gd :Gina diff<cr>
 nmap <leader>gl :Gina log<cr>
 
 " }}}
+"
+" Prompt for a command to run
+nmap vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+nmap vc :VimuxRunLastCommand<CR>
+
+" Zoom the tmux runner pane
+nmap vv :VimuxZoomRunner<CR>
 
 " vim:foldmethod=marker:foldlevel=0
