@@ -62,8 +62,6 @@ Plug 'dense-analysis/ale'
 
 Plug 'itchyny/lightline.vim'
 
-Plug 'majutsushi/tagbar'
-
 " Run:
 " - :CocInstall pyls tsserver
 " - Add to :CocSettings
