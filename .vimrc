@@ -434,6 +434,15 @@ autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 
+function! GetOrCreateTest()
+    let file_path = expand('%')
+    let file_name = split(file_path, '/')[-1]
+    let test_file_path = substitute(substitute(file_path, file_name, "test_" . file_name, ""), "src", "src/tests/unit", "")
+    exec ':vsplit ' . test_file_path
+endfunction
+
+nmap T :call GetOrCreateTest()<cr>
+
 " }}}
 
 " JavaScript: {{{
