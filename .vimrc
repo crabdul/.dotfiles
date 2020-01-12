@@ -84,6 +84,8 @@ Plug 'Raimondi/delimitMate'
 
 Plug 'mattn/emmet-vim'
 
+Plug 'lambdalisue/gina.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -776,6 +778,17 @@ function! Expander()
 endfunction
 
 imap <expr> <CR> Expander()
+
+" }}}
+
+" Plugin Gina: {{{
+" ============
+
+:abbrev G Gina
+nmap <leader>gs :Gina status -s<cr>
+nmap <leader>gc :Gina compare<cr>
+nmap <leader>gd :Gina diff<cr>
+nmap <leader>gl :Gina log<cr>
 
 " }}}
 
