@@ -666,8 +666,8 @@ function! s:show_documentation()
     endif
 endfunction
 
-nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>g  :<C-u>CocList actions<cr>
+nnoremap <silent> <leader>ed  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
 
 
 " This isn't working I think
