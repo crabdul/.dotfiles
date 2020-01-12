@@ -352,7 +352,7 @@ nnoremap n nzzzO
 nnoremap N NzzzO
 
 " Jump to last file
-nnoremap  <leader>y
+" nnoremap  <leader>y
 
 " Jump between search matches (from the error list) when using :grep and open
 " the folds obscuring the matching line.
