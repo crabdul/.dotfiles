@@ -62,8 +62,6 @@ Plug 'dense-analysis/ale'
 
 Plug 'itchyny/lightline.vim'
 
-Plug 'majutsushi/tagbar'
-
 " Run:
 " - :CocInstall pyls tsserver
 " - Add to :CocSettings
@@ -85,6 +83,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Raimondi/delimitMate'
 
 Plug 'mattn/emmet-vim'
+
+Plug 'lambdalisue/gina.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -314,10 +314,10 @@ nnoremap <c-b> <c-b>zz
 nmap <leader>r :e %<CR>
 
 " Edit vimrc
-nmap <leader>ve :tabe $MYVIMRC<cr>
+command! Vimrc :tabe $MYVIMRC<cr>
 
 " Source vimrc
-nmap <leader>vv :source /Users/abdulkarim/.dotfiles/.vimrc<cr>
+command! Sauce :source /Users/abdulkarim/.dotfiles/.vimrc
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -348,11 +348,11 @@ nnoremap ∆ :m+<CR>==
 nnoremap <space> za
 
 " Open folds after jumping
-nnoremap n nzO
-nnoremap N NzO
+nnoremap n nzzzO
+nnoremap N NzzzO
 
 " Jump to last file
-" nnoremap  <c-^>
+nnoremap  <leader>y
 
 " Jump between search matches (from the error list) when using :grep and open
 " the folds obscuring the matching line.
@@ -372,6 +372,8 @@ nmap B :bd<CR>
 noremap <leader>/ :%s:<c-r>=expand("<cword>")<cr>::g<Left><Left>
 noremap <leader>; :%s:<c-r>=expand("<cword>")<cr>:
             \<c-r>=expand("<cword>")<cr>:g<Left><Left>
+
+noremap <leader>v :vsp<enter>
 
 " INSERT MODE:
 " ============
@@ -409,8 +411,8 @@ tnoremap <Esc> <C-\><C-n>
 let g:session_dir = '~/.vim-sessions'
 
 " Shortcuts to execute session saves and restores
-exec 'nnoremap <Leader>vm :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>vr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>ts :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>tr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 
 " }}}
 
@@ -433,6 +435,15 @@ autocmd FileType html set filetype=htmldjango
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
+
+function! GetOrCreateTest()
+    let file_path = expand('%')
+    let file_name = split(file_path, '/')[-1]
+    let test_file_path = substitute(substitute(file_path, file_name, "test_" . file_name, ""), "src", "src/tests/unit", "")
+    exec ':vsplit ' . test_file_path
+endfunction
+
+nmap T :call GetOrCreateTest()<cr>
 
 " }}}
 
@@ -580,8 +591,12 @@ endfunction
 let g:lightline = {
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'readonly', 'absolutepath', 'modified' ] ],
+            \             [ 'readonly', 'relativepath', 'modified' ] ],
             \   'right': [ ['percent'], [ 'linterStatus', 'coc', 'ctags' ] ]
+            \ },
+            \ 'inactive': {
+            \   'left': [ [ 'mode' ],
+            \             [ 'relativepath'] ],
             \ },
             \ 'component_function': {
             \   'linterStatus': 'LinterStatus',
@@ -592,6 +607,8 @@ let g:lightline = {
 
 " Don't show --INSERT--
 set noshowmode
+
+set showtabline=1
 
 " }}}
 
@@ -649,8 +666,8 @@ function! s:show_documentation()
     endif
 endfunction
 
-nnoremap <silent> <leader>e  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>g  :<C-u>CocList actions<cr>
+nnoremap <silent> <leader>ed  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
 
 
 " This isn't working I think
@@ -761,6 +778,17 @@ function! Expander()
 endfunction
 
 imap <expr> <CR> Expander()
+
+" }}}
+
+" Plugin Gina: {{{
+" ============
+
+:abbrev G Gina
+nmap <leader>gs :Gina status -s<cr>
+nmap <leader>gc :Gina compare<cr>
+nmap <leader>gd :Gina diff<cr>
+nmap <leader>gl :Gina log<cr>
 
 " }}}
 
