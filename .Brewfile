@@ -25,6 +25,7 @@ brew "redis"
 brew "the_silver_searcher"
 brew "tmux"
 brew "tree"
+brew "watchman"
 brew "zsh"
 
 cask "alfred"
