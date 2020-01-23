@@ -468,6 +468,8 @@ nmap T :call GetOrCreateTest()<cr>
 au FileType javascript setlocal foldlevelstart=2 foldlevel=2
 " let javaScript_fold=1
 
+abbrev apos &apos;
+
 " }}}
 
 " Plugin Vim Signify: {{{
@@ -815,5 +817,13 @@ nmap vc :VimuxRunLastCommand<CR>
 
 " Zoom the tmux runner pane
 nmap vv :VimuxZoomRunner<CR>
+
+let g:indentLine_setConceal = 2
+" default ''.
+" n for Normal mode
+" v for Visual mode
+" i for Insert mode
+" c for Command line editing, for 'incsearch'
+let g:indentLine_concealcursor = "nv"
 
 " vim:foldmethod=marker:foldlevel=0
