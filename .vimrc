@@ -222,18 +222,25 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 cnoremap <expr> <CR> getcmdtype() == '/' ? '<CR>zz' : '<CR>'
 
 " Splits:
-" ============
+" =======
 set splitright
 set splitbelow
 
 " History:
-" ============
+" ========
 " Keep undo history between sessions
 if has('persistent_undo')
     set undofile
     set undodir=~/.vim_undo
     set undolevels=2000
 endif
+
+" Abbreviations:
+" ========
+
+abbrev h #
+abbrev hh ##
+abbrev hhh ###
 
 " }}}
 
