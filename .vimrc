@@ -334,7 +334,7 @@ nmap <leader>r :e %<CR>
 command! Vimrc :tabe $MYVIMRC<cr>
 
 " Source vimrc
-command! Sauce :source /Users/abdulkarim/.dotfiles/.vimrc
+command! Sauce :source $HOME/.dotfiles/.vimrc
 
 " Fast saving
 nmap <leader>w :w!<cr>
