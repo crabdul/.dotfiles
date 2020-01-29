@@ -290,6 +290,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " nnoremap bdo :%bd|e#
 
+nnoremap M :bd<cr>
+
 " }}}
 
 " Mappings: {{{
