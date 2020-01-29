@@ -221,6 +221,11 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " Center search
 cnoremap <expr> <CR> getcmdtype() == '/' ? '<CR>zz' : '<CR>'
 
+" Splits:
+" ============
+set splitright
+set splitbelow
+
 " History:
 " ============
 " Keep undo history between sessions
@@ -505,8 +510,8 @@ nmap <leader>f :Files<cr>
 nmap <leader>b :Buffers<CR>
 nmap <Leader>h :History<CR>
 nmap <Leader>l :BLines<CR>
-" nmap <leader>s :Tags<cr>
-nmap <leader>s :tag<space>
+nmap <leader>s :Tags<cr>
+" nmap <leader>s :tag<space>
 nmap <Leader>d :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 
 command! Fzfc call fzf#run(fzf#wrap(
