@@ -483,8 +483,8 @@ nmap T :call GetOrCreateTest()<cr>
 " JavaScript: {{{
 " =======
 
-au FileType javascript setlocal foldlevelstart=2 foldlevel=2
-" let javaScript_fold=1
+au BufRead,BufNewFile *.jsx set filetype=javascript.jsx
+au FileType javascript,javascript.jsx setlocal foldlevelstart=20 foldlevel=2
 
 abbrev apos &apos;
 
