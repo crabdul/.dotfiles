@@ -445,6 +445,8 @@ au FileType python map <buffer> 2 /def<CR>
 
 " Shortcut to insert pdb
 abbrev pdb import ipdb; ipdb.set_trace()
+abbrev kw **kwargs
+abbrev args *args
 
 " Django:
 " =======
