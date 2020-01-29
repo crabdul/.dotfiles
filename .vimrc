@@ -11,6 +11,17 @@ else
     let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
 endif
 
+if exists('$TMUX')
+    " Colors in tmux
+    let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+set termguicolors
+set background=dark
+
+" colorscheme base16-flat
+
 " }}}
 
 " Plugins: {{{
@@ -85,6 +96,10 @@ Plug 'Raimondi/delimitMate'
 Plug 'mattn/emmet-vim'
 
 Plug 'lambdalisue/gina.vim'
+
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'benmills/vimux'
 
 " Initialize plugin system
 call plug#end()
@@ -261,6 +276,8 @@ endtry
 " return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" nnoremap bdo :%bd|e#
+
 " }}}
 
 " Mappings: {{{
@@ -428,6 +445,8 @@ au FileType python map <buffer> 2 /def<CR>
 
 " Shortcut to insert pdb
 abbrev pdb import ipdb; ipdb.set_trace()
+abbrev kw **kwargs
+abbrev args *args
 
 " Django:
 " =======
@@ -452,6 +471,8 @@ nmap T :call GetOrCreateTest()<cr>
 
 au FileType javascript setlocal foldlevelstart=2 foldlevel=2
 " let javaScript_fold=1
+
+abbrev apos &apos;
 
 " }}}
 
@@ -791,5 +812,22 @@ nmap <leader>gd :Gina diff<cr>
 nmap <leader>gl :Gina log<cr>
 
 " }}}
+"
+" Prompt for a command to run
+nmap vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+nmap vc :VimuxRunLastCommand<CR>
+
+" Zoom the tmux runner pane
+nmap vv :VimuxZoomRunner<CR>
+
+let g:indentLine_setConceal = 2
+" default ''.
+" n for Normal mode
+" v for Visual mode
+" i for Insert mode
+" c for Command line editing, for 'incsearch'
+let g:indentLine_concealcursor = "nv"
 
 " vim:foldmethod=marker:foldlevel=0
