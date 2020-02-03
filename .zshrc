@@ -14,6 +14,8 @@ export PATH="/usr/local/Cellar/rabbitmq/3.7.9/sbin:$PATH"
 
 export PATH="$HOME/.nvm/nvm.sh:$PATH"
 
+export PATH="$HOME/.cargo/bin:$PATH"
+
 export PYENV_ROOT="$HOME/.pyenv"
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
