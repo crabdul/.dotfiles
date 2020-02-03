@@ -101,6 +101,9 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'benmills/vimux'
 
+" :call clap#helper#download_binary()
+Plug 'liuchengxu/vim-clap'
+
 " Initialize plugin system
 call plug#end()
 
