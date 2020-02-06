@@ -101,6 +101,11 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'benmills/vimux'
 
+Plug 'yuki-ycino/fzf-preview.vim'
+
+" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf
+Plug 'ryanoasis/vim-devicons'
+
 " Initialize plugin system
 call plug#end()
 
@@ -501,8 +506,8 @@ highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff
 " Tab or shift-tab can be used to toggle individual selected items
 " Enter to populate quickfix list with selected items
 map <leader>a :Rg<space>
-nmap <leader>f :Files<cr>
-nmap <leader>b :Buffers<CR>
+nmap <leader>f :FzfPreviewProjectFiles<cr>
+nmap <leader>b :FzfPreviewBuffers<CR>
 nmap <Leader>h :History<CR>
 nmap <Leader>l :BLines<CR>
 " nmap <leader>s :Tags<cr>
@@ -512,7 +517,7 @@ nmap <Leader>d :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 command! Fzfc call fzf#run(fzf#wrap(
             \ {'source': 'git ls-files --exclude-standard --others --modified'}))
 
-noremap <Leader>c :Fzfc<cr>
+noremap <Leader>c :FzfPreviewGitStatus<cr>
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -829,5 +834,11 @@ let g:indentLine_setConceal = 2
 " i for Insert mode
 " c for Command line editing, for 'incsearch'
 let g:indentLine_concealcursor = "nv"
+
+
+set encoding=utf8
+let g:fzf_preview_use_dev_icons = 1
+let g:airline_powerline_fonts = 1
+set guifont=DroidSansMono_Nerd_Font:h11
 
 " vim:foldmethod=marker:foldlevel=0

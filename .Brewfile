@@ -1,4 +1,5 @@
 tap "jesseduffield/lazygit"
+tap "homebrew/cask-fonts"
 tap "mas-cli/tap", pin:true
 
 brew "bat"
@@ -37,6 +38,7 @@ cask "dashlane"
 cask "docker"
 cask "dropbox"
 cask "firefox"
+cask "font-hack-nerd-font"
 cask "google-chrome"
 cask "hammerspoon"
 cask "iterm2"
