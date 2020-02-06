@@ -839,6 +839,9 @@ let g:indentLine_concealcursor = "nv"
 set encoding=utf8
 let g:fzf_preview_use_dev_icons = 1
 let g:airline_powerline_fonts = 1
+
+let g:fzf_preview_filelist_command = 'rg --files --hidden --follow --glob "!.git/*"' " Installed ripgrep
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading'
 set guifont=DroidSansMono_Nerd_Font:h11
 
 " vim:foldmethod=marker:foldlevel=0

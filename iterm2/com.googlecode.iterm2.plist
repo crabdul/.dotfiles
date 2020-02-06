@@ -8,6 +8,8 @@
 	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
+	<key>ApplePressAndHoldEnabled</key>
+	<false/>
 	<key>AppleScrollAnimationEnabled</key>
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
@@ -525,7 +527,7 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>154 473 592 584 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 2 1274 775 0 0 1280 777 </string>
+	<string>0 0 1280 777 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>46 398 665 477 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1335,6 +1337,7 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.2.9</string>
+		<string>3.3.8</string>
 		<string>3.3.4</string>
 		<string>3.3.7</string>
 		<string>3.3.6</string>
@@ -1375,7 +1378,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>593528981.48512399</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>48</integer>
+	<integer>49</integer>
 	<key>NoSyncNeverPromptToChangeOption</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
@@ -4493,7 +4496,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.7</string>
+	<string>3.3.8</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
