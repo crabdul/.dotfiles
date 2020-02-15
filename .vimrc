@@ -739,6 +739,8 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 nmap Z :GitMessenger<CR>
 
+let g:git_messenger_include_diff = "current"
+
 " }}}
 
 " Plugin Gutentags: {{{
