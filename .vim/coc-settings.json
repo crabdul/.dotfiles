@@ -1,5 +1,8 @@
 {
     "list.maxHeight": 4,
     "python.jediEnabled": false,
-    "python.globalModuleInstallation": true
+    "python.globalModuleInstallation": true,
+    "snippets.ultisnips.directories": [
+        "/Users/abdulkarim/.vim/ultisnips"
+    ]
 }
