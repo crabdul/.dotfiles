@@ -376,7 +376,7 @@ nnoremap gu :u1\|u<CR>
 nnoremap ˚ :m--<CR>==
 nnoremap ∆ :m+<CR>==
 
-nnoremap <space> za
+nnoremap <space> zA
 
 " Open folds after jumping
 nnoremap n nzzzO
