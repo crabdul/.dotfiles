@@ -238,9 +238,6 @@ endif
 " Abbreviations:
 " ========
 
-abbrev h #
-abbrev hh ##
-abbrev hhh ###
 
 " }}}
 
