@@ -291,6 +291,12 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " nnoremap bdo :%bd|e#
 
 nnoremap M :bd<cr>
+nnoremap <leader>m :bp\|bd #<cr>
+
+set winheight=6
+set winminheight=6
+autocmd WinEnter * wincmd _
+
 
 " }}}
 
@@ -686,8 +692,8 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD <c-w>v<c-w>l<Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-definition)
+nmap <silent> gd <c-w>s<c-w>l<Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
