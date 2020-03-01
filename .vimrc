@@ -410,7 +410,7 @@ noremap <leader>/ :%s:<c-r>=expand("<cword>")<cr>::g<Left><Left>
 noremap <leader>; :%s:<c-r>=expand("<cword>")<cr>:
             \<c-r>=expand("<cword>")<cr>:g<Left><Left>
 
-noremap <leader>v :vsp<enter>
+noremap <leader>v :botright vsplit<enter>
 
 " INSERT MODE:
 " ============
