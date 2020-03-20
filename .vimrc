@@ -89,8 +89,6 @@ Plug 'junegunn/vim-peekaboo'
 " Edit quickfix list
 Plug 'stefandtw/quickfix-reflector.vim'
 
-Plug 'ludovicchabant/vim-gutentags'
-
 Plug 'Raimondi/delimitMate'
 
 Plug 'mattn/emmet-vim'
@@ -651,7 +649,6 @@ let g:lightline = {
             \ 'component_function': {
             \   'linterStatus': 'LinterStatus',
             \   'coc': 'coc#status',
-            \   'ctags': 'gutentags#statusline'
             \ },
             \ }
 
@@ -755,43 +752,6 @@ xmap <silent> iE <Plug>CamelCaseMotion_ie
 nmap Z :GitMessenger<CR>
 
 let g:git_messenger_include_diff = "current"
-
-" }}}
-
-" Plugin Gutentags: {{{
-" =================
-
-" Gutentags
-" Don't load me if there's no ctags file
-if !executable('ctags')
-    let g:gutentags_dont_load = 1
-endif
-
-let g:gutentags_file_list_command = 'rg --files'
-let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
-let g:gutentags_modules = ['ctags']
-let g:gutentags_project_root = ['.git', '.cproject']
-let g:gutentags_add_default_project_roots=0
-let g:gutentags_define_advanced_commands=1
-let g:gutentags_ctags_tagfile='.tags'
-let g:gutentags_generate_on_write = 1
-
-let g:gutentags_ctags_exclude = [
-            \ '*/static-src/*',
-            \ 'dist',
-            \ ]
-
-let g:gutentags_ctags_extra_args = [
-            \ '--tag-relative=yes',
-            \ '--fields=+ailmnS',
-            \ '--python-kinds=-iv'
-            \ ]
-
-augroup MyGutentagsStatusLineRefresher
-    autocmd!
-    autocmd User GutentagsUpdating call lightline#update()
-    autocmd User GutentagsUpdated call lightline#update()
-augroup END
 
 " }}}
 
