@@ -503,6 +503,8 @@ abbrev apos &apos;
 
 " }}}
 
+au BufWritePre *.md :normal gqG
+
 " Plugin Vim Signify: {{{
 " ===================
 
