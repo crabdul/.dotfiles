@@ -45,9 +45,6 @@ Plug 'tpope/vim-commentary'
 " Extend % for matching for HTML
 Plug 'vim-scripts/matchit.zip'
 
-" Indent guides
-Plug 'vim-scripts/indentLine.vim'
-
 " FZF
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -815,12 +812,10 @@ nmap vc :VimuxRunLastCommand<CR>
 " Zoom the tmux runner pane
 nmap vv :VimuxZoomRunner<CR>
 
-let g:indentLine_setConceal = 2
 " default ''.
 " n for Normal mode
 " v for Visual mode
 " i for Insert mode
 " c for Command line editing, for 'incsearch'
-let g:indentLine_concealcursor = "nv"
 
 " vim:foldmethod=marker:foldlevel=0
