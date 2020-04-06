@@ -575,9 +575,12 @@ command! -bang -nargs=? -complete=dir Files
 " Plugin ALE: {{{
 " ===========
 
+" gem install mdl
+" npm install write-good
 let g:ale_linters = {
             \ 'javascript': ['eslint'],
             \ 'python': ['flake8'],
+            \ 'markdown': ['mdl', 'proselint', 'writegood'],
             \ }
 
 let g:ale_fixers = {
