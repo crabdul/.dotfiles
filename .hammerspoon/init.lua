@@ -7,7 +7,7 @@ hs.hotkey.bind(mash, 'M', function() hs.application.launchOrFocus('Preview') end
 hs.hotkey.bind(mash, 'K', function() hs.application.launchOrFocus('iTerm') end)
 hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus('Postico') end)
 hs.hotkey.bind(mash, 'L', function() hs.application.launchOrFocus('Slack') end)
-hs.hotkey.bind(mash, 'H', function() hs.application.launchOrFocus('Firefox') end)
+hs.hotkey.bind(mash, 'H', function() hs.application.launchOrFocus('Safari') end)
 hs.hotkey.bind(mash, 'U', function() hs.application.launchOrFocus('Quiver') end)
 hs.hotkey.bind(mash, 'N', function() hs.application.launchOrFocus('SnippetsLab') end)
 hs.hotkey.bind(mash, ',', function() hs.application.launchOrFocus('Dash') end)
