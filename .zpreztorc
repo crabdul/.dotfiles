@@ -1,0 +1,7 @@
+zstyle ':prezto:load' pmodule \
+  'completion' \
+  'git' \
+  'history-substring-search' \
+  'prompt' \
+
+zstyle ':prezto:module:prompt' theme 'sorin'
