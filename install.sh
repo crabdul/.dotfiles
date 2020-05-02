@@ -56,15 +56,10 @@ print_success() {
     printf "\e[0;32m] ✨ $1\e[0m\n"
 }
 
-sync_iterm_with_dotfiles() {
-    defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/iterm2"
-    defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-}
-
 # }}}
 
 # Install. {{{
-declare -a FILES_TO_SYMLINK=$(find . -type f -maxdepth 1 \
+declare -a FILES_TO_SYMLINK=$(find . -type f -maxdepth 3 \
     -name ".*" \
     -not -name .DS_Store \
     -not -name .git \
@@ -90,19 +85,17 @@ main() {
                 if answer_is_yes; then
                     rm -rf "$targetFile"
                     execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
-                else 
+                else
                     print_error "$targetFile → $sourceFile"
                 fi
-            
+
             else
                 print_success "$targetFile → $sourceFile"
-            fi 
-        else 
+            fi
+        else
             execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
         fi
     done
-
-    sync_iterm_with_dotfiles
 
 }
 
