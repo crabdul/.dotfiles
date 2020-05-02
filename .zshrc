@@ -248,6 +248,47 @@ if command -v ag 1>/dev/null 2>&1; then
     "
 fi
 
+# Aliases
+
+# Hub
+alias hpr='hub pull-request'
+alias pulls='hub browse -- pulls'
+alias wiki='hub browse -- wiki'
+
+# zsh tools
+alias shelloadtime="/usr/bin/time zsh -i -c exit"
+
+# linux
+function killport() { lsof -ti:$1 | xargs kill; }
+
+# Plugins
+alias f="fzf --preview 'bat --color \"always\" {}'"
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+    local files
+    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+alias snips="cd $HOME/.vim/plugged/vim-snippets/UltiSnips"
+
+# Tmux
+alias tm="tmux"
+alias tma="tmux attach -t d || tmux new -s d"
+alias tmd="tmux detach"
+alias tml="tmux ls"
+#
+
 # =============================================================================
 # Source work config
 # =============================================================================
