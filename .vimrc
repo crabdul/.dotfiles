@@ -96,6 +96,8 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'benmills/vimux'
 
+Plug 'ntk148v/vim-horizon'
+
 " Initialize plugin system
 call plug#end()
 
@@ -105,7 +107,8 @@ call plug#end()
 " ======
 
 set background=dark
-colorscheme palenight
+" colorscheme palenight
+colorscheme horizon
 
 " Enable true colours
 if (has("termguicolors"))
@@ -652,6 +655,7 @@ let g:lightline = {
             \   'linterStatus': 'LinterStatus',
             \   'coc': 'coc#status',
             \ },
+            \ 'colorscheme': 'horizon'
             \ }
 
 " Don't show --INSERT--
