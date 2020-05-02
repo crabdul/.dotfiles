@@ -142,6 +142,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Z}{a-z}' 'r:|
 # History
 # =============================================================================
 
+# Share history between shell instances
+setopt share_history
+
 # If the internal history needs to be trimmed to add the current command line,
 # setting this option will cause the oldest history event that has a duplicate
 # to be lost before losing a unique event from the list.
