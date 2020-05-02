@@ -1,214 +1,290 @@
-" General {{{
+" Environment: {{{
+" ========
 
 " Python source
-let g:python_host_prog = $HOME."/neovim2/bin/python"
-let g:python3_host_prog = $HOME."/neovim3/bin/python"
+" Run:
+" - pip3 install neovim black autopep8
+" Figure out the system Python for Neovim.
+if exists("$VIRTUAL_ENV")
+    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
+else
+    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
+endif
 
-syntax on
-set history=500				" sets how many lines of history VIM has to remember
-let mapleader = ","              " display using :echo mapleader
+if exists('$TMUX')
+    " Colors in tmux
+    let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "<Esc>[48;2;%lu;%lu;%lum"
+endif
 
-" Can quit with capital Q
-command! Q q
+set termguicolors
+set background=dark
 
-" edit vimrc
-nmap <leader>se :tabe $MYVIMRC<cr>
-
-" source vimrc
-nmap <leader>sv :source $MYVIMRC<cr>
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" Disable automatic comment insertion
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" Fast quiting
-nmap <leader>q :q!<cr>
-
-" No swap file
-set noswapfile
-
-" esc for terminal
-tnoremap <Esc> <C-\><C-n>
-
-set mouse=a                     " enable use of mouse in all modes
-set mousehide                   " hide mouse when typing
-
-" declare lines from end of file just for vim
-set modelines=1
-
-" make swapfiles be kept in a central location to avoid polluting file system
-set directory=$HOME/.vim/swapfiles//
-
-nmap < [
-nmap > ]
-omap < [
-omap > ]
-xmap < [
-xmap > ]
+" colorscheme base16-flat
 
 " }}}
-" UI {{{
 
-set lazyredraw                   " Don't redraw while executing macros
-set magic                        " For regular expressions turn magic on
-set showmatch                    " Show matching brackets when text indicator is over them
-set mat=2                        " How many tenths of a second to blink when matching brackets
+" Plugins: {{{
+" ========
 
-set number                       " show current line number
-set relativenumber               " show lines number relative to current
-set showcmd                      " show command in bottom bar
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
 
-set equalalways                 " keep windows equally sized
-set title                       " Set window title to filename
-set colorcolumn=80              " set column width
+" Palenight theme
+Plug 'drewtempelmeyer/palenight.vim'
 
-set noerrorbells                 " No annoying sounds on errors
+" Language starter pack
+Plug 'sheerun/vim-polyglot'
+
+" Git status along file
+Plug 'mhinz/vim-signify'
+
+" Comment out stuff
+Plug 'tpope/vim-commentary'
+
+" Extend % for matching for HTML
+Plug 'vim-scripts/matchit.zip'
+
+" FZF
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
+" Provides lots of textobjects
+" Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
+Plug 'wellle/targets.vim'
+
+" Use 'i' as a text obj for an indented block
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-user'  " requirement of vim-textobj-indent
+
+" Use 'f' for function, 'c' for class
+Plug 'bps/vim-textobj-python'
+
+Plug 'machakann/vim-highlightedyank'
+
+Plug 'machakann/vim-sandwich'
+
+Plug 'rhysd/git-messenger.vim'
+
+Plug 'dense-analysis/ale'
+
+Plug 'itchyny/lightline.vim'
+
+" Run:
+" - :CocInstall pyls tsserver
+" - Add to :CocSettings
+" - "python.jedi.enabled": false,
+" - "python.globalModuleInstallation": true // To Install rope
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'bkad/CamelCaseMotion'
+
+" See inside registers
+" TODO: not working currently
+Plug 'junegunn/vim-peekaboo'
+
+" Edit quickfix list
+Plug 'stefandtw/quickfix-reflector.vim'
+
+Plug 'Raimondi/delimitMate'
+
+Plug 'mattn/emmet-vim'
+
+Plug 'lambdalisue/gina.vim'
+
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'benmills/vimux'
+
+Plug 'ntk148v/vim-horizon'
+
+" Initialize plugin system
+call plug#end()
+
+" }}}
+
+" Theme: {{{
+" ======
+
+set background=dark
+" colorscheme palenight
+colorscheme horizon
+
+" Enable true colours
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+let g:palenight_terminal_italics=1
+
+" }}}
+
+" Core: {{{
+" =====
+
+" Switch syntax highlighting on when the terminal has colors
+if &t_Co > 2 || has("syntax")
+    syntax on
+endif
+
+filetype indent plugin on       " Turn on filetype detection
+set clipboard=unnamed           " Use system clipboard as default clipboard
+
+" Make swapfiles be kept in a central location to avoid polluting file system
+set directory=$HOME/.vim/swapfiles//
+
+" Declare lines from end of file just for vim
+" This allows the folding setting to be read
+set modelines=1
+
+set wildignore+=**/node_modules/**,**/__pycache__/**
+
+" Leader Keys:
+" ============
+let mapleader = ","
+let maplocalleader = ","
+let g:mapleader = ","
+
+" Errors:
+" =======
+set errorbells
+set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
 
-" Open new split panes to right and bottom
-set splitbelow
-set splitright
+" Mouse:
+" ======
+set mouse=a                     " Enable use of mouse in all modes
+set mousehide                   " Hide mouse when typing
 
-" let terminal resize scale the internal windows
+" UI:
+" ===
+set number                      " Show current line number
+set relativenumber              " Show lines number relative to current
+set showcmd                     " Show command in bottom bar
+set equalalways                 " Keep windows equally sized
+set title                       " Set window title to filename
+set colorcolumn=80              " Set column width
+set lazyredraw                  " Don't redraw while executing macros
+set magic                       " For regular expressions turn magic on
+
+" Let terminal resize scale the internal windows
 autocmd VimResized * :wincmd =
 
-augroup numbertoggle
+augroup NumberToggle
     autocmd!
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-" }}}
-" Tabs and spaces {{{
-
-set tabstop=4
+" Editing Behaviour:
+" ==================
+set tabstop=4                   " Length of tab in spaces
+set softtabstop=4               " Number of spaces to add when you hit <tab>
+set expandtab                   " Expand tabs into spaces
 set shiftwidth=4
-set softtabstop=4                " number of spaces in tab when editing
-set expandtab                    " tabs are spaces
+set shiftround                  " Round indent to multiple of 'shiftwidth'
+set autoindent                  " CR returns to indent of previous line
+set backspace=indent,eol,start  " Allows backspacing over everything in insert mode
+set scrolloff=10                " Distance from top/bottom to begin scrolling
+set noeol                       " Prevent a carriage return at end of last line
+set nojoinspaces                " Don't insert two spaces after sentence joins
 
-set list                         " highlight extra white spaces
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+" Highlighting And Searching:
+" ===========================
+set hlsearch                    " Highlight search matches
+set ignorecase                  " Ignore case when searching
+set smartcase                   " When searching try to be smart about cases
+set incsearch                   " Search as characters are entered
+set cursorline                  " Highlight current line
+set inccommand=nosplit          " Show replacement in action
+set listchars=tab:>·,trail:.,extends:>,precedes:<
+set list                        " Show whitespace as characters
+set showmatch                   " Show closing punctuation
+set matchtime=1                 " Speed up jump to matching bracket
 
-autocmd FileType ruby setlocal expandtab shiftwidth=4 tabstop=4
+" Files Buffers:
+" ==============
+set hidden                      " Don't abandon unloaded buffers, hide them instead
+set fileformats=unix            " File format
+set autowrite                   " Auto-write file if modified on exit
+set autoread                    " Auto-load file if it changes elsewhere
+set nobackup                    " Don't keep a back-up file, they're annoying
+set noswapfile
 
-" tabline
-set guitablabel=%N\ %f
-
-" Dynamically set window size
-" source https://forum.upcase.com/t/vimrc-winminwidth-e36-not-enough-room-error/4334
-fun! SetWindowSizes()
-    set winheight=6
-    set winminheight=6
-    let &winheight = &lines - 5
-    " set winwidth=84
-    " silent set winminwidth=84
-    " let &winwidth = &columns - 40
-endfun
-
-autocmd WinEnter * call SetWindowSizes()
-
-" }}}
-" Searching and highlighting {{{
-
-set hlsearch                     " higlight matches
-set ignorecase                   " Ignore case when searching
-set smartcase                    " When searching try to be smart about cases
-set incsearch                    " search as characters are entered
-
-set cursorline                   " highlight current line
-
-set inccommand=nosplit           " replace in realtime
-
-" highlight conflict markers
+" Highlight conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
-" center search
+" Center search
 cnoremap <expr> <CR> getcmdtype() == '/' ? '<CR>zz' : '<CR>'
 
-" turn off search highlight
-nnoremap <bs> :nohlsearch<CR>
+" Splits:
+" =======
+set splitright
+set splitbelow
 
-" keep working directory as the one from where vim was opened in Insert mode
-autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
-autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+" History:
+" ========
+" Keep undo history between sessions
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.vim_undo
+    set undolevels=2000
+endif
 
-" pull <cword> onto search/command line
-nnoremap gs /<C-R><C-W>
+" Abbreviations:
+" ==============
 
-" highlight last inserted text
-nnoremap gV `[v`]
 
-" From http://www.vimregex.com
-noremap <leader>; :%s:::g<Left><Left><Left>
-cmap ;\ \(\)<Left><Left>
+" Yanking:
+" ========
+
+" reyank previously yanked text
+nnoremap gb `[v`]y<C-O>
+
+" put (p) and adjust indent to current line
+nnoremap p ]p
+" put the text before the cursor (P) and adjust indent to current line
+nnoremap P ]P
 
 
 " }}}
-" Folding {{{
 
-set foldenable                   " enable folding
+" Folding: {{{
+" ========
+
+set foldenable
+set foldmethod=syntax
 set foldlevel=0
-set foldlevelstart=1
 set foldnestmax=2
-set foldmethod=indent            " fold based on indent level
+set foldlevelstart=0                    " Starting fold level for a new buffer
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 
-" toggle fold
-nnoremap <leader>d zA
-nnoremap <leader>e za
-
-
 " }}}
-" Buffer Navigation {{{
-" source: https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
 
-" move down by visual line
-nnoremap <expr> j v:count ? 'j' : 'gj'
-
-" move up by visual line
-nnoremap <expr> k v:count ? 'k' : 'gk'
-
-
-" }}}
-" Window Navigation {{{
-
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" }}}
-" Tabs {{{
+" Tabs: {{{
+" =====
 
 map <leader>tn :tabnew<cr>
-" opens a new tab with the current buffer's path
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<space>
 
-" create directory if :tabedit references one that doesn't exist
+" Create directory if :tabedit references one that doesn't exist
 au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')
 
-" cycle through tabs
+" Left/right tab
 nnoremap H gT
 nnoremap L gt
 
 " }}}
-" Buffers {{{
 
-" if a buffer is already open :sb filename will jump to it
+" Buffers: {{{
+" ========
+
+" If a buffer is already open :sb filename will jump to it
 " rather than opening it in the current buffer
 try
     set switchbuf=useopen,usetab,newtab
@@ -219,82 +295,50 @@ endtry
 " return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" nnoremap bdo :%bd|e#
 
-" }}}
-" Copy and pasting {{{
+nnoremap M :bd<cr>
+nnoremap <leader>m :bp\|bd #<cr>
 
-" use system clipboard as default clipboard
-set clipboard=unnamed
-
-" disable smart autoindent stuff when pasting large bits of text
-set pastetoggle=<F2>
-
-" Copy current file path
-nmap <leader>cp :let @*=expand("%:p")<CR>
-
-" }}}
-" Editing {{{
-
-" Delete trailing white space on save, useful for some filetypes ;)
-" fun! CleanExtraSpaces()
-"     let save_cursor = getpos(".")
-"     let old_query = getreg('/')
-"     silent! %s/\s\+$//e
-"     call setpos('.', save_cursor)
-"     call setreg('/', old_query)
-" endfun
-
-" if has("autocmd")
-"     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh :call CleanExtraSpaces()
-" endif
+set winheight=6
+set winminheight=6
+autocmd WinEnter * wincmd _
 
 
 " }}}
-" File searching {{{
 
-" files in current directory
-nnoremap <Leader>v :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
+" Mappings: {{{
+" =========
 
-function! QuickFixListWithChangeFilesFromMaster()
-    " Get the result of git show in a list
-    let flist = system('git diff master... --name-only')
-    let flist = split(flist, '\n')
+" QuickFix List:
+" ==============
+" Display results in cope
+map <leader>z :botright cope<cr>
 
-    " Create the dictionnaries used to populate the quickfix list
-    let list = []
-    for f in flist
-        let dic = {'filename': f, "lnum": 1}
-        call add(list, dic)
-    endfor
+" Close QuickFix window
+map <leader>x :cclose<cr>
 
-    " Populate the qf list
-    call setqflist(list)
-    copen
+" Window Navigation:
+" ==================
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" NORMAL MODE:
+" ============
+" Rename the current file
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
 endfunction
 
-nnoremap <leader>cf :call QuickFixListWithChangeFilesFromMaster()<cr>
-
-" open item from quickfix list in horizontal split
-autocmd! FileType qf nnoremap <buffer> <c-x> <C-w><Enter><C-w>K
-
-" }}}
-" Goto Shortcuts: {{{
-" more in coc-nvim section
-
-" Open file under cursor in new tab
-nmap <silent> gF <c-w>v<c-w>lgf
-
-" }}}
-" Sessions: {{{
-
-let g:session_dir = '~/.vim-sessions'
-
-" shortcuts to execute session saves and restores
-exec 'nnoremap <Leader>ss :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>sr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
-
-" }}}
-" NORMAL MODE: {{{
+nmap R :call RenameFile()<cr>
 
 " Make yank consistent with other commands
 nnoremap Y y$
@@ -303,47 +347,87 @@ nnoremap Y y$
 nnoremap n nzz
 nnoremap N Nzz
 
+nmap <enter> o<ESC>
+
+" nmap <c-enter> O<ESC>
+
 " Centre when scrolling
 nnoremap <c-f> <c-f>zz
 nnoremap <c-b> <c-b>zz
 
-" move line up/down
+nmap <leader>r :e %<CR>
+
+" Edit vimrc
+command! Vimrc :tabe $MYVIMRC<cr>
+
+" Source vimrc
+command! Sauce :source $HOME/.dotfiles/.vimrc
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Fast quiting
+nmap <leader>q :q!<cr>
+
+" Move up/down by visual line
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
+" Turn off search highlight
+nnoremap <bs> :nohlsearch<CR>
+
+" Copy current path of file
+nmap <leader>cp :let @*=expand("%:.")<CR>
+
+" Revert buffer to state when file was opened
+nnoremap gu :u1\|u<CR>
+
+" Format file
+" nnoremap F gg=G
+
+" Move line up/down
 nnoremap ˚ :m--<CR>==
 nnoremap ∆ :m+<CR>==
 
-" revert buffer to state when file was opened
-nnoremap gu :u1\|u<CR>
+nnoremap <space> zA
 
-" replace the current word and all its occurrences.
-nnoremap <Leader>rr :%s:\<<C-r><C-w>\>:
+" Open folds after jumping
+nnoremap n nzzzO
+nnoremap N NzzzO
 
-" same as above but prefill
-nnoremap <Leader>re :%s:\<<C-r><C-w>\>:<C-r><C-w>
+" Jump to last file
+" nnoremap  <leader>y
 
-" format paragraph
-nnoremap Q gqap
+" Jump between search matches (from the error list) when using :grep and open
+" the folds obscuring the matching line.
+" Open folds and center
+nnoremap <silent> <RIGHT> :cnext<CR>zrzz
+nnoremap <silent> <LEFT> :cprev<CR>zrzz
 
-" format file
-nnoremap F gg=G
+" Search codebase for word under cursor (v useful)
+nnoremap gw :Rg <C-R><C-W><CR>
 
+" Pull <cword> onto search/command line
+nnoremap gs /<C-R><C-W>
 
-" }}}
-" INSERT MODE: {{{
+nmap B :bd<CR>
 
-" Escape and save
-inoremap <leader><leader> <ESC>:w<CR>
+" From http://www.vimregex.com
+noremap <leader>/ :%s:<c-r>=expand("<cword>")<cr>::g<Left><Left>
+noremap <leader>; :%s:<c-r>=expand("<cword>")<cr>:
+            \<c-r>=expand("<cword>")<cr>:g<Left><Left>
 
-" }}}
-" VISUAL MODE: {{{
+noremap <leader>v :botright vsplit<enter>
 
-" leave cursor at the end of the yanked block
-vnoremap y y']
+" INSERT MODE:
+" ============
+" Change working dir to current file dir when in INSERT mode
+autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
+autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
 
-" move visual block
-vnoremap J :move '>+1<CR>gv=gv
-vnoremap K :move '<-2<CR>gv=gv
-
-" move line up/down
+" VISUAL MODE:
+" ============
+" Move selected up/down
 vnoremap ∆ :m '>+1<CR>gv=gv
 vnoremap ˚ :m '<-2<CR>gv=gv
 
@@ -351,378 +435,108 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 
-" replace the current word and all its occurrences.
-vnoremap <Leader>rr y:%s:<C-r>":
+vnoremap <space> zf
 
-" same as above but prefill
-vnoremap <Leader>re y:%s:<C-r>":<C-r>"
-
-
-" }}}
-" COMMAND MODE: {{{
-
-" expand %% to the current diretory
+" COMMAND MODE:
+" =============
+" Expand %% to the current diretory
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" expand $$ to the path of the current buffer
+" Expand $$ to the path of the current buffer
 cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:p') : '$$'
 
-" }}}
-" Helper functions {{{
-
-function! CmdLine(str)
-    call feedkeys(":" . a:str)
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction<Paste>
+tnoremap <Esc> <C-\><C-n>
 
 " }}}
-" HTML filetypes {{{
 
-" Wrap <tag></tag> around VISUALLY selected Text
-vmap sp "zdi<p><C-R>z</p><ESC>
-vmap sd "zdi<div><C-R>z</div><ESC>
-vmap ss "zdi<span><C-R>z</span><ESC>
+" Sessions: {{{
+" =========
+
+let g:session_dir = '~/.vim-sessions'
+
+" Shortcuts to execute session saves and restores
+exec 'nnoremap <Leader>ts :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
+exec 'nnoremap <Leader>tr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
 
 " }}}
-" Django filetypes {{{
 
+" Python: {{{
+" =======
+au FileType python set foldmethod=indent
+au FileType python inoremap <buffer> rjj return<space>
+au FileType python inoremap <buffer> ijj import<space>
+au FileType python inoremap <buffer> pjj print()<left>
+au FileType python inoremap <buffer> fjj # --- <esc>a
+au FileType python map <buffer> 1 /class<CR>
+au FileType python map <buffer> 2 /def<CR>
+
+" Shortcut to insert pdb
+abbrev pdb import ipdb; ipdb.set_trace()
+abbrev kw **kwargs
+abbrev args *args
+
+" Django:
+" =======
+autocmd FileType html set filetype=htmldjango
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 
-" }}}
-" Python filetypes {{{
-
-let python_highlight_all = 1
-au FileType python syn keyword pythonDecorator True None False self
-
-au FileType python set cindent
-au FileType python set cinkeys-=0#
-au FileType python set indentkeys-=0#
-
-" }}}
-" JavaScript filetypes {{{
-
-au FileType javascript call JavaScriptFold()
-
-function! JavaScriptFold()
-    setl foldmethod=syntax
-    setl foldlevelstart=5
-    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-
-    function! FoldText()
-        return substitute(getline(v:foldstart), '{.*', '{...}', '')
-    endfunction
-    setl foldtext=FoldText()
+function! GetOrCreateTest()
+    let file_path = expand('%')
+    let file_name = split(file_path, '/')[-1]
+    let test_file_path = substitute(substitute(file_path, file_name, "test_" . file_name, ""), "src", "src/tests/unit", "")
+    exec ':vsplit ' . test_file_path
 endfunction
 
-" }}}
-" SCSS, CSS filetypes {{{
-
+nmap T :call GetOrCreateTest()<cr>
 
 " }}}
-" Markdown filetypes {{{
 
-" wrap text
-au BufRead,BufNewFile *.md setlocal textwidth=80
+" JavaScript: {{{
+" =======
 
-autocmd FileType markdown set conceallevel=0
+au BufRead,BufNewFile *.jsx set filetype=javascript.jsx
+au FileType javascript,javascript.jsx setlocal foldlevelstart=20 foldlevel=2
 
-
-" }}}
-" Rails {{{
-
-autocmd BufNewFile,BufRead *.html.erb set filetype=html
-autocmd BufNewFile,BufRead *.html.erb set filetype=html.eruby
+abbrev apos &apos;
 
 " }}}
-" Plugins {{{
 
-" Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+au BufWritePre *.md :normal gqG
 
-" Make sure you use single quotes
+" Plugin Vim Signify: {{{
+" ===================
 
-Plug 'mhinz/vim-startify'
+" Default updatetime 4000ms is not good for async update
+set updatetime=100
 
-" Palenight theme
-Plug 'drewtempelmeyer/palenight.vim'
+" Always show signcolumns
+set signcolumn=yes
 
-Plug 'chrisbra/vim-diff-enhanced'
-Plug 'easymotion/vim-easymotion'
-Plug 'ludovicchabant/vim-gutentags'     " manager for tag files
-Plug 'mattn/emmet-vim'                  " emmet
-Plug 'mileszs/ack.vim'                  " ack
-Plug 'mhinz/vim-signify'                " git status along file
-Plug 'sheerun/vim-polyglot'             " Language starter pack
-Plug 'qpkorr/vim-bufkill'               " close buffer and keep window open
-Plug 'tpope/vim-abolish'                " case-insensitive search and replace
-Plug 'tpope/vim-commentary'             " Comment out stuff
-Plug 'tpope/vim-repeat'                 " repeat last command
-Plug 'vim-scripts/indentLine.vim'       " indent guides
-Plug 'vim-scripts/matchit.zip'          " extend % for matching for HTML
-Plug 'tpope/vim-unimpaired'             " bracket mappings
-Plug 'w0rp/ale' 						" asynchronous linting
+nmap <leader>n :SignifyHunkDiff<CR>
+nmap U :SignifyHunkUndo<CR>
 
-" fzf
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-
-" Use 'i' as a text obj for an indented block
-Plug 'kana/vim-textobj-indent'
-Plug 'kana/vim-textobj-user'  " requirement of vim-textobj-indent
-
-" Use 'f' for function, 'c' for class
-Plug 'bps/vim-textobj-python'
-
-" Provides lots of textobjects
-" Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
-Plug 'wellle/targets.vim'
-
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-
-Plug 'SirVer/ultisnips'
-
-Plug 'machakann/vim-highlightedyank'
-
-Plug 'tpope/vim-rails'
-
-Plug 'lambdalisue/gina.vim'
-
-Plug 'Raimondi/delimitMate'
-
-Plug 'machakann/vim-sandwich'
-
-Plug 'bkad/CamelCaseMotion'
-
-Plug 'junegunn/vim-peekaboo'
-
-Plug 'itchyny/lightline.vim'
-
-Plug 'rhysd/git-messenger.vim'
-
-" Initialize plugin system
-call plug#end()
-
-" }}}
-" Theme {{{
-
-set background=dark
-colorscheme palenight
-
-" enable true colours
-if (has("termguicolors"))
-    set termguicolors
-endif
-
-" Italics for my favorite color scheme
-let g:palenight_terminal_italics=1
-
-" }}}
-" Plugin > ale {{{
-
-" check files with linters
-let g:ale_linters = {
-            \ 'javascript': ['eslint'],
-            \ }
-
-
-" Fix files with ESLint then Prettier
-let g:ale_fixers = {
-            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'javascript': ['eslint', 'prettier'],
-            \ 'python': ['black', 'isort'],
-            \ }
-
-" Set this variable to 1 to fix files when you save them
-let g:ale_fix_on_save = 1
-
-" Do not lint or fix minified files.
-let g:ale_pattern_options = {
-            \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-            \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-            \ }
-
-" Don't use the sign column/gutter for ALE
-let g:ale_set_signs = 0
-
-" Lint always in Normal Mode
-let g:ale_lint_on_text_changed = 'normal'
-
-" Lint when leaving Insert Mode but don't lint when in Insert Mode
-let g:ale_lint_on_insert_leave = 1
-
-" Set ALE's 200ms delay to zero
-let g:ale_lint_delay = 200
-
-" don't run on file enter
-let g:ale_lint_on_enter = 0
-
-" only run explicitly stated linters
-let g:ale_linters_explicit = 1
-
-" }}}
-" Plugin > vim-signify/signify {{{
-" docs: :h signify-modus-operandi
-
-" hunk text object
-omap ic <plug>(signify-motion-inner-pending)
-xmap ic <plug>(signify-motion-inner-visual)
-omap ac <plug>(signify-motion-outer-pending)
-xmap ac <plug>(signify-motion-outer-visual)
-
-" colours
+" Colours
+" Also used by vim-sandwich
 highlight DiffAdd guifg=#00d75f guibg=#fff
 highlight DiffChange guifg=#00afff guibg=#fff
 highlight DiffDelete gui=bold guifg=#d70000 guibg=#fff
 
-" view diff
-nnoremap <leader>hv :SignifyDiff<cr>
-
-
 " }}}
-" Plugin > Omni complete functions {{{
 
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-" }}}
-" StatusLine: {{{
-
-" Function: display errors from Ale in statusline
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf(
-                \ '▲:%d ✖︎:%d',
-                \ l:all_non_errors,
-                \ l:all_errors
-                \)
-endfunction
-
-let g:lightline = {
-            \ 'colorscheme': 'seoul256',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'readonly', 'absolutepath', 'modified' ] ],
-            \   'right': [ ['percent'], [ 'linterStatus', 'coc' ] ]
-            \ },
-            \ 'component_function': {
-            \   'linterStatus': 'LinterStatus',
-            \   'coc': 'coc#status'
-            \ },
-            \ }
-
-" let g:currentmode={
-"             \ 'n'      : 'NORMAL',
-"             \ 'no'     : 'N·Operator Pending',
-"             \ 'v'      : 'VISUAL',
-"             \ 'V'      : 'V·LINE',
-"             \ '\<C-V>' : 'V·BLOCK',
-"             \ 's'      : 'Select',
-"             \ 'S'      : 'S·Line',
-"             \ '\<C-S>' : 'S·Block',
-"             \ 'i'      : 'INSERT',
-"             \ 'R'      : 'R',
-"             \ 'Rv'     : 'V·Replace',
-"             \ 'c'      : 'Command',
-"             \ 'cv'     : 'Vim Ex',
-"             \ 'ce'     : 'Ex',
-"             \ 'r'      : 'Prompt',
-"             \ 'rm'     : 'More',
-"             \ 'r?'     : 'Confirm',
-"             \ '!'      : 'Shell',
-"             \ 't'      : 'TERMINAL '
-"             \}
-
-
-" " Automatically change the statusline color depending on mode
-" function! ChangeStatuslineColor()
-"     if (mode() =~# '\v(n|no)')
-"         exe 'hi! StatusLine guifg=#ffffff guibg=#5b7fbb'
-"     elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V·Block' || get(g:currentmode, mode(), '') ==# 't')
-"         exe 'hi! StatusLine guifg=#ffffff guibg=#dd6188'
-"     elseif (mode() ==# 'i')
-"         exe 'hi! StatusLine guifg=#051d00 guibg=#88ae88'
-"     else
-"         exe 'hi! StatusLine guifg=#ffffff guibg=#d6afb0'
-"     endif
-
-"     return ''
-" endfunction
-
-
-" set laststatus=2
-" set statusline=
-" set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
-" set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
-" set statusline+=\ %*
-" set statusline+=%3*\ %F
-" set statusline+=%1*\ %m                 " Modified flag
-" set statusline+=%1*\ %r                 " Read only flag
-" set statusline+=%=
-" set statusline+=%3{coc#status()}
-" set statusline+=%3*\ %{LinterStatus()}
-" set statusline+=%3*\ %*
-" set statusline+=%3*\ %3p%%\                 " total (%)
-" set statusline+=%3*\ %*
-
-" hi User1 guifg=#ffffff  guibg=#222222
-" hi User2 guifg=#ffffff guibg=#111111
-" hi User3 guifg=#ffffff guibg=#222222
-
-" }}}
-" Plugin > fzf {{{
-
-" alt-a to select items
-" ald-d to deselect items
-" tab or shift-tab can be used to toggle individual selected items
-" enter to populate quickfix list with selected items
-" Open Ag and put the cursor in the right position
-map <leader>a :Ag<space>
-
-" file finder in extended search mode
+" Plugin FZF: {{{
+" ===========
+" Tab or shift-tab can be used to toggle individual selected items
+" Enter to populate quickfix list with selected items
+map <leader>a :Rg<space>
 nmap <leader>f :Files<cr>
-
-" buffer finder
 nmap <leader>b :Buffers<CR>
 nmap <Leader>h :History<CR>
-
-" line finder
 nmap <Leader>l :BLines<CR>
-nmap <Leader>L :Lines<CR>
-nmap <Leader>' :Marks<CR>
-
-" tag finder
-nmap <leader>t :Tags<cr>
-
-" command
-nmap <leader>C :Commands<cr>
-
-" search through mappings
-nmap <Leader>M :Maps<CR>
+nmap <leader>s :Tags<cr>
+" nmap <leader>s :tag<space>
+nmap <Leader>d :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 
 command! Fzfc call fzf#run(fzf#wrap(
             \ {'source': 'git ls-files --exclude-standard --others --modified'}))
@@ -735,7 +549,7 @@ let g:fzf_action = {
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
 
-" [Buffers] Jump to the existing window if possible
+" Jump to already opened buffer
 let g:fzf_buffers_jump = 1"
 
 " Customize fzf colors to match your color scheme
@@ -754,37 +568,198 @@ let g:fzf_colors =
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
 
+" Show preview
 command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
+            \ call fzf#vim#files(<q-args>,
+            \ fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
 
 " }}}
-" Plugin > Ack {{{
 
-" Use the the_silver_searcher if possible (much faster than Ack)
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep --smart-case'
-endif
+" Plugin ALE: {{{
+" ===========
 
-" find selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+let g:ale_linters = {
+            \ 'javascript': ['eslint'],
+            \ 'python': ['flake8'],
+            \ }
 
-" Open Ack and put the cursor in the right position
-map <leader>g :Ack!<space>
+let g:ale_fixers = {
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'javascript': ['prettier'],
+            \ 'python': ['black', 'isort'],
+            \ }
 
-" find currently selected word
-nmap gw :Ack! "\b<cword>\b" <CR>
+let g:ale_fix_on_save = 1
 
-" display results in cope
-map <leader>cc :botright cope<cr>
+" Do not lint or fix minified files.
+let g:ale_pattern_options = {
+            \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+            \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+            \ }
 
-" open search result in new tab
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+" Don't use the sign column/gutter for ALE
+" let g:ale_set_signs = 0
 
-" close QuickFix window
-map <leader>x :cclose<cr>
+" Lint always in Normal Mode
+let g:ale_lint_on_text_changed = 'normal'
+
+" Lint when leaving Insert Mode but don't lint when in Insert Mode
+let g:ale_lint_on_insert_leave = 1
+
+let g:ale_lint_delay = 200
+
+" Don't run on file enter
+let g:ale_lint_on_enter = 0
+
+" Only run explicitly stated linters
+let g:ale_linters_explicit = 1
+"
+" Disable auto-detection of virtualenvironments
+" let g:ale_virtualenv_dir_names = []
+
+let g:ale_python_isort_use_global = 1
+let g:ale_python_black_auto_pipenv = 1
+" let g:ale_python_autopep8_use_global = 1
+" let g:ale_python_flake8_use_global = 1
 
 " }}}
-" Plugin > Emmet {{{
+
+" Plugin StatusLine: {{{
+" ==================
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : printf(
+                \ '▲:%d ✖︎:%d',
+                \ l:all_non_errors,
+                \ l:all_errors
+                \)
+endfunction
+
+let g:lightline = {
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'readonly', 'relativepath', 'modified' ] ],
+            \   'right': [ ['percent'], [ 'linterStatus', 'coc', 'ctags' ] ]
+            \ },
+            \ 'inactive': {
+            \   'left': [ [ 'mode' ],
+            \             [ 'relativepath'] ],
+            \ },
+            \ 'component_function': {
+            \   'linterStatus': 'LinterStatus',
+            \   'coc': 'coc#status',
+            \ },
+            \ 'colorscheme': 'horizon'
+            \ }
+
+" Don't show --INSERT--
+set noshowmode
+
+set showtabline=1
+
+" }}}
+
+" Plugin CocVim: {{{
+" ==============
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gD <Plug>(coc-definition)
+nmap <silent> gd <c-w>s<c-w>l<Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+nnoremap <silent> <leader>ed  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
+
+
+" This isn't working I think
+highlight CocErrorSign ctermfg=15 ctermbg=196
+highlight CocWarningSign ctermfg=0 ctermbg=172
+
+
+" }}}
+
+" Plugin CamelCaseMotion: {{{
+" =======================
+
+map <silent> W <Plug>CamelCaseMotion_w
+map <silent> B <Plug>CamelCaseMotion_b
+map <silent> E <Plug>CamelCaseMotion_e
+map <silent> gE <Plug>CamelCaseMotion_ge
+sunmap W
+sunmap B
+sunmap E
+sunmap gE
+
+omap <silent> iW <Plug>CamelCaseMotion_iw
+xmap <silent> iW <Plug>CamelCaseMotion_iw
+omap <silent> iB <Plug>CamelCaseMotion_ib
+xmap <silent> iB <Plug>CamelCaseMotion_ib
+omap <silent> iE <Plug>CamelCaseMotion_ie
+xmap <silent> iE <Plug>CamelCaseMotion_ie
+
+
+" }}}
+
+" Plugin GitMessenger: {{{
+" ====================
+
+nmap Z :GitMessenger<CR>
+
+let g:git_messenger_include_diff = "current"
+
+" }}}
+
+" Plugin Emmet: {{{
+" =============
 
 " Use tab for autocompletion
 let g:user_emmet_leader_key=','
@@ -819,138 +794,32 @@ endfunction
 
 imap <expr> <CR> Expander()
 
-
 " }}}
-" Plugin > vim-gutentags {{{
 
-let g:gutentags_project_root = ['.git']
-
-let g:gutentags_generate_on_new = 1
-
-let g:gutentags_generate_on_write = 1
-
-
-" }}}
-" Plugin > coc.nvim {{{
-
-
-set updatetime=300
-" if hidden not set, TextEdit might fail.
-set hidden
-
-" Better display for messages
-set cmdheight=2
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-set completeopt-=preview
-
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if &filetype == 'vim'
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-
-" trigger completion.
-inoremap <silent><expr> <leader>t coc#refresh()
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD <c-w>v<c-w>l<Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gy <Plug>(coc-references)
-
-" Using CocList
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-
-" }}}
-" Plugin > Gina {{{
+" Plugin Gina: {{{
+" ============
 
 :abbrev G Gina
-command! Gs Gina status -s
-command! Gc Gina compare
-command! Gd Gina diff
+nmap <leader>gs :Gina status -s<cr>
+nmap <leader>gc :Gina compare<cr>
+nmap <leader>gd :Gina diff<cr>
+nmap <leader>gl :Gina log<cr>
 
 " }}}
-" UltiSnips {{{ "
+"
+" Prompt for a command to run
+nmap vp :VimuxPromptCommand<CR>
 
-let g:UltiSnipsExpandTrigger="mm"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=['/Users/abdulkarim/.vim/ultisnips']
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" Run last command executed by VimuxRunCommand
+nmap vc :VimuxRunLastCommand<CR>
 
-" }}} UltiSnips "
-" DelimitMate: {{{
+" Zoom the tmux runner pane
+nmap vv :VimuxZoomRunner<CR>
 
-let delimitMate_expand_cr = 1
-
-
-" }}}
-" CamelCaseMotion: {{{
-
-map <silent> W <Plug>CamelCaseMotion_w
-map <silent> B <Plug>CamelCaseMotion_b
-map <silent> E <Plug>CamelCaseMotion_e
-map <silent> gE <Plug>CamelCaseMotion_ge
-sunmap W
-sunmap B
-sunmap E
-sunmap gE
-
-omap <silent> iW <Plug>CamelCaseMotion_iw
-xmap <silent> iW <Plug>CamelCaseMotion_iw
-omap <silent> iB <Plug>CamelCaseMotion_ib
-xmap <silent> iB <Plug>CamelCaseMotion_ib
-omap <silent> iE <Plug>CamelCaseMotion_ie
-xmap <silent> iE <Plug>CamelCaseMotion_ie
-
-
-" }}}
-" Plugin > GitMessenger {{{
-
-command! Gm GitMessenger
-
-" }}}
+" default ''.
+" n for Normal mode
+" v for Visual mode
+" i for Insert mode
+" c for Command line editing, for 'incsearch'
 
 " vim:foldmethod=marker:foldlevel=0
