@@ -169,7 +169,7 @@
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	excludesfile = /Users/abdulkarim/.gitignore_global
-	editor = nvim
+	editor = /usr/local/bin/nvim
 [color "diff-highlight"]
     oldNormal = red bold
     oldHighlight = red bold 52
