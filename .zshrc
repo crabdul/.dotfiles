@@ -255,3 +255,11 @@ fi
 if [ -s "$HOME/.zshrc.work" ]; then
     source "$HOME/.zshrc.work"
 fi
+
+# Prezto
+source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+
+# Prezto Plugins
+source "$HOME/.zinit/plugins/zdharma---history-search-multi-word/history-search-multi-word.plugin.zsh"
+source "$HOME/.zinit/plugins/zdharma---fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+source "$HOME/.zsh/plugins/zsh-autosuggestions.zsh"
