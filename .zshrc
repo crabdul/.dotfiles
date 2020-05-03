@@ -202,6 +202,8 @@ fi
 
 # Aliases
 
+alias cl=clear
+
 # Hub
 alias hpr='hub pull-request'
 alias pulls='hub browse -- pulls'
