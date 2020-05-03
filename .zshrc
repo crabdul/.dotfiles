@@ -3,17 +3,44 @@ export PATH="$HOME/bin:$PATH"
 
 export PATH="$HOME/.nvm/nvm.sh:$PATH"
 
-# zinit as"program" pick"pyenv" src"$(pyenv which virtualenvwrapper.sh)"
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init -)"
-fi
 export WORKON_HOME=$HOME/.virtualenvs
-source "$(pyenv which virtualenvwrapper.sh)"
+
+# Placeholder 'workon' shell function:
+# Will only be executed on the first call to 'workon'
+workon() {
+    unfunction "$0"
+    if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+    fi
+    source "$(pyenv which virtualenvwrapper.sh)"
+    $0 "$@"
+}
 
 # nvm initialisation
 export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-source $(brew --prefix nvm)/nvm.sh
+
+# Placeholder 'yarn' shell function:
+# Will only be executed on the first call to 'yarn'
+yarn() {
+    # Remove this function, subsequent calls will execute 'yarn' directly
+    unfunction "$0"
+    if command -v nvm >/dev/null 2>&1; then
+        return
+    fi
+    source $(brew --prefix nvm)/nvm.sh
+    # Execute 'yarn' binary
+    $0 "$@"
+}
+
+node() {
+    unfunction "$0"
+    if command -v nvm >/dev/null 2>&1; then
+        echo "nvm"
+        return
+    fi
+    source $(brew --prefix nvm)/nvm.sh
+    $0 "$@"
+}
 
 if [ -z "$TMUX" ]; then
     tmux attach -t d || tmux new -s d
