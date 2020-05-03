@@ -168,7 +168,7 @@
 	squash = !git rebase -i HEAD~$(git count)
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
-	excludesfile = /Users/abdulkarim/.gitignore_global
+	; excludesfile = /Users/abdulkarim/.gitignore_global
 	editor = /usr/local/bin/nvim
 [color "diff-highlight"]
     oldNormal = red bold
