@@ -83,10 +83,7 @@ Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
 
 " Run:
-" - :CocInstall pyls tsserver
-" - Add to :CocSettings
-" - "python.jedi.enabled": false,
-" - "python.globalModuleInstallation": true // To Install rope
+" - :CocInstall pyls tsserver coc-prettier coc-eslint
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'bkad/CamelCaseMotion'
@@ -591,13 +588,11 @@ command! -bang -nargs=? -complete=dir Files
 " ===========
 
 let g:ale_linters = {
-            \ 'javascript': ['eslint'],
             \ 'python': ['flake8'],
             \ }
 
 let g:ale_fixers = {
             \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'javascript': ['prettier'],
             \ 'python': ['black', 'isort'],
             \ }
 
@@ -735,6 +730,14 @@ nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
 " This isn't working I think
 highlight CocErrorSign ctermfg=15 ctermbg=196
 highlight CocWarningSign ctermfg=0 ctermbg=172
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+    let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+    let g:coc_global_extensions += ['coc-eslint']
+endif
 
 
 " }}}
