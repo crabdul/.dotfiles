@@ -827,15 +827,9 @@ nmap <leader>gd :Gina diff<cr>
 nmap <leader>gl :Gina log<cr>
 
 " }}}
-"
-" Prompt for a command to run
-nmap vp :VimuxPromptCommand<CR>
 
-" Run last command executed by VimuxRunCommand
-nmap vc :VimuxRunLastCommand<CR>
-
-" Zoom the tmux runner pane
-nmap vv :VimuxZoomRunner<CR>
+" Misc {{{
+" ----
 
 function! GitHubCommitSearch()
     let s:currentWord = expand("<cword>")
@@ -849,6 +843,8 @@ function! GitHubCommitSearch()
 endfunction
 
 map <leader>gc :call GitHubCommitSearch()<cr>
+
+" }}}
 
 " default ''.
 " n for Normal mode
