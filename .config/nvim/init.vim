@@ -2,14 +2,16 @@
 " ========
 
 " Python source
-" Run:
-" - pip3 install neovim black autopep8
+" Run: pip3 install neovim black autopep8
 " Figure out the system Python for Neovim.
 if exists("$VIRTUAL_ENV")
     let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
 else
     let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
 endif
+
+" TODO: Use a shim
+let g:coc_node_path = $HOME."/.nvm/versions/node/v12.16.2/bin/node"
 
 if exists('$TMUX')
     " Colors in tmux
