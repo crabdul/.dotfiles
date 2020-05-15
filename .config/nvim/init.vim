@@ -128,7 +128,7 @@ endif
 
 " Override highlight set by horizon theme
 " :TODO: Do this more nicely
-autocmd BufReadPre * :highlight Pmenu ctermbg=233 guibg=#1c1e26
+autocmd BufReadPre * :highlight Pmenu ctermbg=250 guibg=#111111
 
 " }}}
 
