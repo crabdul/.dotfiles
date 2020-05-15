@@ -1,77 +1,146 @@
+# =============================================================================
+# Environment Config
+# =============================================================================
 
 export PATH="$HOME/bin:$PATH"
 
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+export PATH="/Users/$USER/miniconda3/bin:$PATH"
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+export PATH="/usr/local/Cellar/rabbitmq/3.7.9/sbin:$PATH"
+
 export PATH="$HOME/.nvm/nvm.sh:$PATH"
 
+export PYENV_ROOT="$HOME/.pyenv"
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
+# virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
+source "$(pyenv which virtualenvwrapper.sh)"
 
-# Placeholder 'workon' shell function:
-# Will only be executed on the first call to 'workon'
-workon() {
-    unfunction "$0"
-    if command -v pyenv 1>/dev/null 2>&1; then
-        eval "$(pyenv init -)"
-    fi
-    source "$(pyenv which virtualenvwrapper.sh)"
-    $0 "$@"
-}
+export NVM_LAZY_LOAD=true
 
-# nvm initialisation
-export NVM_DIR="$HOME/.nvm"
-
-# Placeholder 'yarn' shell function:
-# Will only be executed on the first call to 'yarn'
-yarn() {
-    # Remove this function, subsequent calls will execute 'yarn' directly
-    unfunction "$0"
-    if command -v nvm >/dev/null 2>&1; then
-        return
-    fi
-    source $(brew --prefix nvm)/nvm.sh
-    # Execute 'yarn' binary
-    $0 "$@"
-}
-
-node() {
-    unfunction "$0"
-    if command -v nvm >/dev/null 2>&1; then
-        echo "nvm"
-        return
-    fi
-    source $(brew --prefix nvm)/nvm.sh
-    $0 "$@"
-}
+# =============================================================================
+# Tmux
+# =============================================================================
 
 if [ -z "$TMUX" ]; then
     tmux attach -t d || tmux new -s d
 fi
 
+# =============================================================================
+# NeoVim
+# =============================================================================
+
+export EDITOR='nvim'
+
 if type nvim > /dev/null 2>&1; then
-    alias vi=nvim
-    alias vim=nvim
+    alias vim='nvim -u ~/.dotfiles/.vimrc'
+    alias vi='nvim -u ~/.dotfiles/.vimrc'
 fi
 
-export EDITOR="vi"
+# =============================================================================
+# Aliases
+# =============================================================================
+
+# General
+alias sourcezsh='source ~/.zshrc'
 
 # Navigation
 alias dot="~/.dotfiles"
 
-# fzf via Homebrew
-if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
-    source /usr/local/opt/fzf/shell/key-bindings.zsh
-    source /usr/local/opt/fzf/shell/completion.zsh
-fi
+# Hub
+alias hpr='hub pull-request'
+alias pulls='hub browse -- pulls'
+alias wiki='hub browse -- wiki'
 
-# fzf + ag configuration
-if command -v ag 1>/dev/null 2>&1; then
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --vimgrep'
-    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_DEFAULT_OPTS="
-    --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-    --color info:108,prompt:109,spinner:108,pointer:168,marker:168
-    --bind='ctrl-o:execute(code {})+abort'
-    "
+# zsh tools
+alias shelloadtime="/usr/bin/time zsh -i -c exit"
+
+# linux
+function killport() { lsof -ti:$1 | xargs kill; }
+
+# Plugins
+alias f="fzf --preview 'bat --color \"always\" {}'"
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+    local files
+    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+# Grep from vim file
+function helpvim() { cat "$HOME/.dotfiles/.init.vim" | grep -A 1 -B 1 --color $*; }
+
+# ctags
+# https://gist.github.com/nazgob/1570678
+alias ctags="`brew --prefix`/bin/ctags"
+
+function gctags() {
+    dir="`git rev-parse --git-dir`"
+    git ls-files | \
+        ctags --tag-relative=yes -L - -f "$dir/$$.tags" --languages=-sql
+    mv "$dir/$$.tags" "$dir/tags"
+}
+
+alias snips="cd $HOME/.vim/plugged/vim-snippets/UltiSnips"
+
+# Tmux
+alias tm="tmux"
+alias tma="tmux attach -t d || tmux new -s d"
+alias tmd="tmux detach"
+alias tml="tmux ls"
+
+# =============================================================================
+# zgen
+# =============================================================================
+
+# load zgen
+source "${HOME}/.zgen/zgen.zsh"
+
+# if the init scipt doesn't exist
+if ! zgen saved; then
+    echo "Creating a zgen save"
+
+    # Prezto
+    zgen prezto
+
+    # Prezto options
+    zgen prezto prompt theme 'sorin'
+
+    # Prezto modules
+    zgen prezto command-not-found
+    zgen prezto history
+    zgen prezto directory
+    zgen prezto git
+    zgen prezto history-substring-search
+
+    # Modules
+    zgen load djui/alias-tips
+    zgen load junegunn/fzf
+    zgen load lukechilds/zsh-nvm
+    zgen load zdharma/fast-syntax-highlighting
+
+    # Save all to init script
+    zgen save
 fi
 
 # =============================================================================
@@ -120,9 +189,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Z}{a-z}' 'r:|
 # =============================================================================
 # History
 # =============================================================================
-
-# Share history between shell instances
-setopt share_history
 
 # If the internal history needs to be trimmed to add the current command line,
 # setting this option will cause the oldest history event that has a duplicate
@@ -227,48 +293,6 @@ if command -v ag 1>/dev/null 2>&1; then
     "
 fi
 
-# Aliases
-
-alias cl=clear
-
-# Hub
-alias hpr='hub pull-request'
-alias pulls='hub browse -- pulls'
-alias wiki='hub browse -- wiki'
-
-# zsh tools
-alias shelloadtime="/usr/bin/time zsh -i -c exit"
-
-# linux
-function killport() { lsof -ti:$1 | xargs kill; }
-
-# Plugins
-alias f="fzf --preview 'bat --color \"always\" {}'"
-
-# fe [FUZZY PATTERN] - Open the selected file with the default editor
-#   - Bypass fuzzy finder if there's only one match (--select-1)
-#   - Exit if there's no match (--exit-0)
-fe() {
-    local files
-    IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-    [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
-
-# cdf - cd into the directory of the selected file
-cdf() {
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
-
-alias snips="cd $HOME/.vim/plugged/vim-snippets/UltiSnips"
-
-# Tmux
-alias tm="tmux"
-alias tma="tmux attach -t d || tmux new -s d"
-alias tmd="tmux detach"
-alias tml="tmux ls"
-#
 
 # =============================================================================
 # Source work config
@@ -278,10 +302,6 @@ if [ -s "$HOME/.zshrc.work" ]; then
     source "$HOME/.zshrc.work"
 fi
 
-# Prezto
-source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
-# Prezto Plugins
-source "$HOME/.zinit/plugins/zdharma---history-search-multi-word/history-search-multi-word.plugin.zsh"
-source "$HOME/.zinit/plugins/zdharma---fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-source "$HOME/.zsh/plugins/zsh-autosuggestions.zsh"
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
