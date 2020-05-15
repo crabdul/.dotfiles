@@ -576,7 +576,7 @@ command! BD call fzf#run(fzf#wrap({
 
 " This is the default extra key bindings
 let g:fzf_action = {
-            \ 'space': 'tab split',
+            \ 'ctrl-t': 'tab split',
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
 
