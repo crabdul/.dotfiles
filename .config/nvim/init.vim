@@ -115,8 +115,10 @@ call plug#end()
 " Theme: {{{
 " ======
 
-set background=dark
 " colorscheme palenight
+" let g:palenight_terminal_italics=1
+
+set background=dark
 colorscheme horizon
 
 " Enable true colours
@@ -124,7 +126,9 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-let g:palenight_terminal_italics=1
+" Override highlight set by horizon theme
+" :TODO: Do this more nicely
+autocmd BufReadPre * :highlight Pmenu ctermbg=233 guibg=#1c1e26
 
 " }}}
 
