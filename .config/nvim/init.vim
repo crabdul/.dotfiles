@@ -83,7 +83,7 @@ Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
 
 " Run:
-" - :CocInstall pyls tsserver coc-prettier coc-eslint
+" - :CocInstall coc-python tsserver coc-prettier coc-eslint coc-json
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'bkad/CamelCaseMotion'
