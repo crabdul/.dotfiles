@@ -835,6 +835,19 @@ nmap vc :VimuxRunLastCommand<CR>
 " Zoom the tmux runner pane
 nmap vv :VimuxZoomRunner<CR>
 
+function! GitHubCommitSearch()
+    let s:currentWord = expand("<cword>")
+    if s:currentWord != ""
+        let s:uri = "https://github.com/search?q=++".s:currentWord."&type=Commits"
+        echo s:uri
+        silent exec "!open '".s:uri."'"
+    else
+        echo "Hmmm no word found"
+    endif
+endfunction
+
+map <leader>gc :call GitHubCommitSearch()<cr>
+
 " default ''.
 " n for Normal mode
 " v for Visual mode
