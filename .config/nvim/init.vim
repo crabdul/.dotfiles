@@ -326,10 +326,10 @@ autocmd WinEnter * wincmd _
 " QuickFix List:
 " ==============
 " Display results in cope
-map <leader>z :botright cope<cr>
+map <leader>zz :botright cope<cr>
 
 " Close QuickFix window
-map <leader>x :cclose<cr>
+map <leader>z :cclose<cr>
 
 " Window Navigation:
 " ==================
