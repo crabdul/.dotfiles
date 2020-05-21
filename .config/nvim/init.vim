@@ -602,7 +602,7 @@ let g:fzf_colors =
 " Show preview
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>,
-            \ fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
+            \ fzf#vim#with_preview('right:30%', 'ctrl-p'), <bang>0)
 
 " }}}
 
@@ -762,6 +762,8 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
     let g:coc_global_extensions += ['coc-eslint']
 endif
 
+" Use <C-l> for trigger snippet expand.
+imap jk <Plug>(coc-snippets-expand)
 
 " }}}
 
