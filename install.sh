@@ -59,21 +59,14 @@ print_success() {
 # }}}
 
 # Install. {{{
-declare -a FILES_TO_SYMLINK=$(find . -type f -maxdepth 3 \
-    -name ".*" \
-    -not -name .DS_Store \
-    -not -name .git \
-    -not -name .gitignore \
-    | sed -e 's|//|/|' | sed -e 's|./.|.|')
-FILES_TO_SYMLINK="$FILES_TO_SYMLINK"
 
-main() {
+symlink_files() {
 
     local i=""
     local sourceFile=""
     local targetFile=""
 
-    for i in ${FILES_TO_SYMLINK[@]}; do
+    for i in $@; do
 
         sourceFile="$(pwd)/$i"
         targetFile="$HOME/$(printf "%s" "$i")"
@@ -84,20 +77,37 @@ main() {
                 ask_for_confirmation "'$targetFile' already exists, do you want to overwrite it?"
                 if answer_is_yes; then
                     rm -rf "$targetFile"
-                    execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
+                    execute "ln -fs $sourceFile $targetFile" "$sourceFile → $targetFile"
                 else
-                    print_error "$targetFile → $sourceFile"
+                    print_error "$sourceFile → $targetFile"
                 fi
 
             else
-                print_success "$targetFile → $sourceFile"
+                print_success "$sourceFile → $targetFile"
             fi
         else
-            execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
+            execute "ln -fs $sourceFile $targetFile" "$sourceFile → $targetFile"
         fi
     done
 
 }
 
-main
+declare -a FILES_TO_SYMLINK=$(find . .config -type f -maxdepth 3 \
+    -name ".*" \
+    -not -name .DS_Store \
+    -not -name .git \
+    -not -name .gitignore \
+    -not -name .Brewfile \
+    -not -name .Brewfile.lock.json \
+    | sed -e 's|//|/|' | sed -e 's|./.|.|')
+
+
+declare -a FOLDERS_TO_SYMLINK=$(find \
+    .config \
+    .hammerspoon \
+    -type f -maxdepth 5)
+
+symlink_files $FILES_TO_SYMLINK
+symlink_files $FOLDERS_TO_SYMLINK
+
 # }}}
