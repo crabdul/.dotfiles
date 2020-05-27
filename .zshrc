@@ -282,6 +282,6 @@ fi
 source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 # Prezto Plugins
-source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 source "$HOME/.zsh/plugins/history-search-multi-word/history-search-multi-word.plugin.zsh"
