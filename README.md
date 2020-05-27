@@ -1,96 +1,60 @@
 # Dotfiles 🎈
 
-## Installation guide
+### Symlink config files 🔗
 
-**Install zgen, zsh plugin manager 🔌**
-
-```bash
-git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
-```
-
-**Symlink config files 🔗**
-
-This moves all the necesary files that should be in the `$HOME` directory and symlinks them
+This symlinks any necessary files that need to be in `$HOME`
 
 ```bash
 bash ~/.dotfiles/install.sh
 ```
 
-**Install brew packages 🍺**
+### Install prezto
+
+```bash
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" 
+Run ./install.sh
+```
+
+### Install zsh plugins
+
+```bash
+git clone https://github.com/zdharma/history-search-multi-word.git ~/.zsh/plugins/history-search-multi-word
+git clone https://github.com/zdharma/fast-syntax-highlighting ~/.zsh/plugins/fast-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
+```
+
+### Install brew packages 🍺
 
 Brew bundle is used to install dependencies including Mac applications, even
 ones from the Mac App store.
 
 ```bash
-brew bundle --file=~/.Brewfile
+brew bundle --file=~.Brewfile
 ```
 
-**Setup NeoVim 💊**
-
-Symlink the config file
+### Install vim-plug, the vim plugin manager
 
 ```bash
-mkdir -p ~/.config/nvim && ln -s ~/.dotfiles/.init.vim
-.config/nvim/init.vim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
-Synlink theme
-
-```bash
-ln -s ~/.dotfiles/.config/nvim/colors/Tomorrow-Night.vim
-~/.config/nvim/colors/Tomorrow-Night.vim
-```
-
-Install vim-plug, the vim plugin manager
-
-```bash
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
-
-And then install all vim plugins
-```bash
-vi :PlugInstall
-```
-
-**Setup iTerm2 👾**
+### Setup iTerm2 👾
 
 In General/Preferences, set custom folder path
 ```
 ~/.dotfiles/config/iterm2
 ```
 
-**Karabiner ⌨️**
+Install [Mono font](https://www.jetbrains.com/lp/mono/)
 
-Symlink karabiner config file
+### NVIM
 
-```bash
-ln -s ~/.dotfiles/.config/karabiner/karabiner.json
-~/.config/karabiner/karabiner.json
-```
+- Install coc plugins
+- create python env
 
-**pgcli 🐘**
-
-Symlink config file
+### NVM
 
 ```bash
-ln -s ~/.dotfiles/pgcliconfig ~/.config/pgcli/config
-```
-
-**hammerspoon 🥄**
-
-Install from [github](https://github.com/Hammerspoon/hammerspoon)
-
-```bash
-ln -s ~/.dotfiles/.hammerspoon/init.lua ~/.hammerspoon/init.lua
-```
-**Ultisnips**
-```
-ln -s ~/.dotfiles/.vim/ultisnips ~/.vim/ultisnips
-```
-
-**coc nvim**
-```
-ln -s ~/.dotfiles/.config/nvim/coc-settings.json
-~/.config/nvim/coc-settings.json
+nvm install 12.16.2
 ```
