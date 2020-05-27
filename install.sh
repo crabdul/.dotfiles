@@ -107,6 +107,19 @@ declare -a FOLDERS_TO_SYMLINK=$(find \
     .hammerspoon \
     -type f -maxdepth 5)
 
+nvim="$HOME/.config/nvim"
+karabiner="$HOME/.config/karabiner"
+hammerspoon="$HOME/.hammerspoon"
+
+create_dir_if_not_found() {
+    ## Check for dir, if not found create it using the mkdir ##
+    [ ! -d "$1" ] && mkdir -p "$1"
+}
+
+create_dir_if_not_found $nvim
+create_dir_if_not_found $karabiner
+create_dir_if_not_found $hammerspoon
+
 symlink_files $FILES_TO_SYMLINK
 symlink_files $FOLDERS_TO_SYMLINK
 
