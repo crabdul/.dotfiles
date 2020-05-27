@@ -107,6 +107,8 @@ Plug 'benmills/vimux'
 
 Plug 'ntk148v/vim-horizon'
 
+Plug 'rizzatti/dash.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -316,6 +318,8 @@ nnoremap <leader>m :bp\|bd #<cr>
 set winheight=6
 set winminheight=6
 autocmd WinEnter * wincmd _
+
+noremap <C-t> <C-^>
 
 
 " }}}
