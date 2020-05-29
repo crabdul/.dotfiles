@@ -821,7 +821,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/.dotfiles</string>
+	<string>~</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{799, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -844,7 +844,7 @@
 	dWxs0g0ODxJaTlMub2JqZWN0c1YkY2xhc3OiEBGAAoAKgA3TFA0OFRkdV05TLmtleXOj
 	FhcYgAOABIAFoxobHIAGgAeACIAJWklkZW50aWZpZXJVV2lkdGhWSGlkZGVuUTAjQGjA
 	AAAAAAAI0iUmJyhaJGNsYXNzbmFtZVgkY2xhc3Nlc1xOU0RpY3Rpb25hcnmiJylYTlNP
-	YmplY3TTFA0OKy8doxYXGIADgASABaMwMRyAC4AMgAiACVExI0BzsZ2yLQ5W0iUmNzhe
+	YmplY3TTFA0OKy8doxYXGIADgASABaMwMRyAC4AMgAiACVExI0B0oZ2yLQ5W0iUmNzhe
 	TlNNdXRhYmxlQXJyYXmjNzkpV05TQXJyYXkACAARABoAJAApADIANwBJAEwAUgBUAGMA
 	aQBuAHkAgACDAIUAhwCJAJAAmACcAJ4AoACiAKYAqACqAKwArgC5AL8AxgDIANEA0gDX
 	AOIA6wD4APsBBAELAQ8BEQETARUBGQEbAR0BHwEhASMBLAExAUABRAAAAAAAAAIBAAAA
@@ -866,11 +866,11 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
-	<string>0 163 224 275 0 0 1920 1057 </string>
+	<string>0 151 224 275 0 0 1280 777 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>560 476 799 448 0 0 1920 1057 </string>
+	<string>240 263 799 448 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 80 1920 977 0 0 1920 1057 </string>
+	<string>0 68 1280 709 0 0 1280 777 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2526,6 +2526,8 @@
 			<string>xterm-256color</string>
 			<key>Transparency</key>
 			<real>0.037761738578680204</real>
+			<key>Unicode Version</key>
+			<integer>8</integer>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -2552,41 +2554,31 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
-		<string>3.3.9</string>
+		<string>3.3.10</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
 		<string>JetBrains Mono</string>
-		<string>Monaco</string>
 	</array>
-	<key>NoSyncFrame_SessionsPreferences</key>
-	<dict>
-		<key>screenFrame</key>
-		<string>{{0, 0}, {1440, 900}}</string>
-		<key>topLeft</key>
-		<string>{657, 877}</string>
-	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1920, 1080}}</string>
+		<string>{{0, 0}, {1280, 800}}</string>
 		<key>topLeft</key>
-		<string>{407, 850}</string>
+		<string>{305, 715}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
-	<string>C4300CC7-D24D-41F4-B5DF-12FDBBED01C4</string>
+	<string>9E4FEAA3-31B0-476C-8943-0BB06DF51C96</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>17</integer>
+	<integer>3</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>608630630.08613002</real>
+	<real>612427426.765306</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
 	<true/>
-	<key>NoSyncPermissionToShowTip</key>
-	<false/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
 		<key>0</key>
@@ -3009,7 +3001,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentTab.currentSession.path</string>
+				<string>currentTab.currentSession.commandLine</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -3017,7 +3009,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentTab.currentSession.commandLine</string>
+				<string>currentTab.currentSession.path</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -3236,7 +3228,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.path</string>
+				<string>currentSession.pid</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -3244,7 +3236,7 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
-				<string>currentSession.pid</string>
+				<string>currentSession.path</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -3302,7 +3294,7 @@
 		</array>
 	</dict>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
-	<real>607879762.48106205</real>
+	<real>612254626.76502097</real>
 	<key>PMPrintingExpandedStateForPrint2</key>
 	<false/>
 	<key>PasteSpecialChunkDelay</key>
@@ -3349,7 +3341,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/.dotfiles/iterm2</string>
+	<string>/Users/karim/.dotfiles/config/iterm2</string>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
 	<false/>
 	<key>Print In Black And White</key>
@@ -3361,11 +3353,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final_new.xml?shard=68</string>
+	<string>https://iterm2.com/appcasts/final_new.xml?shard=93</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-04-24T08:17:20Z</date>
+	<date>2020-05-27T18:30:17Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SeparateStatusBarsPerPane</key>
@@ -5633,7 +5625,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.9</string>
+	<string>3.3.10</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

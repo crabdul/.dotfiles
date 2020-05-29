@@ -28,6 +28,7 @@ brew "the_silver_searcher"
 brew "tmux"
 brew "tree"
 brew "watchman"
+brew "yarn"
 brew "zsh"
 
 cask "alfred"
