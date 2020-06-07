@@ -72,8 +72,6 @@ Plug 'kana/vim-textobj-user'  " requirement of vim-textobj-indent
 " Use 'f' for function, 'c' for class
 Plug 'bps/vim-textobj-python'
 
-Plug 'machakann/vim-highlightedyank'
-
 Plug 'machakann/vim-sandwich'
 
 Plug 'rhysd/git-messenger.vim'
@@ -260,6 +258,10 @@ nnoremap p ]p
 " put the text before the cursor (P) and adjust indent to current line
 nnoremap P ]P
 
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+augroup END
 
 " }}}
 
