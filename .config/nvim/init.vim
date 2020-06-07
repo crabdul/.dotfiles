@@ -860,7 +860,7 @@ function! GitHubCommitSearch()
     endif
 endfunction
 
-map <leader>gc :call GitHubCommitSearch()<cr>
+map <leader>gh :call GitHubCommitSearch()<cr>
 
 " }}}
 
