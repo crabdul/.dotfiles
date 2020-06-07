@@ -389,7 +389,7 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 nnoremap <bs> :nohlsearch<CR>
 
 " Copy current path of file
-nmap <leader>cp :let @*=expand("%:.")<CR>
+nmap <leader>p :let @*=expand("%:.")<CR>
 
 " Revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
