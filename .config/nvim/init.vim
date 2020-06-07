@@ -110,6 +110,8 @@ Plug 'benmills/vimux'
 
 Plug 'ntk148v/vim-horizon'
 
+Plug 'APZelos/blamer.nvim'
+
 " Initialize plugin system
 call plug#end()
 
