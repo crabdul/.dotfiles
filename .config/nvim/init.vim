@@ -107,6 +107,8 @@ Plug 'benmills/vimux'
 
 Plug 'ntk148v/vim-horizon'
 
+Plug 'lambdalisue/fern.vim'
+
 Plug 'rizzatti/dash.vim'
 
 " Initialize plugin system
@@ -860,6 +862,18 @@ nmap <leader>gd :Gina diff<cr>
 nmap <leader>gl :Gina log<cr>
 
 " }}}
+
+" Plugin Fern: {{{
+" ============
+
+nmap gl :Fern . -reveal=% -drawer -toggle<CR>
+
+
+" }}}
+
+" Prompt for a command to run
+nmap vp :VimuxPromptCommand<CR>
+
 
 " Misc {{{
 " ----
