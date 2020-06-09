@@ -521,7 +521,17 @@ abbrev apos &apos;
 
 " }}}
 
+" HTML: {{{
+
+iabbrev </ </<C-X><C-O>
+
+" }}}
+
+" Markdown: {{{
+"
 au BufWritePre *.md :normal gqG
+
+" }}}
 
 " Plugin Vim Signify: {{{
 " ===================
