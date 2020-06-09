@@ -260,11 +260,6 @@ endif
 " reyank previously yanked text
 nnoremap gb `[v`]y<C-O>
 
-" put (p) and adjust indent to current line
-nnoremap p ]p
-" put the text before the cursor (P) and adjust indent to current line
-nnoremap P ]P
-
 
 " }}}
 
@@ -396,7 +391,7 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 nnoremap <bs> :nohlsearch<CR>
 
 " Copy current path of file
-nmap <leader>cp :let @*=expand("%:.")<CR>
+nmap <leader>p :let @*=expand("%:.")<CR>
 
 " Revert buffer to state when file was opened
 nnoremap gu :u1\|u<CR>
@@ -889,7 +884,7 @@ function! GitHubCommitSearch()
     endif
 endfunction
 
-map <leader>gc :call GitHubCommitSearch()<cr>
+map <leader>gh :call GitHubCommitSearch()<cr>
 
 " }}}
 
