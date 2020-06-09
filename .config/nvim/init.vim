@@ -83,10 +83,7 @@ Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
 
 " Run:
-" - :CocInstall pyls tsserver
-" - Add to :CocSettings
-" - "python.jedi.enabled": false,
-" - "python.globalModuleInstallation": true // To Install rope
+" - :CocInstall coc-python tsserver coc-prettier coc-eslint coc-json
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'bkad/CamelCaseMotion'
@@ -112,6 +109,8 @@ Plug 'ntk148v/vim-horizon'
 
 Plug 'lambdalisue/fern.vim'
 
+Plug 'rizzatti/dash.vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -120,8 +119,10 @@ call plug#end()
 " Theme: {{{
 " ======
 
-set background=dark
 " colorscheme palenight
+" let g:palenight_terminal_italics=1
+
+set background=dark
 colorscheme horizon
 
 " Enable true colours
@@ -129,7 +130,9 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-let g:palenight_terminal_italics=1
+" Override highlight set by horizon theme
+" :TODO: Do this more nicely
+autocmd BufReadPre * :highlight Pmenu ctermbg=250 guibg=#111111
 
 " }}}
 
@@ -318,6 +321,8 @@ set winheight=6
 set winminheight=6
 autocmd WinEnter * wincmd _
 
+noremap <C-t> <C-^>
+
 
 " }}}
 
@@ -327,10 +332,10 @@ autocmd WinEnter * wincmd _
 " QuickFix List:
 " ==============
 " Display results in cope
-map <leader>z :botright cope<cr>
+map <leader>zz :botright cope<cr>
 
 " Close QuickFix window
-map <leader>x :cclose<cr>
+map <leader>z :cclose<cr>
 
 " Window Navigation:
 " ==================
@@ -432,6 +437,7 @@ noremap <leader>; :%s:<c-r>=expand("<cword>")<cr>:
             \<c-r>=expand("<cword>")<cr>:g<Left><Left>
 
 noremap <leader>v :botright vsplit<enter>
+noremap <leader>x :botright split<enter>
 
 " INSERT MODE:
 " ============
@@ -517,7 +523,17 @@ abbrev apos &apos;
 
 " }}}
 
+" HTML: {{{
+
+iabbrev </ </<C-X><C-O>
+
+" }}}
+
+" Markdown: {{{
+"
 au BufWritePre *.md :normal gqG
+
+" }}}
 
 " Plugin Vim Signify: {{{
 " ===================
@@ -557,9 +573,26 @@ command! Fzfc call fzf#run(fzf#wrap(
 
 noremap <Leader>c :Fzfc<cr>
 
+function! s:list_buffers()
+    redir => list
+    silent ls
+    redir END
+    return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+    execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+            \ 'source': s:list_buffers(),
+            \ 'sink*': { lines -> s:delete_buffers(lines) },
+            \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+            \ }))
+
 " This is the default extra key bindings
 let g:fzf_action = {
-            \ 'space': 'tab split',
+            \ 'ctrl-t': 'tab split',
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
 
@@ -585,7 +618,7 @@ let g:fzf_colors =
 " Show preview
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>,
-            \ fzf#vim#with_preview('right:50%', 'ctrl-p'), <bang>0)
+            \ fzf#vim#with_preview('right:30%', 'ctrl-p'), <bang>0)
 
 " }}}
 
@@ -593,13 +626,11 @@ command! -bang -nargs=? -complete=dir Files
 " ===========
 
 let g:ale_linters = {
-            \ 'javascript': ['eslint'],
             \ 'python': ['flake8'],
             \ }
 
 let g:ale_fixers = {
             \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'javascript': ['prettier'],
             \ 'python': ['black', 'isort'],
             \ }
 
@@ -715,9 +746,10 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gD <Plug>(coc-definition)
-nmap <silent> gd <c-w>s<c-w>l<Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gy <Plug>(coc-implementation)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -738,6 +770,16 @@ nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
 highlight CocErrorSign ctermfg=15 ctermbg=196
 highlight CocWarningSign ctermfg=0 ctermbg=172
 
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+    let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+    let g:coc_global_extensions += ['coc-eslint']
+endif
+
+" Use <C-l> for trigger snippet expand.
+imap jk <Plug>(coc-snippets-expand)
 
 " }}}
 
@@ -832,11 +874,24 @@ nmap gl :Fern . -reveal=% -drawer -toggle<CR>
 " Prompt for a command to run
 nmap vp :VimuxPromptCommand<CR>
 
-" Run last command executed by VimuxRunCommand
-nmap vc :VimuxRunLastCommand<CR>
 
-" Zoom the tmux runner pane
-nmap vv :VimuxZoomRunner<CR>
+" Misc {{{
+" ----
+
+function! GitHubCommitSearch()
+    let s:currentWord = expand("<cword>")
+    if s:currentWord != ""
+        let s:uri = "https://github.com/search?q=++".s:currentWord."&type=Commits"
+        echo s:uri
+        silent exec "!open '".s:uri."'"
+    else
+        echo "Hmmm no word found"
+    endif
+endfunction
+
+map <leader>gc :call GitHubCommitSearch()<cr>
+
+" }}}
 
 " default ''.
 " n for Normal mode
