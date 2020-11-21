@@ -3,6 +3,8 @@ export PATH="$HOME/bin:$PATH"
 
 export PATH="$HOME/.nvm/nvm.sh:$PATH"
 
+export PATH=$PATH:/usr/local/sbin
+
 export WORKON_HOME=$HOME/.virtualenvs
 
 # Placeholder 'workon' shell function:
@@ -73,6 +75,8 @@ if command -v ag 1>/dev/null 2>&1; then
     --bind='ctrl-o:execute(code {})+abort'
     "
 fi
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # =============================================================================
 # Changing Directories
