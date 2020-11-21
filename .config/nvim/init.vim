@@ -526,7 +526,7 @@ iabbrev </ </<C-X><C-O>
 
 " Markdown: {{{
 "
-au BufWritePre *.md :normal gqG
+" au BufWritePre *.md :normal gqG
 
 " }}}
 
