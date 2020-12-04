@@ -16,3 +16,7 @@ __pycache__
 
 # git
 .git
+
+# temporary
+src/octoenergy/interfaces/packages/common-img/src/img/icons/two-leaves.png
+**/fragmentTypes.json
