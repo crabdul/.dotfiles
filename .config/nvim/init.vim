@@ -21,7 +21,7 @@ else
 endif
 
 " TODO: Use a shim
-let g:coc_node_path = $HOME."/.nvm/versions/node/v12.16.2/bin/node"
+let g:coc_node_path = $HOME."/.nvm/versions/node/v15.3.0/bin/node"
 
 if exists('$TMUX')
     " Colors in tmux
