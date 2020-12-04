@@ -289,3 +289,6 @@ source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 source "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 source "$HOME/.zsh/plugins/history-search-multi-word/history-search-multi-word.plugin.zsh"
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
