@@ -23,6 +23,9 @@ endif
 " TODO: Use a shim
 let g:coc_node_path = $HOME."/.nvm/versions/node/v15.3.0/bin/node"
 
+" Required to pick up neovim package i.e pass checkhealth
+let g:node_host_prog = $HOME."/.nvm/versions/node/v15.3.0/lib/node_modules/neovim/bin/cli.js"
+
 if exists('$TMUX')
     " Colors in tmux
     let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
@@ -154,7 +157,7 @@ set directory=$HOME/.vim/swapfiles//
 " This allows the folding setting to be read
 set modelines=1
 
-set wildignore+=**/node_modules/**,**/__pycache__/**
+set wildignore+=**/__pycache__/**
 
 " Leader Keys:
 " ============
