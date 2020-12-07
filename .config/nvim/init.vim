@@ -59,7 +59,8 @@ Plug 'vim-scripts/matchit.zip'
 
 " FZF
 Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+" https://github.com/junegunn/fzf.vim/issues/1150
+Plug 'junegunn/fzf.vim', {'commit': '7ccecee77de02375c88eb37a87d10ca54a922ea6'}
 
 " Provides lots of textobjects
 " Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
