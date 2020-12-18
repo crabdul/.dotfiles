@@ -108,10 +108,6 @@ Plug 'benmills/vimux'
 
 Plug 'crabdul/vim-horizon'
 
-Plug 'lambdalisue/fern.vim'
-
-Plug 'rizzatti/dash.vim'
-
 " Initialize plugin system
 call plug#end()
 
