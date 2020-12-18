@@ -306,7 +306,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " nnoremap bdo :%bd|e#
 
-nnoremap M :bd<cr>
+nnoremap <leader>n :bd<cr>
 nnoremap <leader>m :bp\|bd #<cr>
 
 set winheight=6
@@ -536,7 +536,7 @@ set updatetime=100
 " Always show signcolumns
 set signcolumn=yes
 
-nmap <leader>n :SignifyHunkDiff<CR>
+nmap gd :SignifyHunkDiff<CR>
 nmap U :SignifyHunkUndo<CR>
 
 " Colours
