@@ -106,7 +106,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'benmills/vimux'
 
-Plug 'ntk148v/vim-horizon'
+Plug 'crabdul/vim-horizon'
 
 Plug 'lambdalisue/fern.vim'
 
