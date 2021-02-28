@@ -815,8 +815,8 @@ let g:user_emmet_leader_key=','
 
 " Enable only for html, css, jsx
 let g:user_emmet_install_global = 0
-let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
-autocmd FileType html,css,javascript,javascript.jsx,scss EmmetInstall
+let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}, 'typescript': {'extends': 'tsx'}}
+autocmd FileType * EmmetInstall
 
 " only use in INSERT mode
 let g:user_emmet_mode = 'i'
