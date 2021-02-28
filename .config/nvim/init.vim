@@ -128,7 +128,7 @@ if (has("termguicolors"))
 endif
 
 " Override highlight set by horizon theme
-autocmd BufReadPre * :highlight Pmenu ctermbg=210 ctermfg=230 guifg=#00d75f guibg=#111111
+autocmd BufReadPre * :highlight Pmenu ctermbg=210 ctermfg=230 guifg=#43afc8 guibg=#111111
 
 " }}}
 
@@ -264,9 +264,9 @@ nnoremap gb `[v`]y<C-O>
 
 set foldenable
 set foldmethod=syntax
-set foldlevel=0
+set foldlevel=1
 set foldnestmax=2
-set foldlevelstart=0                    " Starting fold level for a new buffer
+set foldlevelstart=1                    " Starting fold level for a new buffer
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 
 " }}}
