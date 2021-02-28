@@ -166,6 +166,7 @@
 	snap = !git stash save 'snapshot: $(date)'
 	# squash
 	squash = !git rebase -i HEAD~$(git count)
+	sq = !git rebase -i HEAD~$(git rev-list --count origin/main..HEAD)
     whosgottest = !git for-each-ref --format='%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes | grep 'test/'
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
