@@ -128,8 +128,7 @@ if (has("termguicolors"))
 endif
 
 " Override highlight set by horizon theme
-" :TODO: Do this more nicely
-autocmd BufReadPre * :highlight Pmenu ctermbg=250 guibg=#111111
+autocmd BufReadPre * :highlight Pmenu ctermbg=210 ctermfg=230 guifg=#00d75f guibg=#111111
 
 " }}}
 
