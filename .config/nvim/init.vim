@@ -464,10 +464,10 @@ vnoremap <space> zf
 " COMMAND MODE:
 " =============
 " Expand %% to the current diretory
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Expand $$ to the path of the current buffer
-cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:p') : '$$'
+cnoremap <expr> %% getcmdtype() == ':' ? expand("%") : '$$'
 
 tnoremap <Esc> <C-\><C-n>
 
