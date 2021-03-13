@@ -130,6 +130,9 @@ Plug 'benmills/vimux'
 
 Plug 'crabdul/vim-horizon'
 
+" Vim sugar for the UNIX shell commands that need it the most
+Plug 'tpope/vim-eunuch'
+
 " Initialize plugin system
 call plug#end()
 
@@ -359,18 +362,6 @@ map <C-l> <C-W>l
 
 " NORMAL MODE:
 " ============
-" Rename the current file
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-
-nmap R :call RenameFile()<cr>
 
 " Make yank consistent with other commands
 nnoremap Y y$
