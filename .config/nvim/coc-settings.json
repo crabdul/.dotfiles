@@ -7,6 +7,5 @@
     ],
     "tsserver.formatOnType": true,
     "coc.preferences.formatOnType": true,
-    "prettier.disableSuccessMessage": true,
-    "python.jediEnabled": false
+    "prettier.disableSuccessMessage": true
 }
