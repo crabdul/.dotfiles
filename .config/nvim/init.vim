@@ -551,6 +551,9 @@ set signcolumn=yes
 nmap gd :SignifyHunkDiff<CR>
 nmap U :SignifyHunkUndo<CR>
 
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+
 " Colours
 " Also used by vim-sandwich
 highlight DiffAdd guifg=#00d75f guibg=#fff
