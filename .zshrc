@@ -239,8 +239,10 @@ alias cl=clear
 
 # Hub
 alias hpr='hub pull-request'
-alias pulls='hub browse -- pulls'
-alias wiki='hub browse -- wiki'
+alias hpulls='hub browse -- pulls'
+alias hshow='hub pr show'
+alias hci='hub ci-status'
+
 
 # zsh tools
 alias shelloadtime="/usr/bin/time zsh -i -c exit"
