@@ -1,0 +1,12 @@
+#!/bin/sh
+
+tmux new-window
+tmux rename-window 'OEJP'
+tmux send-keys 'jp' C-m
+tmux send-keys 'vi' C-m
+tmux split-window -h
+tmux send-keys 'jp' C-m
+tmux send-keys 'git checkout main' C-m
+tmux send-keys 'yarn run dev' C-m
+tmux split-window
+tmux send-keys 'jp' C-m

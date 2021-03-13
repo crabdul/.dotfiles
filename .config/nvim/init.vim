@@ -106,11 +106,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'benmills/vimux'
 
-Plug 'ntk148v/vim-horizon'
-
-Plug 'lambdalisue/fern.vim'
-
-Plug 'rizzatti/dash.vim'
+Plug 'crabdul/vim-horizon'
 
 " Initialize plugin system
 call plug#end()
@@ -132,8 +128,7 @@ if (has("termguicolors"))
 endif
 
 " Override highlight set by horizon theme
-" :TODO: Do this more nicely
-autocmd BufReadPre * :highlight Pmenu ctermbg=250 guibg=#111111
+autocmd BufReadPre * :highlight Pmenu ctermbg=210 ctermfg=230 guifg=#43afc8 guibg=#111111
 
 " }}}
 
@@ -269,9 +264,9 @@ nnoremap gb `[v`]y<C-O>
 
 set foldenable
 set foldmethod=syntax
-set foldlevel=0
+set foldlevel=1
 set foldnestmax=2
-set foldlevelstart=0                    " Starting fold level for a new buffer
+set foldlevelstart=1                    " Starting fold level for a new buffer
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 
 " }}}
@@ -310,7 +305,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " nnoremap bdo :%bd|e#
 
-nnoremap M :bd<cr>
+nnoremap <leader>n :bd<cr>
 nnoremap <leader>m :bp\|bd #<cr>
 
 set winheight=6
@@ -540,7 +535,7 @@ set updatetime=100
 " Always show signcolumns
 set signcolumn=yes
 
-nmap <leader>n :SignifyHunkDiff<CR>
+nmap gd :SignifyHunkDiff<CR>
 nmap U :SignifyHunkUndo<CR>
 
 " Colours
@@ -819,8 +814,8 @@ let g:user_emmet_leader_key=','
 
 " Enable only for html, css, jsx
 let g:user_emmet_install_global = 0
-let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}}
-autocmd FileType html,css,javascript,javascript.jsx,scss EmmetInstall
+let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}, 'typescript': {'extends': 'tsx'}}
+autocmd FileType * EmmetInstall
 
 " only use in INSERT mode
 let g:user_emmet_mode = 'i'

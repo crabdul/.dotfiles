@@ -58,3 +58,10 @@ Install [Mono font](https://www.jetbrains.com/lp/mono/)
 ```bash
 nvm install 12.16.2
 ```
+
+### Scripts
+
+```bash
+mkdir /opt/scripts
+sudo ln -s ~/.dotfiles/scripts/ /opt
+```
