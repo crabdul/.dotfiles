@@ -39,6 +39,32 @@ set background=dark
 " Plugins: {{{
 " ========
 
+" Snapshot
+silent! let g:plugs['CamelCaseMotion'].commit = 'de439d7c06cffd0839a29045a103fe4b44b15cdc'
+silent! let g:plugs['ale'].commit = 'f996ede5999c99b1b3e3cecc02dbd06cb286d3ff'
+silent! let g:plugs['coc.nvim'].commit = '885d695d5c576a29bc260ff4c8eeff27cb510590'
+silent! let g:plugs['delimitMate'].commit = '537a1da0fa5eeb88640425c37e545af933c56e1b'
+silent! let g:plugs['emmet-vim'].commit = '60930a968d26fc7abf4f8fd5c3926bdcda2dd787'
+silent! let g:plugs['gina.vim'].commit = '97116f338f304802ce2661c2e7c0593e691736f8'
+silent! let g:plugs['git-messenger.vim'].commit = 'c16b0d43ca57e77081f1f23f67552efe37110b39'
+silent! let g:plugs['lightline.vim'].commit = '709b2d8dc88fa622d6c076f34b05b58fcccf393f'
+silent! let g:plugs['matchit.zip'].commit = 'ced6c409c9beeb0b4142d21906606bd194411d1d'
+silent! let g:plugs['palenight.vim'].commit = '847fcf5b1de2a1f9c28fdcc369d009996c6bf633'
+silent! let g:plugs['quickfix-reflector.vim'].commit = '8e9c05a110b80ab66fc8bc3d5fe9e6fa168aada6'
+silent! let g:plugs['targets.vim'].commit = '8d6ff2984cdfaebe5b7a6eee8f226a6dd1226f2d'
+silent! let g:plugs['vim-commentary'].commit = 'f8238d70f873969fb41bf6a6b07ca63a4c0b82b1'
+silent! let g:plugs['vim-highlightedyank'].commit = '931cc6bd53e4a1fdbe592751f0e13c0e401f0a49'
+silent! let g:plugs['vim-horizon'].commit = '893a88f7a6d28481b07196cd5ddbe96ad7ab2ad9'
+silent! let g:plugs['vim-peekaboo'].commit = 'cc4469c204099c73dd7534531fa8ba271f704831'
+silent! let g:plugs['vim-polyglot'].commit = '73c518717741fb3ebb6822645d38f37ffae7c19b'
+silent! let g:plugs['vim-sandwich'].commit = '9e6340affe9f53c11a6975a5f50b9bf48adb692c'
+silent! let g:plugs['vim-signify'].commit = '98c693f7a1a91b73d9232d868765b4d20af892fe'
+silent! let g:plugs['vim-textobj-indent'].commit = 'deb76867c302f933c8f21753806cbf2d8461b548'
+silent! let g:plugs['vim-textobj-python'].commit = '06de233e805b6bcfd0fde7591c64cf927637feb7'
+silent! let g:plugs['vim-textobj-user'].commit = '41a675ddbeefd6a93664a4dc52f302fe3086a933'
+silent! let g:plugs['vim-tmux-navigator'].commit = '6a1e58c3ca3bc7acca36c90521b3dfae83b2a602'
+silent! let g:plugs['vimux'].commit = '37f41195e6369ac602a08ec61364906600b771f1'
+
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
