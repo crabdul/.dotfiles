@@ -788,6 +788,8 @@ nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
 highlight CocErrorSign ctermfg=15 ctermbg=196
 highlight CocWarningSign ctermfg=0 ctermbg=172
 
+let g:coc_global_extensions = []
+
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
     let g:coc_global_extensions += ['coc-prettier']
 endif
