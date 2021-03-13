@@ -14,11 +14,7 @@ autocmd VimEnter *
 " Python source
 " Run: pip3 install neovim black autopep8
 " Figure out the system Python for Neovim.
-if exists("$VIRTUAL_ENV")
-    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
-else
-    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
-endif
+let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
 
 " TODO: Use a shim
 let g:coc_node_path = $HOME."/.nvm/versions/node/v12.16.2/bin/node"
@@ -38,6 +34,32 @@ set background=dark
 
 " Plugins: {{{
 " ========
+
+" Snapshot
+silent! let g:plugs['CamelCaseMotion'].commit = 'de439d7c06cffd0839a29045a103fe4b44b15cdc'
+silent! let g:plugs['ale'].commit = '80a48d01be663205b92902ca3fa137706e3e88c6'
+silent! let g:plugs['coc.nvim'].commit = '97e95b9df64595699506ce9cf2f07bb7a91141fb'
+silent! let g:plugs['delimitMate'].commit = '537a1da0fa5eeb88640425c37e545af933c56e1b'
+silent! let g:plugs['emmet-vim'].commit = '60930a968d26fc7abf4f8fd5c3926bdcda2dd787'
+silent! let g:plugs['gina.vim'].commit = '97116f338f304802ce2661c2e7c0593e691736f8'
+silent! let g:plugs['git-messenger.vim'].commit = 'b79422434a419b97c5817d9ff645216952152443'
+silent! let g:plugs['lightline.vim'].commit = '8e013f32f524157bf14ccaa87d97be3d3a7201e2'
+silent! let g:plugs['matchit.zip'].commit = 'ced6c409c9beeb0b4142d21906606bd194411d1d'
+silent! let g:plugs['palenight.vim'].commit = '847fcf5b1de2a1f9c28fdcc369d009996c6bf633'
+silent! let g:plugs['quickfix-reflector.vim'].commit = '8e9c05a110b80ab66fc8bc3d5fe9e6fa168aada6'
+silent! let g:plugs['targets.vim'].commit = '8d6ff2984cdfaebe5b7a6eee8f226a6dd1226f2d'
+silent! let g:plugs['vim-commentary'].commit = 'f8238d70f873969fb41bf6a6b07ca63a4c0b82b1'
+silent! let g:plugs['vim-highlightedyank'].commit = '931cc6bd53e4a1fdbe592751f0e13c0e401f0a49'
+silent! let g:plugs['vim-horizon'].commit = '893a88f7a6d28481b07196cd5ddbe96ad7ab2ad9'
+silent! let g:plugs['vim-peekaboo'].commit = 'cc4469c204099c73dd7534531fa8ba271f704831'
+silent! let g:plugs['vim-polyglot'].commit = 'cc63193ce82c1e7b9ee2ad7d0ddd14e8394211ef'
+silent! let g:plugs['vim-sandwich'].commit = '9e6340affe9f53c11a6975a5f50b9bf48adb692c'
+silent! let g:plugs['vim-signify'].commit = '2542b6459085f3d1e361e8b5bf406dec6448487e'
+silent! let g:plugs['vim-textobj-indent'].commit = 'deb76867c302f933c8f21753806cbf2d8461b548'
+silent! let g:plugs['vim-textobj-python'].commit = '06de233e805b6bcfd0fde7591c64cf927637feb7'
+silent! let g:plugs['vim-textobj-user'].commit = '41a675ddbeefd6a93664a4dc52f302fe3086a933'
+silent! let g:plugs['vim-tmux-navigator'].commit = '6a1e58c3ca3bc7acca36c90521b3dfae83b2a602'
+silent! let g:plugs['vimux'].commit = '29d46f6bc158c28b85ae540dc29459ff41211233'
 
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
@@ -107,6 +129,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
 Plug 'crabdul/vim-horizon'
+
+" Vim sugar for the UNIX shell commands that need it the most
+Plug 'tpope/vim-eunuch'
 
 " Initialize plugin system
 call plug#end()
@@ -337,18 +362,6 @@ map <C-l> <C-W>l
 
 " NORMAL MODE:
 " ============
-" Rename the current file
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-
-nmap R :call RenameFile()<cr>
 
 " Make yank consistent with other commands
 nnoremap Y y$
@@ -451,10 +464,10 @@ vnoremap <space> zf
 " COMMAND MODE:
 " =============
 " Expand %% to the current diretory
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " Expand $$ to the path of the current buffer
-cnoremap <expr> $$ getcmdtype() == ':' ? expand('%:p') : '$$'
+cnoremap <expr> %% getcmdtype() == ':' ? expand("%") : '$$'
 
 tnoremap <Esc> <C-\><C-n>
 
@@ -537,6 +550,9 @@ set signcolumn=yes
 
 nmap gd :SignifyHunkDiff<CR>
 nmap U :SignifyHunkUndo<CR>
+
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
 
 " Colours
 " Also used by vim-sandwich
@@ -762,10 +778,13 @@ nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
 highlight CocErrorSign ctermfg=15 ctermbg=196
 highlight CocWarningSign ctermfg=0 ctermbg=172
 
+let g:coc_global_extensions = []
+
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
     let g:coc_global_extensions += ['coc-prettier']
 endif
 
+" :CocCommand eslint.showOutputChannel
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
     let g:coc_global_extensions += ['coc-eslint']
 endif
