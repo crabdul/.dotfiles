@@ -5,6 +5,8 @@ export PATH="$HOME/.nvm/nvm.sh:$PATH"
 
 export PATH=$PATH:/usr/local/sbin
 
+export PATH=$PATH:/usr/local/lib/python3.9/site-packages
+
 export PATH=$PATH:/opt/scripts
 
 export WORKON_HOME=$HOME/.virtualenvs
