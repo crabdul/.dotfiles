@@ -133,6 +133,9 @@ Plug 'crabdul/vim-horizon'
 " Vim sugar for the UNIX shell commands that need it the most
 Plug 'tpope/vim-eunuch'
 
+" Plug 'APZelos/blamer.nvim'
+" let g:blamer_enabled = 1
+
 " Initialize plugin system
 call plug#end()
 
