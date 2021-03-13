@@ -1,0 +1,13 @@
+#!/bin/sh
+
+open https://app.asana.com/0/1199685029046313/board
+git checkout main
+git pull --rebase origin main
+echo Enter Asana card Id
+read asanaid
+echo Enter branch Id
+read branchname
+git checkout -b "$branchname/$asanaid"
+git commit --allow-empty -m "Placeholder"
+git puoc
+hub pull-request --base=main
