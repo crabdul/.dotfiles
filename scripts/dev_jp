@@ -9,3 +9,4 @@ tmux send-keys 'jp' C-m
 tmux send-keys 'yarn run dev' C-m
 tmux split-window
 tmux send-keys 'jp' C-m
+tmux selectp -L
