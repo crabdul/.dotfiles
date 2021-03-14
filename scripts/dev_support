@@ -10,5 +10,8 @@ tmux send-keys 'cdk' C-m
 tmux send-keys 'wk' C-m
 tmux send-keys 'runthesupportsite' C-m
 tmux split-window
+tmux send-keys 'memcached' C-m
+tmux split-window
 tmux send-keys 'cdk' C-m
+tmux resize-pane -U 10
 tmux selectp -L
