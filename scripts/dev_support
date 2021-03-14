@@ -1,0 +1,14 @@
+#!/bin/sh
+
+tmux new-window
+tmux rename-window 'Support'
+tmux send-keys 'cdk' C-m
+tmux send-keys 'wk' C-m
+tmux send-keys 'vi' C-m
+tmux split-window -h
+tmux send-keys 'cdk' C-m
+tmux send-keys 'wk' C-m
+tmux send-keys 'runthesupportsite' C-m
+tmux split-window
+tmux send-keys 'cdk' C-m
+tmux selectp -L
