@@ -506,6 +506,14 @@ abbrev pdb import ipdb; ipdb.set_trace()
 abbrev kw **kwargs
 abbrev args *args
 
+
+function! PythonModulePath()
+    let filepath = expand('%:p:h')
+    let @* = join(split(split(filepath, "src")[1], "/"), ".")
+endfunction
+
+nmap md :call PythonModulePath()<cr>
+
 " Django:
 " =======
 autocmd FileType html set filetype=htmldjango
