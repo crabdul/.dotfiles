@@ -240,9 +240,6 @@ endif
 " Yanking:
 " ========
 
-" reyank previously yanked text
-nnoremap gb `[v`]y<C-O>
-
 " put (p) and adjust indent to current line
 nnoremap p ]p
 " put the text before the cursor (P) and adjust indent to current line
