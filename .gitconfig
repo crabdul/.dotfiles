@@ -169,6 +169,7 @@
 	sq = !git rebase -i HEAD~$(git rev-list --count origin/main..HEAD)
     whosgottest = !git for-each-ref --format='%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes | grep 'test/'
     main = !git o main && git pull --rebase
+    ch = !git log --reverse -L :get_locale:$1
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	; excludesfile = /Users/abdulkarim/.gitignore_global

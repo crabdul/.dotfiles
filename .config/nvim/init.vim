@@ -391,7 +391,7 @@ nmap <leader>r :e %<CR>
 command! Vimrc :tabe $MYVIMRC<cr>
 
 " Source vimrc
-command! Sauce :source $HOME/.dotfiles/.vimrc
+command! Sauce :source $HOME/.dotfiles/.config/nvim/init.vim
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -505,6 +505,14 @@ au FileType python map <buffer> 2 /def<CR>
 abbrev pdb import ipdb; ipdb.set_trace()
 abbrev kw **kwargs
 abbrev args *args
+
+
+function! PythonModulePath()
+    let filepath = expand('%:p:h')
+    let @* = join(split(split(filepath, "src")[1], "/"), ".")
+endfunction
+
+nmap md :call PythonModulePath()<cr>
 
 " Django:
 " =======

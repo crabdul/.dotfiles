@@ -10,6 +10,6 @@ hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus('Postico') end
 hs.hotkey.bind(mash, ';', function() hs.application.launchOrFocus('Slack') end)
 hs.hotkey.bind(mash, 'A', function() hs.application.launchOrFocus('Safari') end)
 hs.hotkey.bind(mash, 'F', function() hs.application.launchOrFocus('Quiver') end)
-hs.hotkey.bind(mash, 'S', function() hs.application.launchOrFocus('SnippetsLab') end)
+hs.hotkey.bind(mash, 'S', function() hs.application.launchOrFocus('Spark') end)
 hs.hotkey.bind(mash, 'C', function() hs.application.launchOrFocus('Visual Studio Code') end)
 hs.hotkey.bind(mash, 'T', function() hs.application.launchOrFocus('TickTick') end)
