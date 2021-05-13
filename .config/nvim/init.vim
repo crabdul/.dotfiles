@@ -336,14 +336,13 @@ endtry
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " nnoremap bdo :%bd|e#
-
-nnoremap <leader>n :bd<cr>
-nnoremap <leader>m :bp\|bd #<cr>
+nnoremap bd :bd<cr>
 
 set winheight=6
 set winminheight=6
 autocmd WinEnter * wincmd _
 
+" Toggle between last opened buffer
 noremap <C-t> <C-^>
 
 

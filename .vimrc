@@ -293,9 +293,8 @@ endtry
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " nnoremap bdo :%bd|e#
-
-nnoremap M :bd<cr>
-nnoremap <leader>m :bp\|bd #<cr>
+" Close current buffer without changes
+nnoremap bd :bd<cr>
 
 set winheight=6
 set winminheight=6
