@@ -5,6 +5,7 @@
 This symlinks any necessary files that need to be in `$HOME`
 
 ```bash
+
 bash ~/.dotfiles/install.sh
 ```
 
@@ -25,23 +26,24 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-au
 
 ### Install brew packages 🍺
 
+First install vim
+
 Brew bundle is used to install dependencies including Mac applications, even
 ones from the Mac App store.
 
-```bash
-brew bundle --file=~.Brewfile
-```
+```bash brew bundle --file=~.Brewfile ```
 
 ### Install vim-plug, the vim plugin manager
 
-```bash
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-```
+```bash sh -c 'curl -fLo
+"${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim
+--create-dirs \
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim' ```
 
 ### Setup iTerm2 👾
 
 In General/Preferences, set custom folder path
+
 ```
 ~/.dotfiles/config/iterm2
 ```
@@ -55,13 +57,18 @@ Install [Mono font](https://www.jetbrains.com/lp/mono/)
 
 ### NVM
 
-```bash
-nvm install 12.16.2
-```
+```bash nvm install 12.16.2 ```
 
 ### Scripts
 
-```bash
-mkdir /opt/scripts
-sudo ln -s ~/.dotfiles/scripts/ /opt
-```
+```bash mkdir /opt/scripts sudo ln -s ~/.dotfiles/scripts/ /opt ```
+
+### Setup
+
+- Make iTerm theme minimal
+- Set scroll speed to high
+- Set Jetbrains theme in iterm
+- Delay until repeat top
+- Key repeat fast
+- Use Horizon theme in iTerm
+- Use ligatures and 14pt font in iTerm

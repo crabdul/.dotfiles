@@ -9,6 +9,8 @@ export PATH=$PATH:/usr/local/lib/python3.9/site-packages
 
 export PATH=$PATH:/opt/scripts
 
+export PATH=/opt/homebrew/bin:$PATH
+
 export WORKON_HOME=$HOME/.virtualenvs
 
 # Placeholder 'workon' shell function:
