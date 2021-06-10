@@ -1,10 +1,10 @@
 " Plug Install: {{{
 " ========
 "
-autocmd VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
+" autocmd VimEnter *
+"       \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+"       \|   PlugInstall --sync | q
+"       \| endif
 
 " }}}
 
@@ -85,6 +85,7 @@ Plug 'vim-scripts/matchit.zip'
 
 " FZF
 Plug '/usr/local/opt/fzf'
+Plug '/opt/homebrew/opt/fzf'
 " https://github.com/junegunn/fzf.vim/issues/1150
 Plug 'junegunn/fzf.vim', {'commit': '7ccecee77de02375c88eb37a87d10ca54a922ea6'}
 
