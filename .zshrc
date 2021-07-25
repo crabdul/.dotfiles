@@ -5,6 +5,8 @@ export PATH="$HOME/.nvm/nvm.sh:$PATH"
 
 export PATH=$PATH:/usr/local/sbin
 
+export PATH=$PATH:/usr/karim/bin
+
 export PATH=$PATH:/usr/local/lib/python3.9/site-packages
 
 export PATH=$PATH:/opt/scripts
@@ -12,6 +14,17 @@ export PATH=$PATH:/opt/scripts
 export PATH=/opt/homebrew/bin:$PATH
 
 export WORKON_HOME=$HOME/.virtualenvs
+
+# pscog_binary location
+# Hopefully only required while M1 issues are sorted out
+export PATH=$PATH:/System/Volumes/Data/opt/homebrew/Cellar/libpq/13.3/bin
+
+export PATH=$PATH:$HOME/.nvm/versions/node/v14.17.2/lib/node_modules/
+
+# https://stackoverflow.com/a/67166417
+export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib -L/opt/homebrew/opt/libpq/lib"
+
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include -I/opt/homebrew/opt/libpq/include"
 
 # Placeholder 'workon' shell function:
 # Will only be executed on the first call to 'workon'
@@ -71,8 +84,8 @@ if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
 fi
 
 # fzf + ag configuration
-if command -v ag 1>/dev/null 2>&1; then
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --vimgrep'
+if command -v rg 1>/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --vimgrep --ignore node_modules'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_DEFAULT_OPTS="
@@ -300,3 +313,6 @@ source "$HOME/.zsh/plugins/history-search-multi-word/history-search-multi-word.p
 
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
+export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+
+eval "$(direnv hook bash)"

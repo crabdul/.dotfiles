@@ -21,7 +21,7 @@ else
 endif
 
 " TODO: Use a shim
-let g:coc_node_path = $HOME."/.nvm/versions/node/v12.16.2/bin/node"
+let g:coc_node_path = $HOME."/.nvm/versions/node/v14.17.2/bin/node"
 
 if exists('$TMUX')
     " Colors in tmux
@@ -68,6 +68,14 @@ silent! let g:plugs['vimux'].commit = '29d46f6bc158c28b85ae540dc29459ff41211233'
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'glepnir/lspsaga.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'nvim-lua/completion-nvim'
+
 " Palenight theme
 Plug 'drewtempelmeyer/palenight.vim'
 
@@ -112,7 +120,7 @@ Plug 'itchyny/lightline.vim'
 
 " Run:
 " - :CocInstall coc-python tsserver coc-prettier coc-eslint coc-json
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'bkad/CamelCaseMotion'
 
@@ -564,7 +572,7 @@ set updatetime=100
 " Always show signcolumns
 set signcolumn=yes
 
-nmap gd :SignifyHunkDiff<CR>
+" nmap gd :SignifyHunkDiff<CR>
 nmap U :SignifyHunkUndo<CR>
 
 nmap <leader>gj <plug>(signify-next-hunk)
@@ -710,7 +718,7 @@ let g:lightline = {
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
             \             [ 'readonly', 'relativepath', 'modified' ] ],
-            \   'right': [ ['percent'], [ 'linterStatus', 'coc', 'ctags' ] ]
+            \   'right': [ ['percent'], [ 'linterStatus', 'ctags' ] ]
             \ },
             \ 'inactive': {
             \   'left': [ [ 'mode' ],
@@ -730,83 +738,147 @@ set showtabline=1
 
 " }}}
 
-" Plugin CocVim: {{{
-" ==============
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
+" " Plugin CocVim: {{{
+" " ==============
+" " Some servers have issues with backup files, see #649
+" set nobackup
+" set nowritebackup
 
-" Better display for messages
-set cmdheight=2
+" " Better display for messages
+" set cmdheight=2
 
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+" " You will have bad experience for diagnostic messages when it's default 4000.
+" set updatetime=300
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
+" " don't give |ins-completion-menu| messages.
+" set shortmess+=c
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" " Use tab for trigger completion with characters ahead and navigate.
+" " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" inoremap <silent><expr> <TAB>
+"             \ pumvisible() ? "\<C-n>" :
+"             \ <SID>check_back_space() ? "\<TAB>" :
+"             \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"     let col = col('.') - 1
+"     return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" " Coc only does snippet and additional edit on confirm.
+" " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" " Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" " Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gy <Plug>(coc-implementation)
-nmap <silent> gn <Plug>(coc-rename)
+" " Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gt <Plug>(coc-type-definition)
+" nmap <silent> gy <Plug>(coc-implementation)
+" nmap <silent> gn <Plug>(coc-rename)
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
+" function! s:show_documentation()
+"     if (index(['vim','help'], &filetype) >= 0)
+"         execute 'h '.expand('<cword>')
+"     else
+"         call CocAction('doHover')
+"     endif
+" endfunction
 
-nnoremap <silent> <leader>ed  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
+" nnoremap <silent> <leader>ed  :<C-u>CocList diagnostics<cr>
+" nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
 
 
-" This isn't working I think
-highlight CocErrorSign ctermfg=15 ctermbg=196
-highlight CocWarningSign ctermfg=0 ctermbg=172
+" " This isn't working I think
+" highlight CocErrorSign ctermfg=15 ctermbg=196
+" highlight CocWarningSign ctermfg=0 ctermbg=172
 
-let g:coc_global_extensions = []
+" let g:coc_global_extensions = []
 
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-    let g:coc_global_extensions += ['coc-prettier']
-endif
+" if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+"     let g:coc_global_extensions += ['coc-prettier']
+" endif
 
-" :CocCommand eslint.showOutputChannel
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-    let g:coc_global_extensions += ['coc-eslint']
-endif
+" " :CocCommand eslint.showOutputChannel
+" if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+"     let g:coc_global_extensions += ['coc-eslint']
+" endif
 
-" Use <C-l> for trigger snippet expand.
-imap jk <Plug>(coc-snippets-expand)
+" " Use <C-l> for trigger snippet expand.
+" imap jk <Plug>(coc-snippets-expand)
+
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  --Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+  require'completion'.on_attach(client, bufnr)
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { "pyright", "tsserver" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+
+local saga = require 'lspsaga'
+saga.init_lsp_saga {
+  error_sign = '',
+  warn_sign = '',
+  hint_sign = '',
+  infor_sign = '',
+  border_style = "round",
+}
+
+
+EOF
+
+" show hover doc
+nnoremap <silent>K :Lspsaga hover_doc<CR>
 
 " }}}
 
@@ -855,27 +927,33 @@ autocmd FileType * EmmetInstall
 " only use in INSERT mode
 let g:user_emmet_mode = 'i'
 
-function! Expander()
+" function! Expander()
 
-    let line   = getline(".")
-    let col    = col(".")
-    let first  = line[col-2]
-    let second = line[col-1]
-    let third  = line[col]
+"     let line   = getline(".")
+"     let col    = col(".")
+"     let first  = line[col-2]
+"     let second = line[col-1]
+"     let third  = line[col]
 
-    if first ==# ">" && second ==# "<" && third ==# "/"
-        return "\<CR>\<C-o>==\<C-o>O"
-    elseif pumvisible()
-        return "\<C-Y>"
-        " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-        " Coc only does snippet and additional edit on confirm.
-    else
-        return "\<Plug>delimitMateCR"
-    endif
+"     if first ==# ">" && second ==# "<" && third ==# "/"
+"         return "\<CR>\<C-o>==\<C-o>O"
+"     elseif pumvisible()
+"         return "\<C-Y>"
+"         " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+"         " Coc only does snippet and additional edit on confirm.
+"     else
+"         return "\<Plug>delimitMateCR"
+"     endif
 
-endfunction
+" endfunction
 
-imap <expr> <CR> Expander()
+" imap <expr> <CR> Expander()
+
+
+set completeopt=menuone,noinsert,noselect
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " }}}
 
@@ -925,5 +1003,3 @@ map <leader>gh :call GitHubCommitSearch()<cr>
 " v for Visual mode
 " i for Insert mode
 " c for Command line editing, for 'incsearch'
-
-" vim:foldmethod=marker:foldlevel=0
