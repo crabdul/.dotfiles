@@ -137,6 +137,11 @@ Plug 'crabdul/vim-horizon'
 " Vim sugar for the UNIX shell commands that need it the most
 Plug 'tpope/vim-eunuch'
 
+Plug 'xolox/vim-easytags'
+
+" Required by vim-easytags
+Plug 'xolox/vim-misc'
+
 " Plug 'APZelos/blamer.nvim'
 " let g:blamer_enabled = 1
 
@@ -900,6 +905,7 @@ nmap gl :Fern . -reveal=% -drawer -toggle<CR>
 " Prompt for a command to run
 nmap vp :VimuxPromptCommand<CR>
 
+let g:easytags_async = 1
 
 " Misc {{{
 " ----
