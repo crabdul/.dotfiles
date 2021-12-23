@@ -906,6 +906,10 @@ nmap gl :Fern . -reveal=% -drawer -toggle<CR>
 nmap vp :VimuxPromptCommand<CR>
 
 let g:easytags_async = 1
+let g:ycm_collect_identifiers_from_tags_files=0
+let g:easytags_dynamic_files = 1
+let g:easytags_auto_highlight = 0
+let g:easytags_include_members = 1
 
 " Misc {{{
 " ----

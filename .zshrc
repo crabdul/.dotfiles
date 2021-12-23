@@ -278,7 +278,9 @@ alias tm="tmux"
 alias tma="tmux attach -t d || tmux new -s d"
 alias tmd="tmux detach"
 alias tml="tmux ls"
-#
+
+# Git
+alias gdelmerged="git branch --merged | egrep -v "(^\*|master|main)" | xargs git branch -d"
 
 # =============================================================================
 # Source work config
