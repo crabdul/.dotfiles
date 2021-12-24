@@ -170,6 +170,8 @@
     whosgottest = !git for-each-ref --format='%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes | grep 'test/'
     main = !git o main && git pull --rebase
     ch = !git log --reverse -L :get_locale:$1
+    # https://qiita.com/sin_tanaka/items/ca0fdd899e40a1d6716b
+    cof = !git branch -a | fzf | xargs git checkout
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	; excludesfile = /Users/abdulkarim/.gitignore_global
