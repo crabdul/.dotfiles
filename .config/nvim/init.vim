@@ -142,6 +142,7 @@ Plug 'xolox/vim-easytags'
 " Required by vim-easytags
 Plug 'xolox/vim-misc'
 
+Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'APZelos/blamer.nvim'
 " let g:blamer_enabled = 1
 
@@ -984,6 +985,9 @@ function! PyTestOptions(filepath)
     if match(a:filepath, 'tests/functional/commands/territories/jpn') != -1
         return " --ds=tests.settings --dc=OEJPManagementCommand "
     endif
+    if match(a:filepath, 'tests/functional/commands/clients/oejp') != -1
+        return " --ds=tests.settings --dc=OEJPManagementCommand "
+    endif
     if match(a:filepath, 'tests/functional/tasks/territories/jpn') != -1
         return " --ds=tests.settings --dc=OEJPWorker "
     endif
@@ -993,7 +997,7 @@ function! PyTestOptions(filepath)
     if match(a:filepath, 'tests/functional/supportsite/territories/jpn') != -1
         return " --ds=tests.settings --dc=OEJPSupportSite "
     endif
-    if match(a:filepath, 'tests/functional/webhooksite') != -1
+    if match(a:filepath, 'tests/functional/webhooksite/territories/jpn') != -1
         return " --ds=tests.settings --dc=OEJPWebhookSite "
     endif
 
@@ -1035,8 +1039,7 @@ function! RunMostRecentTest()
         exec "silent :!clear"
         exec "silent :!echo -e \"Running \033[0;35m" . t:test_function . "\033[0m from \033[0;34m" . t:test_module . "\033[0m ...\""
         let cmd = "py.test -s " . t:test_options . t:test_module . " -k " . t:test_function . " -v -ss"
-        exec "silent :!echo " . cmd
-        exec ":!" . cmd
+        exec "!tmux send -l -t 2 " . "\"" . cmd . "\""
     end
 endfunction
 function! RunMostRecentTestModule()
@@ -1069,15 +1072,14 @@ function! RunMostRecentTestModule()
         let t:test_options = PyTestOptions(t:test_module)
         exec "silent :!clear"
         exec "silent :!echo -e \"Running tests from \033[0;34m" . t:test_module . "\033[0m ...\""
-        let cmd = "py.test " . t:test_options . t:test_module
-        exec "silent :!echo " . cmd
-        exec ":!" . cmd
+        let cmd = "py.test\s" . t:test_options . t:test_module
+        exec "!tmux send -t 2 " . "\"" . cmd . "\""
     end
 endfunction
 " Mappings
 " --------
 " Run most recent test
-nmap <leader>u :call RunMostRecentTest()<cr>
+nmap <leader>u  :call RunMostRecentTest()<cr>
 
 " Run most recent test module
 nmap <leader>U :call RunMostRecentTestModule()<cr>
