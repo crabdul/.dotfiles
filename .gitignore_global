@@ -20,3 +20,5 @@ __pycache__
 # temporary
 src/octoenergy/interfaces/packages/common-img/src/img/icons/two-leaves.png
 **/fragmentTypes.json
+
+ .obsidian

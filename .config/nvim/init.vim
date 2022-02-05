@@ -137,6 +137,12 @@ Plug 'crabdul/vim-horizon'
 " Vim sugar for the UNIX shell commands that need it the most
 Plug 'tpope/vim-eunuch'
 
+Plug 'xolox/vim-easytags'
+
+" Required by vim-easytags
+Plug 'xolox/vim-misc'
+
+Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'APZelos/blamer.nvim'
 " let g:blamer_enabled = 1
 
@@ -900,6 +906,11 @@ nmap gl :Fern . -reveal=% -drawer -toggle<CR>
 " Prompt for a command to run
 nmap vp :VimuxPromptCommand<CR>
 
+let g:easytags_async = 1
+let g:ycm_collect_identifiers_from_tags_files=0
+let g:easytags_dynamic_files = 1
+let g:easytags_auto_highlight = 0
+let g:easytags_include_members = 1
 
 " Misc {{{
 " ----
@@ -918,6 +929,163 @@ endfunction
 map <leader>gh :call GitHubCommitSearch()<cr>
 
 " }}}
+
+" Kraken
+
+function! UnitTestModuleFilepath(filepath)
+    " Return the filepath of the corresponding unit test module to current
+    " file.
+    let path_segments = split(a:filepath, "/")
+    let filename = path_segments[-1]
+    " Ignore the underscore in "private" modules
+    if filename =~ "^_"
+        let filename = filename[1:]
+    endif
+    return "tests/unit/common/" . join(path_segments[1:-2], "/") . "/test_" . filename
+endfunction
+
+function! ApplicationModuleFilepath(filepath)
+    " Return the filepath of the corresponding unit test module to current
+    " file.
+    let path_segments = split(a:filepath, "/")
+    let index = index(path_segments, "tests")
+    let filename = substitute(path_segments[-1], "test_", "", "")
+    return "octoenergy/" . join(path_segments[index + 2:-2], "/") . "/" . filename
+endfunction
+
+function! ComplementaryFilepath(filepath)
+    " Return the filepath of the corresponding unit-test or application module
+    if match(a:filepath, "tests/") != -1
+        return ApplicationModuleFilepath(a:filepath)
+    else
+        return UnitTestModuleFilepath(a:filepath)
+    end
+endfunction
+
+function! PyTestOptions(filepath)
+    " Return the options to run PyTest with
+
+    " Unit tests
+    if match(a:filepath, 'tests/unit/territories/jpn/plugins/territories/jpn') != -1
+        return " --ds=tests.settings --dc=OEJPInterfaceAgnostic "
+    endif
+    if match(a:filepath, 'tests/unit/clients/oejp') != -1
+        return " --ds=tests.settings --dc=OEJPInterfaceAgnostic "
+    endif
+
+    " Integration tests
+    if match(a:filepath, 'tests/integration/territories/jpn') != -1
+        return " --ds=tests.settings --dc=OEJPInterfaceAgnostic "
+    endif
+    if match(a:filepath, 'tests/integration/clients/oejp') != -1
+        return " --ds=tests.settings --dc=OEJPInterfaceAgnostic "
+    endif
+
+    " Functional tests
+    if match(a:filepath, 'tests/functional/commands/territories/jpn') != -1
+        return " --ds=tests.settings --dc=OEJPManagementCommand "
+    endif
+    if match(a:filepath, 'tests/functional/commands/clients/oejp') != -1
+        return " --ds=tests.settings --dc=OEJPManagementCommand "
+    endif
+    if match(a:filepath, 'tests/functional/tasks/territories/jpn') != -1
+        return " --ds=tests.settings --dc=OEJPWorker "
+    endif
+    if match(a:filepath, 'tests/functional/apisite/territories/jpn') != -1
+        return " --ds=tests.settings --dc=OEJPAPISite "
+    endif
+    if match(a:filepath, 'tests/functional/supportsite/territories/jpn') != -1
+        return " --ds=tests.settings --dc=OEJPSupportSite "
+    endif
+    if match(a:filepath, 'tests/functional/webhooksite/territories/jpn') != -1
+        return " --ds=tests.settings --dc=OEJPWebhookSite "
+    endif
+
+    " For common tests, just use OE conf
+    if match(a:filepath, 'tests/functional/supportsite/common') != -1
+        return " --ds=tests.settings --dc=OctoEnergySupportSite "
+    endif
+    return ""
+endfunction
+function! RunMostRecentTest()
+    " Run the most recent test function
+    " Write all files
+    if expand("%") != ""
+        :wall
+    end
+    " Check if we're editing a test module. If so, store the path in a var
+    let in_test_file = match(expand("%"), 'test_.*\.py$') != -1
+    if in_test_file
+        " Grab the filepath module name
+        let t:test_path = expand("%")
+        let t:test_module = @%
+        " Use a mark to return cursor to original position
+        exe "normal mz"
+        " Now walk back from cursor to last test function name. Note we need
+        " to escape the <CR> to avoid vim thinking it's part of the search
+        " query.
+        normal $
+        exec "normal! ?def test_?e\<cr>"
+        let t:test_function = expand("<cword>")
+        " If in test file, return cursor to original position
+        exe "normal `z"
+    end
+    if !exists("t:test_module")
+        echo "Don't know which test module to run!"
+    elseif !exists("t:test_function")
+        echo "Don't know which test function to run!"
+    else
+        let t:test_options = PyTestOptions(t:test_path)
+        exec "silent :!clear"
+        exec "silent :!echo -e \"Running \033[0;35m" . t:test_function . "\033[0m from \033[0;34m" . t:test_module . "\033[0m ...\""
+        let cmd = "py.test -s " . t:test_options . t:test_module . " -k " . t:test_function . " -v -ss"
+        exec "!tmux send -l -t 2 " . "\"" . cmd . "\""
+    end
+endfunction
+function! RunMostRecentTestModule()
+    " Run tests for the most *recent* test module.
+    "
+    " By "recent", I mean either:
+    "
+    " - The test module that is currently being edited;
+    " - The corresponding unit test module for the application module being
+    "   edited.
+    " Write all files before running any tests
+    if expand("%") != ""
+        :wall
+    end
+    " Check if we're editing a test module. If so, store the path in a
+    " tab-scoped variable.
+    if match(expand("%:t"), 'test_.*\.py$') != -1
+        let t:test_module=@%
+    else
+        " If we're not editing a test module, look for the corresponding unit test
+        " module for the production module we're in
+        let test_module_filepath = UnitTestModuleFilepath(expand("%"))
+        if filereadable(test_module_filepath)
+            let t:test_module=test_module_filepath
+        end
+    end
+    if !exists("t:test_module")
+        echo "Don't know which test module to run!"
+    else
+        let t:test_options = PyTestOptions(t:test_module)
+        exec "silent :!clear"
+        exec "silent :!echo -e \"Running tests from \033[0;34m" . t:test_module . "\033[0m ...\""
+        let cmd = "py.test\s" . t:test_options . t:test_module
+        exec "!tmux send -t 2 " . "\"" . cmd . "\""
+    end
+endfunction
+" Mappings
+" --------
+" Run most recent test
+nmap <leader>u  :call RunMostRecentTest()<cr>
+
+" Run most recent test module
+nmap <leader>U :call RunMostRecentTestModule()<cr>
+
+" Jump to the corresponding unit-test or application module
+nmap <leader>e :exec ":vsplit " . ComplementaryFilepath(expand("%"))<cr>
 
 " default ''.
 " n for Normal mode
