@@ -85,6 +85,7 @@ Plug 'vim-scripts/matchit.zip'
 
 " FZF
 Plug '/usr/local/opt/fzf'
+Plug '/opt/homebrew/opt/fzf'
 " https://github.com/junegunn/fzf.vim/issues/1150
 Plug 'junegunn/fzf.vim', {'commit': '7ccecee77de02375c88eb37a87d10ca54a922ea6'}
 
