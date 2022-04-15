@@ -241,7 +241,7 @@ fi
 alias cl=clear
 
 # Hub
-alias hpr='hub pull-request'
+alias hpr='hub pull-request -d'
 alias hpulls='hub browse -- pulls'
 alias hshow='hub pr show'
 alias hci='hub ci-status'

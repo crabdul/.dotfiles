@@ -508,10 +508,7 @@ au FileType python map <buffer> 1 /class<CR>
 au FileType python map <buffer> 2 /def<CR>
 
 " Shortcut to insert pdb
-abbrev pdb import ipdb; ipdb.set_trace()
-abbrev kw **kwargs
-abbrev args *args
-
+abbrev pd import ipdb; ipdb.set_trace()
 
 function! PythonModulePath()
     let filepath = expand('%:p:h')
@@ -1086,6 +1083,10 @@ nmap <leader>U :call RunMostRecentTestModule()<cr>
 
 " Jump to the corresponding unit-test or application module
 nmap <leader>e :exec ":vsplit " . ComplementaryFilepath(expand("%"))<cr>
+
+abbrev iamodels from octoenergy.data.accounts import models as accounts_models
+abbrev imsmodels from octoenergy.data.market_supply import models as ms_models
+
 
 " default ''.
 " n for Normal mode
