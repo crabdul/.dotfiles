@@ -1,5 +1,12 @@
 # Dotfiles 🎈
 
+Download Packer
+
+```bash
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+```
+
 ### Symlink config files 🔗
 
 This symlinks any necessary files that need to be in `$HOME`
