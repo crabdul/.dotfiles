@@ -7,5 +7,7 @@
     ],
     "tsserver.formatOnType": true,
     "coc.preferences.formatOnType": true,
-    "prettier.disableSuccessMessage": true
+    "prettier.disableSuccessMessage": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/Users/karim/github/vegetarian-japan/env/bin/black"
 }
