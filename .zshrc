@@ -7,6 +7,9 @@ export PATH=$PATH:/usr/local/sbin
 
 export PATH=$PATH:/usr/local/lib/python3.9/site-packages
 
+# Find using python3 -m site --user-site
+export PATH=$PATH:/Users/$USER/Library/Python/3.8/lib/python/site-packages
+
 export PATH=$PATH:/opt/scripts
 
 export PATH="$PATH:/opt/homebrew/bin/"
