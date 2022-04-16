@@ -21,6 +21,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'itchyny/lightline.vim'
+Plug 'vim-denops/denops.vim'
+Plug 'lambdalisue/gin.vim'
+Plug 'mhinz/vim-signify'
 
 " Initialize plugin system
 call plug#end()
@@ -212,20 +215,6 @@ nmap <leader>q :q!<cr>
 
 " Enter space below
 nmap <enter> o<ESC>
-
-
-" ===========
-" Plugin LSP:
-" ===========
-
-autocmd Filetype typescript setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 
 
 " ===========
