@@ -25,6 +25,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'mhinz/vim-signify'
 Plug 'machakann/vim-highlightedyank'
+Plug 'rhysd/git-messenger.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -133,6 +134,18 @@ set mouse=a                     " Enable use of mouse in all modes
 set mousehide                   " Hide mouse when typing
 
 
+" ========
+" History:
+" ========
+
+" Keep undo history between sessions
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.vim_undo
+    set undolevels=2000
+endif
+
+
 " ==================
 " Editing Behaviour:
 " ==================
@@ -176,6 +189,12 @@ set autoread                    " Auto-load file if it changes elsewhere
 set nobackup                    " Don't keep a back-up file, they're annoying
 set noswapfile
 
+" Highlight conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" Center search
+cnoremap <expr> <CR> getcmdtype() == '/' ? '<CR>zz' : '<CR>'
+
 
 " ============
 " Leader Keys:
@@ -202,6 +221,60 @@ au BufNewFile * :exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#
 " Left/right tab
 nnoremap H gT
 nnoremap L gt
+
+
+" ========
+" Buffers:
+" ========
+
+" If a buffer is already open :sb filename will jump to it
+" rather than opening it in the current buffer
+try
+    set switchbuf=useopen,usetab,newtab
+    set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Close buffer
+nnoremap <leader>d :bp\|bd #<cr>
+
+" Close tab
+nnoremap <leader>D :bd<cr>
+
+noremap <leader>v :botright vsplit<enter>
+noremap <leader>x :botright split<enter>
+set winheight=6
+set winminheight=6
+autocmd WinEnter * wincmd _
+
+
+" ==================
+" Window Navigation:
+" ==================
+
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+
+" =======
+" Splits:
+" =======
+
+set splitright
+set splitbelow
+
+
+" ========
+" Yanking:
+" ========
+
+" reyank previously yanked text
+nnoremap gb `[v`]y<C-O>
 
 
 " ============
@@ -250,6 +323,30 @@ nnoremap gw :Rg <C-R><C-W><CR>
 nnoremap gs /<C-R><C-W>
 
 
+" ========
+" Replace:
+" ========
+
+" From http://www.vimregex.com
+noremap <leader>/ :%s:<c-r>=expand("<cword>")<cr>::g<Left><Left>
+noremap <leader>; :%s:<c-r>=expand("<cword>")<cr>:
+            \<c-r>=expand("<cword>")<cr>:g<Left><Left>
+
+
+" ===================
+" Plugin Vim Signify:
+" ===================
+
+" Always show signcolumns
+set signcolumn=yes
+
+nmap gd :SignifyHunkDiff<CR>
+nmap U :SignifyHunkUndo<CR>
+
+nmap gj <plug>(signify-next-hunk)
+nmap gk <plug>(signify-prev-hunk)
+
+
 " ===========
 " Plugin FZF:
 " ===========
@@ -264,7 +361,7 @@ nmap <leader>b :Buffers<CR>
 nmap <Leader>h :History<CR>
 nmap <Leader>l :BLines<CR>
 nmap <leader>s :Tags<cr>
-nmap <Leader>d :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
+nmap <Leader>m :Files <C-R>=expand('%:p:h') . '/'<CR><Cr>
 noremap <Leader>c :Fzfc<cr>
 
 " Shortcuts for opening file
@@ -293,6 +390,24 @@ let g:fzf_colors =
             \ 'header':  ['fg', 'Comment'] }
 
 
+let g:lightline = {
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'readonly', 'relativepath', 'modified' ] ],
+            \   'right': [ ['percent'], [ 'linterStatus', 'ctags' ] ]
+            \ },
+            \ 'inactive': {
+            \   'left': [ [ 'mode' ],
+            \             [ 'relativepath'] ],
+            \ },
+            \ }
+
+
+            " \ 'colorscheme': 'horizon'
+" let g:lightline#colorscheme#landscape#palette = lightlinep
+" let lightlinep.normal.middle = [ [ '#dadada', '#121212', 253, 233 ] ]
+
+
 " ===========
 " Plugin Gin:
 " ===========
@@ -301,3 +416,27 @@ nmap <leader>gs :Gina status -s<cr>
 nmap <leader>gc :Gina compare<cr>
 nmap <leader>gd :Gina diff<cr>
 nmap <leader>gl :Gina log<cr>
+
+
+" ====================
+" Plugin GitMessenger:
+" ====================
+
+nmap Z :GitMessenger<CR>
+
+let g:git_messenger_include_diff = "current"
+
+function! GitHubCommitSearch()
+    let s:currentWord = expand("<cword>")
+    if s:currentWord != ""
+        let s:uri = "https://github.com/search?q=++".s:currentWord."&type=Commits"
+        echo s:uri
+        silent exec "!open '".s:uri."'"
+    else
+        echo "Hmmm no word found"
+    endif
+endfunction
+
+map <leader>gh :call GitHubCommitSearch()<cr>
+
+
