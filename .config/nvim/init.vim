@@ -22,8 +22,9 @@ Plug 'williamboman/nvim-lsp-installer'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'itchyny/lightline.vim'
 Plug 'vim-denops/denops.vim'
-Plug 'lambdalisue/gin.vim'
+Plug 'lambdalisue/gina.vim'
 Plug 'mhinz/vim-signify'
+Plug 'machakann/vim-highlightedyank'
 
 " Initialize plugin system
 call plug#end()
@@ -216,6 +217,38 @@ nmap <leader>q :q!<cr>
 " Enter space below
 nmap <enter> o<ESC>
 
+" Turn off search highlight
+nnoremap <bs> :nohlsearch<CR>
+
+" Copy current path of file
+nmap <leader>p :let @*=expand("%:.")<CR>
+
+" Revert buffer to state when file was opened
+nnoremap gu :u1\|u<CR>
+
+nnoremap <space> zA
+
+" Open folds after jumping
+nnoremap n nzzzO
+nnoremap N NzzzO
+
+" Jump between search matches (from the error list) when using :grep and open
+" the folds obscuring the matching line.
+" Open folds and center
+nnoremap <silent> <RIGHT> :cnext<CR>zrzz
+nnoremap <silent> <LEFT> :cprev<CR>zrzz
+
+
+" =======
+" Search:
+" =======
+
+" Search codebase for word under cursor (v useful)
+nnoremap gw :Rg <C-R><C-W><CR>
+
+" Pull <cword> onto search/command line
+nnoremap gs /<C-R><C-W>
+
 
 " ===========
 " Plugin FZF:
@@ -258,3 +291,13 @@ let g:fzf_colors =
             \ 'marker':  ['fg', 'Keyword'],
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
+
+
+" ===========
+" Plugin Gin:
+" ===========
+
+nmap <leader>gs :Gina status -s<cr>
+nmap <leader>gc :Gina compare<cr>
+nmap <leader>gd :Gina diff<cr>
+nmap <leader>gl :Gina log<cr>
