@@ -26,6 +26,7 @@ Plug 'lambdalisue/gina.vim'
 Plug 'mhinz/vim-signify'
 Plug 'machakann/vim-highlightedyank'
 Plug 'rhysd/git-messenger.vim'
+Plug 'neomake/neomake'
 
 " Initialize plugin system
 call plug#end()
@@ -438,5 +439,13 @@ function! GitHubCommitSearch()
 endfunction
 
 map <leader>gh :call GitHubCommitSearch()<cr>
+
+
+" ========
+" Neomake:
+" ========
+
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
 
 
