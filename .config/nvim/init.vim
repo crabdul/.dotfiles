@@ -28,10 +28,14 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-copilot'
 
 " https://github.com/L3MON4D3/LuaSnip
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+
+" copilot
+Plug 'github/copilot.vim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'vim-denops/denops.vim'
@@ -112,14 +116,14 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'vsnip' }, -- For vsnip users.
-        -- { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
+        { name = 'luasnip' },
     }, {
         { name = 'buffer' },
+    }, {
+        { name = 'copilot' }
     })
 })
+
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
