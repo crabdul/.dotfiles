@@ -27,6 +27,8 @@ Plug 'mhinz/vim-signify'
 Plug 'machakann/vim-highlightedyank'
 Plug 'rhysd/git-messenger.vim'
 Plug 'neomake/neomake'
+Plug 'christoomey/vim-tmux-navigator'
+
 
 " Initialize plugin system
 call plug#end()
