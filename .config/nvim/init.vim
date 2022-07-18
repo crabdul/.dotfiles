@@ -418,7 +418,7 @@ noremap <leader>; :%s:<c-r>=expand("<cword>")<cr>:
 " Always show signcolumns
 set signcolumn=yes
 
-nmap gd :SignifyHunkDiff<CR>
+" nmap gd :SignifyHunkDiff<CR>
 nmap U :SignifyHunkUndo<CR>
 
 nmap gj <plug>(signify-next-hunk)
