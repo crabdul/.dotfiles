@@ -1,3 +1,15 @@
+" ============
+" Environment:
+" ============
+
+" Python source
+" Run: pip3 install neovim black autopep8 pynvim
+" Figure out the system Python for Neovim.
+if exists("$VIRTUAL_ENV")
+    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
+else
+    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
+endif
 
 
 " =====
@@ -36,6 +48,9 @@ Plug 'saadparwaiz1/cmp_luasnip'
 
 " copilot
 Plug 'github/copilot.vim'
+
+" Black
+Plug 'averms/black-nvim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'vim-denops/denops.vim'
@@ -541,6 +556,6 @@ map <leader>gh :call GitHubCommitSearch()<cr>
 " ========
 
 " When writing a buffer (no delay).
-call neomake#configure#automake('w')
+call neomake#configure#automake('nw', 750)
 
 
