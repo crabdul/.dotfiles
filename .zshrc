@@ -18,6 +18,13 @@ export WORKON_HOME=$HOME/.virtualenvs
 
 # Placeholder 'workon' shell function:
 # Will only be executed on the first call to 'workon'
+
+# Python environment installation steps
+# 1. brew install pyenv
+# 2. pyenv install 3.10.0
+# 3. pyenv virtualenvwrapper
+# 4. mkvirtualenv octopus
+# 5. workon
 workon() {
     unfunction "$0"
     if command -v pyenv 1>/dev/null 2>&1; then
