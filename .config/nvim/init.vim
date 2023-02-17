@@ -1,75 +1,5 @@
-" Plug Install: {{{
-" ========
-"
-autocmd VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
-
-" }}}
-
-" Environment: {{{
-" ========
-
-" Python source
-" Run: pip3 install neovim black autopep8
-" Figure out the system Python for Neovim.
-if exists("$VIRTUAL_ENV")
-    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
-else
-    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
-endif
-
-" TODO: Use a shim
-let g:coc_node_path = $HOME."/.nvm/versions/node/v12.16.2/bin/node"
-
-if exists('$TMUX')
-    " Colors in tmux
-    let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "<Esc>[48;2;%lu;%lu;%lum"
-endif
-
-set termguicolors
-set background=dark
-
-" colorscheme base16-flat
-
-" }}}
-
-" Plugins: {{{
-" ========
-
-" Snapshot
-silent! let g:plugs['CamelCaseMotion'].commit = 'de439d7c06cffd0839a29045a103fe4b44b15cdc'
-silent! let g:plugs['ale'].commit = '80a48d01be663205b92902ca3fa137706e3e88c6'
-silent! let g:plugs['coc.nvim'].commit = '97e95b9df64595699506ce9cf2f07bb7a91141fb'
-silent! let g:plugs['delimitMate'].commit = '537a1da0fa5eeb88640425c37e545af933c56e1b'
-silent! let g:plugs['emmet-vim'].commit = '60930a968d26fc7abf4f8fd5c3926bdcda2dd787'
-silent! let g:plugs['gina.vim'].commit = '97116f338f304802ce2661c2e7c0593e691736f8'
-silent! let g:plugs['git-messenger.vim'].commit = 'b79422434a419b97c5817d9ff645216952152443'
-silent! let g:plugs['lightline.vim'].commit = '8e013f32f524157bf14ccaa87d97be3d3a7201e2'
-silent! let g:plugs['matchit.zip'].commit = 'ced6c409c9beeb0b4142d21906606bd194411d1d'
-silent! let g:plugs['palenight.vim'].commit = '847fcf5b1de2a1f9c28fdcc369d009996c6bf633'
-silent! let g:plugs['quickfix-reflector.vim'].commit = '8e9c05a110b80ab66fc8bc3d5fe9e6fa168aada6'
-silent! let g:plugs['targets.vim'].commit = '8d6ff2984cdfaebe5b7a6eee8f226a6dd1226f2d'
-silent! let g:plugs['vim-commentary'].commit = 'f8238d70f873969fb41bf6a6b07ca63a4c0b82b1'
-silent! let g:plugs['vim-highlightedyank'].commit = '931cc6bd53e4a1fdbe592751f0e13c0e401f0a49'
-silent! let g:plugs['vim-horizon'].commit = '893a88f7a6d28481b07196cd5ddbe96ad7ab2ad9'
-silent! let g:plugs['vim-peekaboo'].commit = 'cc4469c204099c73dd7534531fa8ba271f704831'
-silent! let g:plugs['vim-polyglot'].commit = 'cc63193ce82c1e7b9ee2ad7d0ddd14e8394211ef'
-silent! let g:plugs['vim-sandwich'].commit = '9e6340affe9f53c11a6975a5f50b9bf48adb692c'
-silent! let g:plugs['vim-signify'].commit = '2542b6459085f3d1e361e8b5bf406dec6448487e'
-silent! let g:plugs['vim-textobj-indent'].commit = 'deb76867c302f933c8f21753806cbf2d8461b548'
-silent! let g:plugs['vim-textobj-python'].commit = '06de233e805b6bcfd0fde7591c64cf927637feb7'
-silent! let g:plugs['vim-textobj-user'].commit = '41a675ddbeefd6a93664a4dc52f302fe3086a933'
-silent! let g:plugs['vim-tmux-navigator'].commit = '6a1e58c3ca3bc7acca36c90521b3dfae83b2a602'
-silent! let g:plugs['vimux'].commit = '29d46f6bc158c28b85ae540dc29459ff41211233'
-
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
-
-" Palenight theme
-Plug 'drewtempelmeyer/palenight.vim'
 
 " Language starter pack
 Plug 'sheerun/vim-polyglot'
@@ -105,19 +35,9 @@ Plug 'machakann/vim-sandwich'
 
 Plug 'rhysd/git-messenger.vim'
 
-Plug 'dense-analysis/ale'
-
 Plug 'itchyny/lightline.vim'
 
-" Run:
-" - :CocInstall coc-python tsserver coc-prettier coc-eslint coc-json
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'bkad/CamelCaseMotion'
-
-" See inside registers
-" TODO: not working currently
-Plug 'junegunn/vim-peekaboo'
 
 " Edit quickfix list
 Plug 'stefandtw/quickfix-reflector.vim'
@@ -133,18 +53,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 
 Plug 'crabdul/vim-horizon'
-
-" Vim sugar for the UNIX shell commands that need it the most
-Plug 'tpope/vim-eunuch'
-
-Plug 'xolox/vim-easytags'
-
-" Required by vim-easytags
-Plug 'xolox/vim-misc'
-
-Plug 'MattesGroeger/vim-bookmarks'
-" Plug 'APZelos/blamer.nvim'
-" let g:blamer_enabled = 1
 
 " Initialize plugin system
 call plug#end()
@@ -165,8 +73,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Override highlight set by horizon theme
-autocmd BufReadPre * :highlight Pmenu ctermbg=210 ctermfg=230 guifg=#43afc8 guibg=#111111
 
 " }}}
 
@@ -486,26 +392,8 @@ tnoremap <Esc> <C-\><C-n>
 
 " }}}
 
-" Sessions: {{{
-" =========
-
-let g:session_dir = '~/.vim-sessions'
-
-" Shortcuts to execute session saves and restores
-exec 'nnoremap <Leader>ts :mksession! ' . g:session_dir . '/*.vim<C-D><BS><BS><BS><BS><BS>'
-exec 'nnoremap <Leader>tr :so ' . g:session_dir. '/*.vim<C-D><BS><BS><BS><BS><BS>'
-
-" }}}
-
 " Python: {{{
 " =======
-au FileType python set foldmethod=indent
-au FileType python inoremap <buffer> rjj return<space>
-au FileType python inoremap <buffer> ijj import<space>
-au FileType python inoremap <buffer> pjj print()<left>
-au FileType python inoremap <buffer> fjj # --- <esc>a
-au FileType python map <buffer> 1 /class<CR>
-au FileType python map <buffer> 2 /def<CR>
 
 " Shortcut to insert pdb
 abbrev pd import ipdb; ipdb.set_trace()
@@ -535,25 +423,9 @@ nmap T :call GetOrCreateTest()<cr>
 
 " }}}
 
-" JavaScript: {{{
-" =======
-
-au BufRead,BufNewFile *.jsx set filetype=javascript.jsx
-au FileType javascript,javascript.jsx setlocal foldlevelstart=20 foldlevel=2
-
-abbrev apos &apos;
-
-" }}}
-
 " HTML: {{{
 
 iabbrev </ </<C-X><C-O>
-
-" }}}
-
-" Markdown: {{{
-"
-" au BufWritePre *.md :normal gqG
 
 " }}}
 
@@ -647,53 +519,6 @@ command! -bang -nargs=? -complete=dir Files
 
 " }}}
 
-" Plugin ALE: {{{
-" ===========
-
-let g:ale_linters = {
-            \ 'python': ['flake8'],
-            \ }
-
-let g:ale_fixers = {
-            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'python': ['black', 'isort'],
-            \ }
-
-let g:ale_fix_on_save = 1
-
-" Do not lint or fix minified files.
-let g:ale_pattern_options = {
-            \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-            \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-            \ }
-
-" Don't use the sign column/gutter for ALE
-" let g:ale_set_signs = 0
-
-" Lint always in Normal Mode
-let g:ale_lint_on_text_changed = 'normal'
-
-" Lint when leaving Insert Mode but don't lint when in Insert Mode
-let g:ale_lint_on_insert_leave = 1
-
-let g:ale_lint_delay = 200
-
-" Don't run on file enter
-let g:ale_lint_on_enter = 0
-
-" Only run explicitly stated linters
-let g:ale_linters_explicit = 1
-"
-" Disable auto-detection of virtualenvironments
-" let g:ale_virtualenv_dir_names = []
-
-let g:ale_python_isort_use_global = 1
-let g:ale_python_black_auto_pipenv = 1
-" let g:ale_python_autopep8_use_global = 1
-" let g:ale_python_flake8_use_global = 1
-
-" }}}
-
 " Plugin StatusLine: {{{
 " ==================
 
@@ -732,86 +557,6 @@ set showtabline=1
 
 " }}}
 
-" Plugin CocVim: {{{
-" ==============
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gy <Plug>(coc-implementation)
-nmap <silent> gn <Plug>(coc-rename)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-
-nnoremap <silent> <leader>ed  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
-
-
-" This isn't working I think
-highlight CocErrorSign ctermfg=15 ctermbg=196
-highlight CocWarningSign ctermfg=0 ctermbg=172
-
-let g:coc_global_extensions = []
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-    let g:coc_global_extensions += ['coc-prettier']
-endif
-
-" :CocCommand eslint.showOutputChannel
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-    let g:coc_global_extensions += ['coc-eslint']
-endif
-
-" Use <C-l> for trigger snippet expand.
-imap jk <Plug>(coc-snippets-expand)
-
-" }}}
-
 " Plugin CamelCaseMotion: {{{
 " =======================
 
@@ -819,17 +564,6 @@ map <silent> W <Plug>CamelCaseMotion_w
 map <silent> B <Plug>CamelCaseMotion_b
 map <silent> E <Plug>CamelCaseMotion_e
 map <silent> gE <Plug>CamelCaseMotion_ge
-sunmap W
-sunmap B
-sunmap E
-sunmap gE
-
-omap <silent> iW <Plug>CamelCaseMotion_iw
-xmap <silent> iW <Plug>CamelCaseMotion_iw
-omap <silent> iB <Plug>CamelCaseMotion_ib
-xmap <silent> iB <Plug>CamelCaseMotion_ib
-omap <silent> iE <Plug>CamelCaseMotion_ie
-xmap <silent> iE <Plug>CamelCaseMotion_ie
 
 
 " }}}
@@ -843,44 +577,6 @@ let g:git_messenger_include_diff = "current"
 
 " }}}
 
-" Plugin Emmet: {{{
-" =============
-
-" Use tab for autocompletion
-let g:user_emmet_leader_key=','
-
-" Enable only for html, css, jsx
-let g:user_emmet_install_global = 0
-let g:user_emmet_settings = {'javascript.jsx': {'extends': 'jsx'}, 'typescript': {'extends': 'tsx'}}
-autocmd FileType * EmmetInstall
-
-" only use in INSERT mode
-let g:user_emmet_mode = 'i'
-
-function! Expander()
-
-    let line   = getline(".")
-    let col    = col(".")
-    let first  = line[col-2]
-    let second = line[col-1]
-    let third  = line[col]
-
-    if first ==# ">" && second ==# "<" && third ==# "/"
-        return "\<CR>\<C-o>==\<C-o>O"
-    elseif pumvisible()
-        return "\<C-Y>"
-        " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-        " Coc only does snippet and additional edit on confirm.
-    else
-        return "\<Plug>delimitMateCR"
-    endif
-
-endfunction
-
-imap <expr> <CR> Expander()
-
-" }}}
-
 " Plugin Gina: {{{
 " ============
 
@@ -891,23 +587,6 @@ nmap <leader>gd :Gina diff<cr>
 nmap <leader>gl :Gina log<cr>
 
 " }}}
-
-" Plugin Fern: {{{
-" ============
-
-nmap gl :Fern . -reveal=% -drawer -toggle<CR>
-
-
-" }}}
-
-" Prompt for a command to run
-nmap vp :VimuxPromptCommand<CR>
-
-let g:easytags_async = 1
-let g:ycm_collect_identifiers_from_tags_files=0
-let g:easytags_dynamic_files = 1
-let g:easytags_auto_highlight = 0
-let g:easytags_include_members = 1
 
 " Misc {{{
 " ----
