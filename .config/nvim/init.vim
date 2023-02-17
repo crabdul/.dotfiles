@@ -14,9 +14,8 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/matchit.zip'
 
 " FZF
-Plug '/usr/local/opt/fzf'
-" https://github.com/junegunn/fzf.vim/issues/1150
-Plug 'junegunn/fzf.vim', {'commit': '7ccecee77de02375c88eb37a87d10ca54a922ea6'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Provides lots of textobjects
 " Eg 'separator text objects' - delimited by one of , . ; : + - = ~ _ * # /
@@ -522,30 +521,15 @@ command! -bang -nargs=? -complete=dir Files
 " Plugin StatusLine: {{{
 " ==================
 
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf(
-                \ '▲:%d ✖︎:%d',
-                \ l:all_non_errors,
-                \ l:all_errors
-                \)
-endfunction
-
 let g:lightline = {
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
             \             [ 'readonly', 'relativepath', 'modified' ] ],
-            \   'right': [ ['percent'], [ 'linterStatus', 'coc', 'ctags' ] ]
+            \   'right': [ ['percent'], [ 'ctags' ] ]
             \ },
             \ 'inactive': {
             \   'left': [ [ 'mode' ],
             \             [ 'relativepath'] ],
-            \ },
-            \ 'component_function': {
-            \   'linterStatus': 'LinterStatus',
-            \   'coc': 'coc#status',
             \ },
             \ 'colorscheme': 'horizon'
             \ }
