@@ -1,4 +1,6 @@
 
+eval $(/opt/homebrew/bin/brew shellenv)
+
 export PATH="$HOME/bin:$PATH"
 
 export PATH="$HOME/.nvm/nvm.sh:$PATH"
