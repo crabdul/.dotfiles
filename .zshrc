@@ -11,6 +11,11 @@ export PATH=$PATH:/opt/scripts
 
 export WORKON_HOME=$HOME/.virtualenvs
 
+export locize_INSTALL="/Users/karim/.locize-cli"
+export PATH="$locize_INSTALL/bin:$PATH"
+
+export VIRTUALENVWRAPPER_PYTHON=/Users/karim/.pyenv/shims/python
+
 # Placeholder 'workon' shell function:
 # Will only be executed on the first call to 'workon'
 workon() {
