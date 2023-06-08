@@ -48,6 +48,10 @@ require('packer').startup(function(use)
         'hrsh7th/nvim-cmp',
         'onsails/lspkind.nvim', -- Optional icons. Requires https://www.nerdfonts.com/font-downloads
     }
+    use { 'ibhagwan/fzf-lua',
+        -- optional for icon support
+        requires = { 'nvim-tree/nvim-web-devicons' }
+    }
 end)
 
 vim.cmd[[set termguicolors]]
