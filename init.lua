@@ -76,6 +76,7 @@ require('packer').startup(function(use)
         'lewis6991/gitsigns.nvim',
         -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
     }
+    use 'lambdalisue/gina.vim'
     use 'christoomey/vim-tmux-navigator'
     use {
         'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'
@@ -118,6 +119,21 @@ vim.keymap.set('n', '<C-j>', '<C-W>j', {noremap = true})
 vim.keymap.set('n', '<C-k>', '<C-W>k', {noremap = true})
 vim.keymap.set('n', '<C-h>', '<C-W>h', {noremap = true})
 vim.keymap.set('n', '<C-l>', '<C-W>l', {noremap = true})
+
+-- Refresh buffer
+vim.keymap.set('n', '<leader>r', ':e %<CR>', {noremap = true})
+
+-- Center search
+vim.api.nvim_set_keymap('c', '<CR>', [[getcmdtype() == '/' and "\<CR>zz" or "\<CR>"]], { expr = true })
+
+-- Centre when scrolling
+vim.api.nvim_set_keymap('n', '<C-f>', '<C-f>zz', {})
+vim.api.nvim_set_keymap('n', '<C-b>', '<C-b>zz', {})
+
+-- Put result in centre of window when jumping between search results
+vim.api.nvim_set_keymap('n', 'n', 'nzz', {})
+vim.api.nvim_set_keymap('n', 'N', 'Nzz', {})
+
 
 -- Language server
 
