@@ -655,50 +655,6 @@ command! -bang -nargs=? -complete=dir Files
 
 " }}}
 
-" Plugin ALE: {{{
-" ===========
-
-let g:ale_linters = {
-            \ 'python': ['flake8'],
-            \ }
-
-let g:ale_fixers = {
-            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'python': ['black', 'isort'],
-            \ }
-
-let g:ale_fix_on_save = 1
-
-" Do not lint or fix minified files.
-let g:ale_pattern_options = {
-            \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-            \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-            \ }
-
-" Don't use the sign column/gutter for ALE
-" let g:ale_set_signs = 0
-
-" Lint always in Normal Mode
-let g:ale_lint_on_text_changed = 'normal'
-
-" Lint when leaving Insert Mode but don't lint when in Insert Mode
-let g:ale_lint_on_insert_leave = 1
-
-let g:ale_lint_delay = 200
-
-" Don't run on file enter
-let g:ale_lint_on_enter = 0
-
-" Only run explicitly stated linters
-let g:ale_linters_explicit = 1
-"
-" Disable auto-detection of virtualenvironments
-" let g:ale_virtualenv_dir_names = []
-
-let g:ale_python_isort_use_global = 1
-let g:ale_python_black_auto_pipenv = 1
-" let g:ale_python_autopep8_use_global = 1
-" let g:ale_python_flake8_use_global = 1
 
 " }}}
 
@@ -737,86 +693,6 @@ let g:lightline = {
 set noshowmode
 
 set showtabline=1
-
-" }}}
-
-" Plugin CocVim: {{{
-" ==============
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gt <Plug>(coc-type-definition)
-nmap <silent> gy <Plug>(coc-implementation)
-nmap <silent> gn <Plug>(coc-rename)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-
-nnoremap <silent> <leader>ed  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>ea  :<C-u>CocList actions<cr>
-
-
-" This isn't working I think
-highlight CocErrorSign ctermfg=15 ctermbg=196
-highlight CocWarningSign ctermfg=0 ctermbg=172
-
-let g:coc_global_extensions = []
-
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
-    let g:coc_global_extensions += ['coc-prettier']
-endif
-
-" :CocCommand eslint.showOutputChannel
-if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
-    let g:coc_global_extensions += ['coc-eslint']
-endif
-
-" Use <C-l> for trigger snippet expand.
-imap jk <Plug>(coc-snippets-expand)
 
 " }}}
 
@@ -899,23 +775,6 @@ nmap <leader>gd :Gina diff<cr>
 nmap <leader>gl :Gina log<cr>
 
 " }}}
-
-" Plugin Fern: {{{
-" ============
-
-nmap gl :Fern . -reveal=% -drawer -toggle<CR>
-
-
-" }}}
-
-" Prompt for a command to run
-nmap vp :VimuxPromptCommand<CR>
-
-let g:easytags_async = 1
-let g:ycm_collect_identifiers_from_tags_files=0
-let g:easytags_dynamic_files = 1
-let g:easytags_auto_highlight = 0
-let g:easytags_include_members = 1
 
 " Misc {{{
 " ----
