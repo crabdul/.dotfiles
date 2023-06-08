@@ -17,6 +17,8 @@ Minimal setup copied over from https://github.com/neovim/nvim-lspconfig
 
 Install autocompletion plugins from https://github.com/hrsh7th/nvim-cmp/
 
+If folds don't work, checkout https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
+
 -- ]]
 
 local set = vim.opt
@@ -75,6 +77,10 @@ require('packer').startup(function(use)
         -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
     }
     use 'christoomey/vim-tmux-navigator'
+    use {
+        'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'
+    }
+
 end)
 
 vim.cmd[[set termguicolors]]
@@ -272,4 +278,25 @@ map('n', '<leader>td', gs.toggle_deleted)
 -- Text object
 map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
+}
+
+
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    disable = {},
+  },
+  indent = {
+    enable = false,
+    disable = {},
+  },
+  ensure_installed = {
+    "python",
+    "tsx",
+    "toml",
+    "json",
+    "yaml",
+    "html",
+    "scss"
+  },
 }
