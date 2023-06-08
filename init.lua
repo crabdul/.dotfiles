@@ -52,6 +52,18 @@ require('packer').startup(function(use)
         -- optional for icon support
         requires = { 'nvim-tree/nvim-web-devicons' }
     }
+    use { "anuvyklack/windows.nvim",
+        requires = {
+            "anuvyklack/middleclass",
+            "anuvyklack/animation.nvim"
+        },
+        config = function()
+            vim.o.winwidth = 10
+            vim.o.winminwidth = 10
+            vim.o.equalalways = false
+            require('windows').setup()
+        end
+    }
 end)
 
 vim.cmd[[set termguicolors]]
@@ -82,6 +94,13 @@ vim.keymap.set('n', '<leader>f', ':FzfLua files<CR>', {noremap = true})
 
 vim.keymap.set('n', '<leader>w', ':w<CR>', {noremap = true})
 vim.keymap.set('n', '<leader>q', ':q<CR>', {noremap = true})
+vim.keymap.set('n', '<bs>', ':nohlsearch<CR>', {noremap = true})
+
+-- Window Navigation
+vim.keymap.set('n', '<C-j>', '<C-W>j', {noremap = true})
+vim.keymap.set('n', '<C-k>', '<C-W>k', {noremap = true})
+vim.keymap.set('n', '<C-h>', '<C-W>h', {noremap = true})
+vim.keymap.set('n', '<C-l>', '<C-W>l', {noremap = true})
 
 -- Language server
 
@@ -125,12 +144,12 @@ cmp.setup({
         formatting = {
             fields = { "kind", "abbr", "menu" },
             format = function(entry, vim_item)
-            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-            local strings = vim.split(kind.kind, "%s", { trimempty = true })
-            kind.kind = " " .. (strings[1] or "") .. " "
-            kind.menu = "    (" .. (strings[2] or "") .. ")"
+                local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+                local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                kind.kind = " " .. (strings[1] or "") .. " "
+                kind.menu = "    (" .. (strings[2] or "") .. ")"
 
-            return kind
+                return kind
             end,
         },
         snippet = {
@@ -144,9 +163,9 @@ cmp.setup({
         },
         window = {
             completion = {
-            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-            col_offset = -3,
-            side_padding = 0,
+                winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                col_offset = -3,
+                side_padding = 0,
             },
         },
         view = {
