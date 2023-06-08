@@ -31,6 +31,7 @@ set.swapfile = false
 
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+    use 'crabdul/vim-horizon'
     use {
         "williamboman/mason.nvim",
         run = ":MasonUpdate" -- :MasonUpdate updates registry contents
@@ -48,6 +49,10 @@ require('packer').startup(function(use)
         'onsails/lspkind.nvim', -- Optional icons. Requires https://www.nerdfonts.com/font-downloads
     }
 end)
+
+vim.cmd[[set termguicolors]]
+vim.cmd[[set background=dark]]
+vim.cmd[[colorscheme horizon]]
 
 local servers = { "pyright", "tsserver" }
 
