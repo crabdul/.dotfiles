@@ -45,6 +45,7 @@ require('packer').startup(function(use)
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
         'hrsh7th/nvim-cmp',
+        'onsails/lspkind.nvim', -- Optional icons. Requires https://www.nerdfonts.com/font-downloads
     }
 end)
 
@@ -101,8 +102,20 @@ end,
 -- Autocomplete
 
 local cmp = require'cmp'
+local lspkind = require('lspkind')
 
 cmp.setup({
+        formatting = {
+            fields = { "kind", "abbr", "menu" },
+            format = function(entry, vim_item)
+            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            kind.kind = " " .. (strings[1] or "") .. " "
+            kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+            return kind
+            end,
+        },
         snippet = {
             -- REQUIRED - you must specify a snippet engine
             expand = function(args)
@@ -113,8 +126,14 @@ cmp.setup({
             end,
         },
         window = {
-            completion = cmp.config.window.bordered(),
-            -- documentation = cmp.config.window.bordered(),
+            completion = {
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            col_offset = -3,
+            side_padding = 0,
+            },
+        },
+        view = {
+            entries = {name = 'custom', selection_order = 'near_cursor' } -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#custom-menu-direction
         },
         mapping = cmp.mapping.preset.insert({
                 ['<TAB>'] = cmp.mapping.scroll_docs(-4),
