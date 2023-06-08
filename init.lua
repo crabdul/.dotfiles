@@ -65,11 +65,15 @@ require('packer').startup(function(use)
         end
     }
     use({
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require("lsp_lines").setup()
-        end,
-    })
+            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+            config = function()
+                require("lsp_lines").setup()
+            end,
+        })
+    use {
+        'lewis6991/gitsigns.nvim',
+        -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
+    }
 end)
 
 vim.cmd[[set termguicolors]]
@@ -217,11 +221,54 @@ end
 require("lsp_lines").setup()
 -- Disable virtual_text since it's redundant due to lsp_lines.
 vim.diagnostic.config({
-  virtual_text = false,
-})
+        virtual_text = false,
+    })
 vim.keymap.set(
-  "",
-  "<Leader>l",
-  require("lsp_lines").toggle,
-  { desc = "Toggle lsp_lines" }
-)
+    "",
+    "<Leader>l",
+    require("lsp_lines").toggle,
+    { desc = "Toggle lsp_lines" }
+    )
+
+require('gitsigns').setup{
+    on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+        end, {expr=true})
+
+    map('n', '[c', function()
+        if vim.wo.diff then return '[c' end
+        vim.schedule(function() gs.prev_hunk() end)
+        return '<Ignore>'
+    end, {expr=true})
+
+-- Actions
+map('n', '<leader>hs', gs.stage_hunk)
+map('n', '<leader>hr', gs.reset_hunk)
+map('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line("."), vim.fn.line("v")} end)
+map('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line("."), vim.fn.line("v")} end)
+map('n', '<leader>hS', gs.stage_buffer)
+map('n', '<leader>hu', gs.undo_stage_hunk)
+map('n', '<leader>hR', gs.reset_buffer)
+map('n', '<leader>hp', gs.preview_hunk)
+map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+map('n', '<leader>tb', gs.toggle_current_line_blame)
+map('n', '<leader>hd', gs.diffthis)
+map('n', '<leader>hD', function() gs.diffthis('~') end)
+map('n', '<leader>td', gs.toggle_deleted)
+
+-- Text object
+map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
