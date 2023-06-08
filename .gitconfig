@@ -7,6 +7,7 @@
 	bd = branch -d
 	bdd = branch -D
 	br = branch -r
+    bruh = "!r() { refbranch=$1 count=$2; git for-each-ref --sort=-committerdate refs/heads --format='%(refname:short)|%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)' --color=always --count=${count:-20} | while read line; do branch=$(echo \"$line\" | awk 'BEGIN { FS = \"|\" }; { print $1 }' | tr -d '*'); ahead=$(git rev-list --count \"${refbranch:-origin/master}..${branch}\"); behind=$(git rev-list --count \"${branch}..${refbranch:-origin/master}\"); colorline=$(echo \"$line\" | sed 's/^[^|]*|//'); echo \"$ahead|$behind|$colorline\" | awk -F'|' -vOFS='|' '{$5=substr($5,1,70)}1' ; done | ( echo \"ahead|behind|branch|lastcommit|message|author\\n\" && cat) | column -ts'|';}; r"
 	bc = rev-parse --abbrev-ref HEAD
 	bu = !git rev-parse --abbrev-ref --symbolic-full-name \"@{u}\"
     bs = branch --sort=-committerdate
@@ -160,12 +161,12 @@
 	assumeall = !git status -s | awk {'print $2'} | xargs git assume
 	#############
 	# Count commits since branching out from master
-	count = rev-list --count origin/master..HEAD
 
 	merged = !sh -c 'git o master && git plom && git bd $1 && git rpo' -
 	aliases = !git config -l | grep alias | cut -c 7-
 	snap = !git stash save 'snapshot: $(date)'
 	# squash
+	count = rev-list --count origin/master..HEAD
 	squash = !git rebase -i HEAD~$(git count)
 	sq = !git rebase -i HEAD~$(git rev-list --count origin/main..HEAD)
     whosgottest = !git for-each-ref --format='%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes | grep 'test/'
@@ -173,6 +174,7 @@
     ch = !git log --reverse -L :get_locale:$1
     # https://qiita.com/sin_tanaka/items/ca0fdd899e40a1d6716b
     cof = !git branch -a | fzf | xargs git checkout
+	prebase = rebase -x 'pre-commit run --from-ref HEAD~ --to-ref HEAD'
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	; excludesfile = /Users/abdulkarim/.gitignore_global

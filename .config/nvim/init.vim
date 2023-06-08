@@ -145,6 +145,10 @@ Plug 'xolox/vim-misc'
 Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'APZelos/blamer.nvim'
 " let g:blamer_enabled = 1
+"
+Plug 'projectfluent/fluent.vim'
+
+Plug 'mfussenegger/nvim-lint'
 
 " Initialize plugin system
 call plug#end()
@@ -532,6 +536,10 @@ function! GetOrCreateTest()
 endfunction
 
 nmap T :call GetOrCreateTest()<cr>
+
+abbrev fromjpn from octoenergy.plugins.territories.jpn
+abbrev fromjpnlife from octoenergy.plugins.territories.jpn.lifeline_agencies
+
 
 " }}}
 

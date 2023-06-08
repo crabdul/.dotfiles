@@ -8,7 +8,7 @@ hs.hotkey.bind(mash, 'M', function() hs.application.launchOrFocus('Insomnia') en
 hs.hotkey.bind(mash, 'K', function() hs.application.launchOrFocus('iTerm') end)
 hs.hotkey.bind(mash, 'P', function() hs.application.launchOrFocus('TablePlus') end)
 hs.hotkey.bind(mash, ';', function() hs.application.launchOrFocus('Slack') end)
-hs.hotkey.bind(mash, 'A', function() hs.application.launchOrFocus('Obsidian') end)
+hs.hotkey.bind(mash, 'L', function() hs.application.launchOrFocus('Obsidian') end)
 hs.hotkey.bind(mash, 'F', function() hs.application.launchOrFocus('Figma') end)
 hs.hotkey.bind(mash, 'S', function() hs.application.launchOrFocus('Spark') end)
 hs.hotkey.bind(mash, 'C', function() hs.application.launchOrFocus('Asana') end)
