@@ -64,6 +64,12 @@ require('packer').startup(function(use)
             require('windows').setup()
         end
     }
+    use({
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").setup()
+        end,
+    })
 end)
 
 vim.cmd[[set termguicolors]]
@@ -206,3 +212,16 @@ for _, lsp in ipairs(servers) do
         capabilities = capabilities,
     }
 end
+
+
+require("lsp_lines").setup()
+-- Disable virtual_text since it's redundant due to lsp_lines.
+vim.diagnostic.config({
+  virtual_text = false,
+})
+vim.keymap.set(
+  "",
+  "<Leader>l",
+  require("lsp_lines").toggle,
+  { desc = "Toggle lsp_lines" }
+)
