@@ -58,6 +58,10 @@ vim.cmd[[set termguicolors]]
 vim.cmd[[set background=dark]]
 vim.cmd[[colorscheme horizon]]
 
+vim.cmd[[let mapleader = ","]]
+vim.cmd[[let maplocalleader = ","]]
+vim.cmd[[let g:mapleader = ","]]
+
 local servers = { "pyright", "tsserver" }
 
 require("mason").setup()
@@ -74,6 +78,10 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
+vim.keymap.set('n', '<leader>f', ':FzfLua files<CR>', {noremap = true})
+
+vim.keymap.set('n', '<leader>w', ':w<CR>', {noremap = true})
+vim.keymap.set('n', '<leader>q', ':q<CR>', {noremap = true})
 
 -- Language server
 
