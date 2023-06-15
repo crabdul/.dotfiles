@@ -216,7 +216,7 @@ set mousehide                   " Hide mouse when typing
 " UI:
 " ===
 set number                      " Show current line number
-set relativenumber              " Show lines number relative to current
+set norelativenumber            " Show lines numbers
 set showcmd                     " Show command in bottom bar
 set equalalways                 " Keep windows equally sized
 set title                       " Set window title to filename

@@ -10,6 +10,7 @@ https://github.com/wbthomason/packer.nvim
 :Mason to open available language servers
 :MasonInstall pyright to install python lsp
 
+
 Added use 'wbthomason/packer.nvim'
 after downloading it on the command line
 
@@ -19,16 +20,17 @@ Install autocompletion plugins from https://github.com/hrsh7th/nvim-cmp/
 
 If folds don't work, checkout https://github.com/nvim-treesitter/nvim-treesitter/wiki/Installation#packernvim
 
+:MasonInstall black
+:MasonInstall isort
+
+mkvirtualenv vim
+Install https://github.com/python-lsp/python-lsp-black
+
+Maybe install into the kraken-core venv instead
+pip install "python-lsp-server[all]" pyls-isort
+
+
 -- ]]
-
-local set = vim.opt
-
-set.number = true
-set.tabstop = 4
-set.shiftwidth = 4
-set.softtabstop = 0
-set.expandtab = true
-set.swapfile = false
 
 
 require('packer').startup(function(use)
@@ -81,16 +83,140 @@ require('packer').startup(function(use)
     use {
         'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'
     }
+    use 'machakann/vim-highlightedyank'
+    use 'ambv/black'
+    use 'tpope/vim-commentary'
 
 end)
+
+-- TODO:
+if vim.fn.exists('$VIRTUAL_ENV') ~= 0 then
+    local python3_host_prog = vim.fn.substitute(vim.fn.system('which -a python3 | head -n2 | tail -n1'), "\n", '', 'g')
+    vim.g.python3_host_prog = python3_host_prog
+else
+    local python3_host_prog = vim.fn.substitute(vim.fn.system('which python3'), "\n", '', 'g')
+    vim.g.python3_host_prog = python3_host_prog
+end
 
 vim.cmd[[set termguicolors]]
 vim.cmd[[set background=dark]]
 vim.cmd[[colorscheme horizon]]
 
+-- Turn on filetype detection
+vim.cmd('filetype indent plugin on')
+
+-- Use system clipboard as default clipboard
+vim.o.clipboard = 'unnamed'
+
+-- Make swapfiles be kept in a central location to avoid polluting file system
+vim.o.directory = '$HOME/.vim/swapfiles//'
+
+-- Declare lines from end of file just for vim
+-- This allows the folding setting to be read
+vim.o.modelines = 1
+
+-- Ignore specific directories
+vim.o.wildignore = vim.o.wildignore .. '**/node_modules/**,**/__pycache__/**'
+
+-- Errors
+vim.o.errorbells = true
+vim.o.noerrorbells = true
+vim.o.novisualbell = true
+vim.o.t_vb = ''
+vim.o.tm = 500
+
+-- Mouse
+vim.o.mouse = 'a'
+vim.o.mousehide = true
+
+-- UI
+vim.o.number = true
+vim.o.relativenumber = false
+vim.o.showcmd = true
+vim.o.equalalways = true
+vim.o.title = true
+vim.o.colorcolumn = '80'
+vim.o.lazyredraw = true
+vim.o.magic = true
+
 vim.cmd[[let mapleader = ","]]
 vim.cmd[[let maplocalleader = ","]]
 vim.cmd[[let g:mapleader = ","]]
+
+vim.cmd[[set clipboard=unnamed]]
+
+-- Expand tabs into spaces
+vim.o.expandtab = true
+
+-- Set the number of spaces for each level of indentation
+vim.o.shiftwidth = 4
+
+-- Round indent to the nearest multiple of 'shiftwidth'
+vim.o.shiftround = true
+
+-- Set auto-indentation based on the previous line
+vim.o.autoindent = true
+
+-- Allow backspacing over indent, end-of-line, and start of insert
+vim.o.backspace = "indent,eol,start"
+
+-- Set the number of lines to keep above and below the cursor when scrolling
+vim.o.scrolloff = 10
+
+-- Prevent a carriage return at the end of the last line
+vim.o.noeol = true
+
+-- Don't insert two spaces after sentence joins
+vim.o.nojoinspaces = true
+
+-- Highlight search matches
+vim.o.hlsearch = true
+
+-- Ignore case when searching, unless an uppercase letter is used
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Highlight the current line
+vim.wo.cursorline = true
+
+-- Show the replacement in action
+vim.o.inccommand = "nosplit"
+
+-- Show whitespace characters
+vim.o.listchars = "tab:>·,trail:.,extends:>,precedes:<"
+vim.o.list = true
+
+-- Show the matching closing punctuation
+vim.o.showmatch = true
+
+-- Speed up jump to matching bracket
+vim.o.matchtime = 1
+
+-- Don't abandon unloaded buffers, hide them instead
+vim.o.hidden = true
+
+-- Set the file format to Unix-style line endings
+vim.o.fileformats = "unix"
+
+-- Auto-write the file if modified on exit
+vim.o.autowrite = true
+
+-- Auto-load the file if it changes elsewhere
+vim.o.autoread = true
+
+-- Disable backup files
+vim.o.backup = false
+
+-- Disable swap files
+vim.o.swapfile = false
+
+-- Highlight conflict markers
+vim.cmd([[match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$']])
+
+-- Center search
+vim.cmd([[
+cnoremap <expr> <CR> getcmdtype() == '/' ? '<CR>zz' : '<CR>'
+]])
 
 local servers = { "pyright", "tsserver" }
 
@@ -109,6 +235,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 vim.keymap.set('n', '<leader>f', ':FzfLua files<CR>', {noremap = true})
+vim.keymap.set('n', '<leader>a', ':FzfLua grep<CR>', {noremap = true})
 
 vim.keymap.set('n', '<leader>w', ':w<CR>', {noremap = true})
 vim.keymap.set('n', '<leader>q', ':q<CR>', {noremap = true})
@@ -123,9 +250,6 @@ vim.keymap.set('n', '<C-l>', '<C-W>l', {noremap = true})
 -- Refresh buffer
 vim.keymap.set('n', '<leader>r', ':e %<CR>', {noremap = true})
 
--- Center search
-vim.api.nvim_set_keymap('c', '<CR>', [[getcmdtype() == '/' and "\<CR>zz" or "\<CR>"]], { expr = true })
-
 -- Centre when scrolling
 vim.api.nvim_set_keymap('n', '<C-f>', '<C-f>zz', {})
 vim.api.nvim_set_keymap('n', '<C-b>', '<C-b>zz', {})
@@ -133,6 +257,36 @@ vim.api.nvim_set_keymap('n', '<C-b>', '<C-b>zz', {})
 -- Put result in centre of window when jumping between search results
 vim.api.nvim_set_keymap('n', 'n', 'nzz', {})
 vim.api.nvim_set_keymap('n', 'N', 'Nzz', {})
+
+
+-- Tab commands
+vim.api.nvim_set_keymap('n', '<leader>te', ':tabedit <c-r>=expand("%:p:h")<cr>/', {})
+vim.api.nvim_set_keymap('n', '<leader>to', ':tabonly<cr>', {})
+vim.api.nvim_set_keymap('n', '<leader>tc', ':tabclose<cr>', {})
+vim.api.nvim_set_keymap('n', '<leader>tm', ':tabmove<space>', {})
+vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnew<cr>', {})
+
+-- Left/right tab
+vim.api.nvim_set_keymap('n', 'H', 'gT', {})
+vim.api.nvim_set_keymap('n', 'L', 'gt', {})
+
+-- Enter to enter space
+vim.api.nvim_set_keymap('n', '<enter>', 'o<ESC>', {})
+
+vim.api.nvim_set_keymap('n', '<leader>p', ':let @*=expand("%:.")<CR>', {})
+
+-- Search codebase for word under cursor (v useful)
+vim.api.nvim_set_keymap('n', 'gw', ':FzfLua grep_cWORD<CR>', {})
+
+-- Open splits
+vim.api.nvim_set_keymap('n', '<leader>v', ':botright vsplit<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>x', ':botright split<CR>', {})
+
+-- Window Navigation:
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-W>j', {})
+vim.api.nvim_set_keymap('n', '<C-k>', '<C-W>k', {})
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-W>h', {})
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-W>l', {})
 
 
 -- Language server
@@ -205,9 +359,9 @@ cmp.setup({
             entries = {name = 'custom', selection_order = 'near_cursor' } -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#custom-menu-direction
         },
         mapping = cmp.mapping.preset.insert({
-                ['<TAB>'] = cmp.mapping.scroll_docs(-4),
+                -- ['<TAB>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<TAB>'] = cmp.mapping.complete(),
+                -- ['<TAB>'] = cmp.mapping.complete(),
                 ['<C-a>'] = cmp.mapping.abort(),
                 ["<CR>"] = cmp.mapping({
                         i = function(fallback)
@@ -233,13 +387,47 @@ cmp.setup({
     })
 
 -- Set up lspconfig.
+local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 for _, lsp in ipairs(servers) do
-    require('lspconfig')[lsp].setup {
+    lspconfig[lsp].setup {
         capabilities = capabilities,
+    }
+    lspconfig.pylsp.setup {
+    on_attach = function(client)
+        if string.match(vim.api.nvim_buf_get_name(0), "/site-packages/") then
+        return
+        end
+        if string.match(vim.api.nvim_buf_get_name(0), "/lib/python") then
+        return
+        end
+        require("lsp-format").on_attach(client)
+    end,
+    settings = {
+        pylsp = {
+        plugins = {
+            noy_pyls = { enabled = true },
+            pydocstyle = { enabled = false },
+            pycodestyle = { enabled = false },
+            pyflakes = { enabled = false },
+            flake8 = { enabled = true },
+            mccabe = { enabled = false },
+            pylint = { enabled = true },
+            yapf = { enabled = false },
+            pyls_isort = { enabled = true },
+            black = { enabled = true, line_length = 88 },
+            pylsp_mypy = { enabled = true, dmypy = true, live_mode = false }
+        }
+        }
+    },
+    flags = {
+        debounce_text_changes = 200,
+    }
     }
 end
 
+-- Format on save
+vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 
 require("lsp_lines").setup()
 -- Disable virtual_text since it's redundant due to lsp_lines.
@@ -313,6 +501,49 @@ require'nvim-treesitter.configs'.setup {
     "json",
     "yaml",
     "html",
-    "scss"
+    "scss",
+    "lua",
   },
 }
+
+
+-- https://codeinthehole.com/tips/vim-and-github-copilot/
+vim.g.copilot_filetypes = {
+    gitcommit = true,
+    markdown = true,
+    yaml = true
+}
+
+-- Gina
+vim.keymap.set('n', '<leader>gs', ':Gina status -s<cr>', {noremap = true})
+vim.keymap.set('n', '<leader>gc', ':Gina compare<cr>', {noremap = true})
+vim.keymap.set('n', '<leader>gd', ':Gina diff<cr>', {noremap = true})
+vim.keymap.set('n', '<leader>gl', ':Gina log<cr>', {noremap = true})
+
+
+-- Create a function to populate the quickfix list with old files
+function PopulateOldFilesQuickfix()
+  local oldfiles = vim.fn.split(vim.fn.execute('oldfiles'), '\n')
+  oldfiles = vim.tbl_filter(function(val) return val ~= '' end, oldfiles)
+
+  local processed_files = {}
+  for _, file in ipairs(oldfiles) do
+    local processed_file = string.gsub(file, '^%s*%d+:%s*', '')
+    table.insert(processed_files, processed_file)
+  end
+
+  -- Create a quickfix list with old files
+  vim.fn.setqflist(vim.tbl_map(function(val)
+    return {
+      filename = val,
+      lnum = 1,
+      text = val
+    }
+  end, processed_files))
+
+  -- Open the quickfix window
+  vim.cmd(':FzfLua quickfix')
+end
+
+-- Map a key to populate the quickfix list with old files
+vim.api.nvim_set_keymap('n', '<leader>h', '<cmd>lua PopulateOldFilesQuickfix()<CR>', { noremap = true })
