@@ -35,6 +35,7 @@ pip install "python-lsp-server[all]" pyls-isort
 
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+    use 'romgrk/barbar.nvim'
     use 'crabdul/vim-horizon'
     use {
         "williamboman/mason.nvim",
@@ -51,11 +52,9 @@ require('packer').startup(function(use)
         'hrsh7th/cmp-cmdline',
         'hrsh7th/nvim-cmp',
         'onsails/lspkind.nvim', -- Optional icons. Requires https://www.nerdfonts.com/font-downloads
+        'L3MON4D3/LuaSnip',
     }
-    use { 'ibhagwan/fzf-lua',
-        -- optional for icon support
-        requires = { 'nvim-tree/nvim-web-devicons' }
-    }
+    use { 'ibhagwan/fzf-lua' }
     use { "anuvyklack/windows.nvim",
         requires = {
             "anuvyklack/middleclass",
@@ -86,7 +85,9 @@ require('packer').startup(function(use)
     use 'machakann/vim-highlightedyank'
     use 'ambv/black'
     use 'tpope/vim-commentary'
-
+    use 'wellle/targets.vim'
+    use 'bkad/CamelCaseMotion'
+    use 'machakann/vim-sandwich'
 end)
 
 -- TODO:
@@ -267,8 +268,11 @@ vim.api.nvim_set_keymap('n', '<leader>tm', ':tabmove<space>', {})
 vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnew<cr>', {})
 
 -- Left/right tab
-vim.api.nvim_set_keymap('n', 'H', 'gT', {})
-vim.api.nvim_set_keymap('n', 'L', 'gt', {})
+-- vim.api.nvim_set_keymap('n', 'H', 'gT', {})
+-- vim.api.nvim_set_keymap('n', 'L', 'gt', {})
+-- https://github.com/romgrk/barbar.nvim#mappings--commands
+vim.api.nvim_set_keymap('n', 'H', ':BufferPrevious<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', 'L', ':BufferNext<CR>', { silent = true })
 
 -- Enter to enter space
 vim.api.nvim_set_keymap('n', '<enter>', 'o<ESC>', {})
@@ -276,7 +280,9 @@ vim.api.nvim_set_keymap('n', '<enter>', 'o<ESC>', {})
 vim.api.nvim_set_keymap('n', '<leader>p', ':let @*=expand("%:.")<CR>', {})
 
 -- Search codebase for word under cursor (v useful)
-vim.api.nvim_set_keymap('n', 'gw', ':FzfLua grep_cWORD<CR>', {})
+vim.api.nvim_set_keymap('n', 'gw', ':FzfLua <C-R><C-W><CR>', {})
+
+vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
 
 -- Open splits
 vim.api.nvim_set_keymap('n', '<leader>v', ':botright vsplit<CR>', {})
@@ -288,6 +294,11 @@ vim.api.nvim_set_keymap('n', '<C-k>', '<C-W>k', {})
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-W>h', {})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-W>l', {})
 
+-- Map <leader>/ to perform a global search and replace using the current word
+vim.api.nvim_set_keymap('n', '<leader>/', [[:%s:<C-r>=expand("<cword>")<CR>::g<Left><Left>]], { noremap = true })
+
+-- Map <leader>; to perform a search and replace using the current word
+vim.api.nvim_set_keymap('n', '<leader>;', [[:%s:<C-r>=expand("<cword>")<CR>:\<C-r>=expand("<cword>")<CR>:g<Left><Left>]], { noremap = true })
 
 -- Language server
 
@@ -306,7 +317,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
             vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+            vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, opts)
             vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
             vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
             vim.keymap.set('n', '<space>wl', function()
@@ -342,8 +353,8 @@ cmp.setup({
         snippet = {
             -- REQUIRED - you must specify a snippet engine
             expand = function(args)
-                vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+                require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
                 -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
                 -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
             end,
@@ -359,6 +370,10 @@ cmp.setup({
             entries = {name = 'custom', selection_order = 'near_cursor' } -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#custom-menu-direction
         },
         mapping = cmp.mapping.preset.insert({
+
+
+                ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                 -- ['<TAB>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 -- ['<TAB>'] = cmp.mapping.complete(),
@@ -515,7 +530,7 @@ vim.g.copilot_filetypes = {
 }
 
 -- Gina
-vim.keymap.set('n', '<leader>gs', ':Gina status -s<cr>', {noremap = true})
+vim.keymap.set('n', '<leader>gs', ':Gina status -s<cr>', {silent = true})
 vim.keymap.set('n', '<leader>gc', ':Gina compare<cr>', {noremap = true})
 vim.keymap.set('n', '<leader>gd', ':Gina diff<cr>', {noremap = true})
 vim.keymap.set('n', '<leader>gl', ':Gina log<cr>', {noremap = true})
@@ -547,3 +562,210 @@ end
 
 -- Map a key to populate the quickfix list with old files
 vim.api.nvim_set_keymap('n', '<leader>h', '<cmd>lua PopulateOldFilesQuickfix()<CR>', { noremap = true })
+
+
+vim.api.nvim_set_keymap('n', 'W', '<Plug>CamelCaseMotion_w', {silent = true})
+vim.api.nvim_set_keymap('n', 'B', '<Plug>CamelCaseMotion_b', {silent = true})
+vim.api.nvim_set_keymap('n', 'E', '<Plug>CamelCaseMotion_e', {silent = true})
+vim.api.nvim_set_keymap('n', 'gE', '<Plug>CamelCaseMotion_ge', {silent = true})
+
+vim.api.nvim_set_keymap('o', 'iW', '<Plug>CamelCaseMotion_iw', {silent = true})
+vim.api.nvim_set_keymap('x', 'iW', '<Plug>CamelCaseMotion_iw', {silent = true})
+vim.api.nvim_set_keymap('o', 'iB', '<Plug>CamelCaseMotion_ib', {silent = true})
+vim.api.nvim_set_keymap('x', 'iB', '<Plug>CamelCaseMotion_ib', {silent = true})
+vim.api.nvim_set_keymap('o', 'iE', '<Plug>CamelCaseMotion_ie', {silent = true})
+vim.api.nvim_set_keymap('x', 'iE', '<Plug>CamelCaseMotion_ie', {silent = true})
+
+-- Status line
+vim.opt.fillchars = { stl = "─", stlnc = "─" }
+vim.opt.statusline = "%F%=%3l:%-2c%=%m"
+vim.cmd("hi StatusLine guifg=#C51162")
+
+function UnitTestModuleFilepath(filepath)
+    local path_segments = vim.split(filepath, "/")
+    local filename = path_segments[#path_segments]:gsub("^_", "")
+    return "tests/unit/common/" .. table.concat(vim.list_slice(path_segments, 2, -2), "/") .. "/test_" .. filename
+end
+
+function ApplicationModuleFilepath(filepath)
+    local path_segments = vim.split(filepath, "/")
+    local index = vim.fn.index(path_segments, "tests")
+    local filename = path_segments[#path_segments]:gsub("^test_", "")
+    return "octoenergy/" .. table.concat(vim.list_slice(path_segments, index + 2, -2), "/") .. "/" .. filename
+end
+
+function ComplementaryFilepath(filepath)
+    if vim.fn.match(filepath, "tests/") ~= -1 then
+        return ApplicationModuleFilepath(filepath)
+    else
+        return UnitTestModuleFilepath(filepath)
+    end
+end
+
+function PyTestOptions(filepath)
+    local test_cases = {
+        ['tests/unit/territories/jpn/plugins/territories/jpn'] = "--ds=tests.settings --dc=OEJPInterfaceAgnostic",
+        ['tests/unit/clients/oejp'] = "--ds=tests.settings --dc=OEJPInterfaceAgnostic",
+        ['tests/integration/territories/jpn'] = "--ds=tests.settings --dc=OEJPInterfaceAgnostic",
+        ['tests/integration/clients/oejp'] = "--ds=tests.settings --dc=OEJPInterfaceAgnostic",
+        ['tests/functional/commands/territories/jpn'] = "--ds=tests.settings --dc=OEJPManagementCommand",
+        ['tests/functional/commands/clients/oejp'] = "--ds=tests.settings --dc=OEJPManagementCommand",
+        ['tests/functional/tasks/territories/jpn'] = "--ds=tests.settings --dc=OEJPWorker",
+        ['tests/functional/apisite/territories/jpn'] = "--ds=tests.settings --dc=OEJPAPISite",
+        ['tests/functional/supportsite/territories/jpn'] = "--ds=tests.settings --dc=OEJPSupportSite",
+        ['tests/functional/webhooksite/territories/jpn'] = "--ds=tests.settings --dc=OEJPWebhookSite",
+        ['tests/functional/supportsite/common'] = "--ds=tests.settings --dc=OctoEnergySupportSite"
+    }
+
+    for pattern, options in pairs(test_cases) do
+        if filepath:match(pattern) then
+            return options
+        end
+    end
+
+    return ""
+end
+
+function RunMostRecentTest()
+    local current_file = vim.fn.expand("%")
+    local test_module, test_function
+
+    if current_file ~= "" then
+        vim.cmd("wall")
+        if current_file:match("test_.*%.py$") then
+            test_module = current_file
+            test_function = vim.fn.expand("<cword>")
+        else
+            local unit_test_filepath = UnitTestModuleFilepath(current_file)
+            if vim.fn.filereadable(unit_test_filepath) then
+                test_module = unit_test_filepath
+            end
+        end
+    end
+
+    if not test_module then
+        print("Don't know which test module to run!")
+    elseif not test_function then
+        print("Don't know which test function to run!")
+    else
+        local test_options = PyTestOptions(test_module)
+        vim.cmd("silent !clear")
+        print("Running " .. test_function .. " from " .. test_module .. " ...")
+        local cmd = "py.test -s " .. test_options .. " " .. test_module .. " -k " .. test_function .. " -v -ss"
+        vim.cmd("!tmux send -l -t 2 " .. vim.fn.shellescape(cmd))
+    end
+end
+
+function RunMostRecentTestModule()
+    local current_file = vim.fn.expand("%")
+    local test_module
+
+    if current_file ~= "" then
+        vim.cmd("wall")
+        if current_file:match("test_.*%.py$") then
+            test_module = current_file
+        else
+            local unit_test_filepath = UnitTestModuleFilepath(current_file)
+            if vim.fn.filereadable(unit_test_filepath) then
+                test_module = unit_test_filepath
+            end
+        end
+    end
+
+    if not test_module then
+        print("Don't know which test module to run!")
+    else
+        local test_options = PyTestOptions(test_module)
+        vim.cmd("silent !clear")
+        print("Running tests from " .. test_module .. " ...")
+        local cmd = "py.test " .. test_options .. " " .. test_module
+        vim.cmd("!tmux send -t 2 " .. vim.fn.shellescape(cmd))
+    end
+end
+
+-- Mappings
+vim.api.nvim_set_keymap("n", "<leader>u", ":lua RunMostRecentTest()<cr>", { silent = true })
+vim.api.nvim_set_keymap("n", "<leader>U", ":lua RunMostRecentTestModule()<cr>", { silent = true })
+
+
+vim.cmd([[
+  augroup MyAbbreviations
+    autocmd!
+    autocmd FileType python inoreabbrev pd import ipdb; ipdb.set_trace()
+  augroup END
+]])
+
+
+vim.cmd([[autocmd BufNewFile * lua vim.cmd(":exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')")]])
+
+-- https://github.com/ibhagwan/fzf-lua/wiki/Advanced#explore-changes-from-a-git-branch
+vim.api.nvim_create_user_command(
+  'ListFilesFromBranch',
+  function(opts)
+    require 'fzf-lua'.files({
+      cmd = "git ls-tree -r --name-only " .. opts.args,
+      prompt = opts.args .. "> ",
+      actions = {
+        ['default'] = false,
+        ['ctrl-s'] = false,
+        ['ctrl-v'] = function(selected, o)
+          local file = require'fzf-lua'.path.entry_to_file(selected[1], o)
+          local cmd = string.format("Gvsplit %s:%s", opts.args, file.path)
+          vim.cmd(cmd)
+        end,
+      },
+      previewer = false,
+      preview = require'fzf-lua'.shell.raw_preview_action_cmd(function(items)
+        local file = require'fzf-lua'.path.entry_to_file(items[1])
+        return string.format("git diff %s HEAD -- %s | delta", opts.args, file.path)
+      end)
+    })
+  end,
+  {
+    nargs = 1,
+    force = true,
+    complete = function()
+      local branches = vim.fn.systemlist("git branch --all --sort=-committerdate")
+      if vim.v.shell_error == 0 then
+        return vim.tbl_map(function(x)
+          return x:match("[^%s%*]+"):gsub("^remotes/", "")
+        end, branches)
+      end
+    end,
+  })
+
+
+-- https://github.com/ibhagwan/fzf-lua/wiki/Advanced#prioritize-cwd-when-using-git_files
+-- The reason I added  'opts' as a parameter is so you can
+-- call this function with your own parameters / customizations
+-- for example: 'git_files_cwd_aware({ cwd = <another git repo> })'
+function M.git_files_cwd_aware(opts)
+  opts = opts or {}
+  local fzf_lua = require('fzf-lua')
+  -- git_root() will warn us if we're not inside a git repo
+  -- so we don't have to add another warning here, if
+  -- you want to avoid the error message change it to:
+  -- local git_root = fzf_lua.path.git_root(opts, true)
+  local git_root = fzf_lua.path.git_root(opts)
+  if not git_root then return end
+  local relative = fzf_lua.path.relative(vim.loop.cwd(), git_root)
+  opts.fzf_opts = { ['--query'] = git_root ~= relative and relative or nil }
+  return fzf_lua.git_files(opts)
+end
+
+
+vim.cmd([[
+autocmd FileType html lua vim.bo.filetype = 'htmldjango'
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
+]])
+
+vim.g.barbar_auto_setup = false -- disable auto-setup
+require'barbar'.setup {
+  icons = {
+    filetype = {
+        enabled = false
+    }
+  }
+}
