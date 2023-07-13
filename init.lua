@@ -53,7 +53,8 @@ require('packer').startup(function(use)
         'onsails/lspkind.nvim', -- Optional icons. Requires https://www.nerdfonts.com/font-downloads
         'L3MON4D3/LuaSnip',
     }
-    use { 'ibhagwan/fzf-lua' }
+    use { 'junegunn/fzf.vim' }
+    use { 'junegunn/fzf' }
     use { "anuvyklack/windows.nvim",
         requires = {
             "anuvyklack/middleclass",
@@ -243,9 +244,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
-vim.keymap.set('n', '<leader>f', ':FzfLua files<CR>', {noremap = true})
-vim.keymap.set('n', '<leader>a', ':FzfLua grep<CR>', {noremap = true})
-
 vim.keymap.set('n', '<leader>w', ':w<CR>', {noremap = true})
 vim.keymap.set('n', '<leader>q', ':q<CR>', {noremap = true})
 vim.keymap.set('n', '<bs>', ':nohlsearch<CR>', {noremap = true})
@@ -286,12 +284,6 @@ vim.api.nvim_set_keymap('n', 'L', ':BufferNext<CR>', { silent = true })
 vim.api.nvim_set_keymap('n', '<enter>', 'o<ESC>', {})
 
 vim.api.nvim_set_keymap('n', '<leader>p', ':let @*=expand("%:.")<CR>', {})
-
--- Search codebase for word under cursor (v useful)
-vim.api.nvim_set_keymap('n', 'gw', ':FzfLua grep_cword<CR>', {})
-vim.api.nvim_set_keymap('n', '<leader>b', ':FzfLua buffers<CR>', {})
-
-vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
 
 -- Open splits
 vim.api.nvim_set_keymap('n', '<leader>v', ':botright vsplit<CR>', {})
@@ -554,35 +546,6 @@ vim.keymap.set('n', '<leader>gc', ':Gina compare<cr>', {noremap = true})
 vim.keymap.set('n', '<leader>gd', ':Gina diff<cr>', {noremap = true})
 vim.keymap.set('n', '<leader>gl', ':Gina log<cr>', {noremap = true})
 
-
--- Create a function to populate the quickfix list with old files
-function PopulateOldFilesQuickfix()
-  local oldfiles = vim.fn.split(vim.fn.execute('oldfiles'), '\n')
-  oldfiles = vim.tbl_filter(function(val) return val ~= '' end, oldfiles)
-
-  local processed_files = {}
-  for _, file in ipairs(oldfiles) do
-    local processed_file = string.gsub(file, '^%s*%d+:%s*', '')
-    table.insert(processed_files, processed_file)
-  end
-
-  -- Create a quickfix list with old files
-  vim.fn.setqflist(vim.tbl_map(function(val)
-    return {
-      filename = val,
-      lnum = 1,
-      text = val
-    }
-  end, processed_files))
-
-  -- Open the quickfix window
-  vim.cmd(':FzfLua quickfix')
-end
-
--- Map a key to populate the quickfix list with old files
-vim.api.nvim_set_keymap('n', '<leader>h', '<cmd>lua PopulateOldFilesQuickfix()<CR>', { noremap = true })
-
-
 vim.api.nvim_set_keymap('n', 'W', '<Plug>CamelCaseMotion_w', {silent = true})
 vim.api.nvim_set_keymap('n', 'B', '<Plug>CamelCaseMotion_b', {silent = true})
 vim.api.nvim_set_keymap('n', 'E', '<Plug>CamelCaseMotion_e', {silent = true})
@@ -784,6 +747,61 @@ function SourceInitLua()
 end
 
 vim.cmd('command! SourceInitLua lua SourceInitLua()')
+
+
+vim.api.nvim_set_keymap('n', '<leader>a', ':Rg<space>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>f', ':Files<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>b', ':Buffers<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>h', ':History<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>l', ':BLines<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>s', ':Tags<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>d', ':Files <C-R>=expand(\'%:p:h\') . \'/\'<CR><CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gw', ':Rg <C-R><C-W><CR>', {noremap = true})
+
+function _G.list_buffers()
+    local list = vim.fn.execute('silent ls')
+    return vim.split(list, "\n")
+end
+
+function _G.delete_buffers(lines)
+    vim.cmd('bwipeout ' .. table.concat(vim.tbl_map(function(line) return vim.split(line, ' ')[1] end, lines), ' '))
+end
+
+vim.cmd([[command! -nargs=0 Fzfc call fzf#run(fzf#wrap({'source': 'git ls-files --exclude-standard --others --modified'}))]])
+vim.api.nvim_set_keymap('n', '<Leader>c', ':Fzfc<cr>', {noremap = true})
+
+vim.cmd([[command! -nargs=0 BD call fzf#run(fzf#wrap({
+            \ 'source': luaeval('list_buffers()'),
+            \ 'sink*': luaeval('delete_buffers(v:lua._fzf_lines)'),
+            \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+            \ }))]])
+
+vim.g.fzf_action = {
+    ['ctrl-t'] = 'tab split',
+    ['ctrl-x'] = 'split',
+    ['ctrl-v'] = 'vsplit'
+}
+
+vim.g.fzf_buffers_jump = 1
+
+vim.g.fzf_colors = {
+    fg = {'fg', 'Normal'},
+    bg = {'bg', 'Normal'},
+    hl = {'fg', 'Comment'},
+    ['fg+'] = {'fg', 'CursorLine', 'CursorColumn', 'Normal'},
+    ['bg+'] = {'bg', 'CursorLine', 'CursorColumn'},
+    ['hl+'] = {'fg', 'Statement'},
+    info = {'fg', 'PreProc'},
+    border = {'fg', 'Ignore'},
+    prompt = {'fg', 'Conditional'},
+    pointer = {'fg', 'Exception'},
+    marker = {'fg', 'Keyword'},
+    spinner = {'fg', 'Label'},
+    header = {'fg', 'Comment'}
+}
+
+vim.cmd([[command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>,
+            \ fzf#vim#with_preview('right:30%', 'ctrl-p'), <bang>0)]])
 
 -- vim.cmd([[autocmd WinEnter * lua WindowMaximiseHorizontally()]])
 
