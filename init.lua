@@ -35,7 +35,6 @@ pip install "python-lsp-server[all]" pyls-isort
 
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
-    use 'romgrk/barbar.nvim'
     use 'crabdul/vim-horizon'
     use {
         "williamboman/mason.nvim",
@@ -103,6 +102,7 @@ vim.cmd[[set termguicolors]]
 vim.cmd[[set background=dark]]
 vim.cmd[[colorscheme horizon]]
 
+
 -- Turn on filetype detection
 vim.cmd('filetype indent plugin on')
 
@@ -112,6 +112,15 @@ vim.o.clipboard = 'unnamed'
 -- Make swapfiles be kept in a central location to avoid polluting file system
 vim.o.directory = '$HOME/.vim/swapfiles//'
 
+-- Keep undo history between sessions
+if vim.fn.has('persistent_undo') then
+    vim.o.undofile = true
+    vim.o.undodir = vim.fn.expand('$HOME') .. '/.vim_undo'
+    vim.o.undolevels = 2000
+end
+
+vim.api.nvim_set_keymap('n', 'gb', "`[v`]y<C-O>", {noremap = true})
+
 -- Declare lines from end of file just for vim
 -- This allows the folding setting to be read
 vim.o.modelines = 1
@@ -120,9 +129,8 @@ vim.o.modelines = 1
 vim.o.wildignore = vim.o.wildignore .. '**/node_modules/**,**/__pycache__/**'
 
 -- Errors
-vim.o.errorbells = true
-vim.o.noerrorbells = true
-vim.o.novisualbell = true
+vim.o.errorbells = false
+vim.o.visualbell = false
 vim.o.t_vb = ''
 vim.o.tm = 500
 
@@ -165,10 +173,10 @@ vim.o.backspace = "indent,eol,start"
 vim.o.scrolloff = 10
 
 -- Prevent a carriage return at the end of the last line
-vim.o.noeol = true
+vim.o.eol = false
 
 -- Don't insert two spaces after sentence joins
-vim.o.nojoinspaces = true
+vim.o.joinspaces = false
 
 -- Highlight search matches
 vim.o.hlsearch = true
@@ -280,7 +288,8 @@ vim.api.nvim_set_keymap('n', '<enter>', 'o<ESC>', {})
 vim.api.nvim_set_keymap('n', '<leader>p', ':let @*=expand("%:.")<CR>', {})
 
 -- Search codebase for word under cursor (v useful)
-vim.api.nvim_set_keymap('n', 'gw', ':FzfLua <C-R><C-W><CR>', {})
+vim.api.nvim_set_keymap('n', 'gw', ':FzfLua grep_cword<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>b', ':FzfLua buffers<CR>', {})
 
 vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
 
@@ -442,7 +451,7 @@ for _, lsp in ipairs(servers) do
 end
 
 -- Format on save
-vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
+vim.cmd([[autocmd BufWritePre *.py,*.ts,*.tsx lua vim.lsp.buf.format()]])
 
 require("lsp_lines").setup()
 -- Disable virtual_text since it's redundant due to lsp_lines.
@@ -528,6 +537,16 @@ vim.g.copilot_filetypes = {
     markdown = true,
     yaml = true
 }
+
+
+vim.cmd([[
+ autocmd BufReadPre *
+     \ let f=getfsize(expand("<afile>"))
+     \ | if f > 100000 || f == -2
+     \ | let b:copilot_enabled = v:false
+     \ | endif
+]])
+
 
 -- Gina
 vim.keymap.set('n', '<leader>gs', ':Gina status -s<cr>', {silent = true})
@@ -698,6 +717,76 @@ vim.cmd([[
 
 vim.cmd([[autocmd BufNewFile * lua vim.cmd(":exe ': !mkdir -p ' . escape(fnamemodify(bufname('%'),':p:h'),'#% \\')")]])
 
+
+function TranslateHelper()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local line = vim.api.nvim_get_current_line()
+  local col = cursor[2]
+  local translation = vim.fn.input('Enter the translation text: ')
+
+  -- Check if cursor is inside an HTML tag
+  local tag_pattern = "<([%w:]+)"
+  local tag_match = string.match(line, tag_pattern, col)
+  if tag_match then
+    local tag_start = string.find(line, tag_match, col)
+    local tag_end = string.find(line, ">", tag_start)
+    if tag_end then
+      local tag_text = string.sub(line, tag_start, tag_end)
+      local translated_tag = string.gsub(tag_text, ">(.-)<", ">" .. translation .. "<")
+      local translated_line = string.sub(line, 1, tag_start - 1) .. translated_tag .. string.sub(line, tag_end + 1)
+      vim.api.nvim_set_current_line(translated_line)
+      print('Translation replaced inside HTML tag.')
+      return
+    end
+  end
+
+  -- Check if cursor is within double quotes
+  local quote_pattern = [["([^"]*)"]]
+  local quote_match = string.match(line, quote_pattern, col)
+  if quote_match then
+    local quote_start = string.find(line, quote_match, col)
+    local quote_end = string.find(line, quote_match, quote_start + 1)
+    if quote_end then
+      local translated_line = string.sub(line, 1, quote_start - 1) .. translation .. string.sub(line, quote_end + 1)
+      vim.api.nvim_set_current_line(translated_line)
+      print('Translation replaced within double quotes.')
+      return
+    end
+  end
+
+  -- Insert translation template at cursor position
+  local translation_template = "{% translation '" .. translation .. "' %}"
+  vim.api.nvim_put({translation_template}, "c", true, true)
+end
+
+vim.cmd('command! Tr lua TranslateHelper()')
+
+vim.cmd([[
+autocmd FileType html lua vim.bo.filetype = 'htmldjango'
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
+]])
+
+
+function SourceInitLua()
+  local home_dir = vim.loop.os_homedir()
+  local init_lua = home_dir .. '/.config/nvim/init.lua'
+
+  -- Source the init.lua file
+  local success, error_msg = pcall(vim.cmd, 'luafile ' .. init_lua)
+
+  if success then
+    print('init.lua sourced successfully.')
+  else
+    print('Error sourcing init.lua:', error_msg)
+  end
+end
+
+vim.cmd('command! SourceInitLua lua SourceInitLua()')
+
+-- vim.cmd([[autocmd WinEnter * lua WindowMaximiseHorizontally()]])
+
 -- https://github.com/ibhagwan/fzf-lua/wiki/Advanced#explore-changes-from-a-git-branch
 vim.api.nvim_create_user_command(
   'ListFilesFromBranch',
@@ -735,37 +824,22 @@ vim.api.nvim_create_user_command(
   })
 
 
--- https://github.com/ibhagwan/fzf-lua/wiki/Advanced#prioritize-cwd-when-using-git_files
--- The reason I added  'opts' as a parameter is so you can
--- call this function with your own parameters / customizations
--- for example: 'git_files_cwd_aware({ cwd = <another git repo> })'
-function M.git_files_cwd_aware(opts)
-  opts = opts or {}
-  local fzf_lua = require('fzf-lua')
-  -- git_root() will warn us if we're not inside a git repo
-  -- so we don't have to add another warning here, if
-  -- you want to avoid the error message change it to:
-  -- local git_root = fzf_lua.path.git_root(opts, true)
-  local git_root = fzf_lua.path.git_root(opts)
-  if not git_root then return end
-  local relative = fzf_lua.path.relative(vim.loop.cwd(), git_root)
-  opts.fzf_opts = { ['--query'] = git_root ~= relative and relative or nil }
-  return fzf_lua.git_files(opts)
-end
+-- -- https://github.com/ibhagwan/fzf-lua/wiki/Advanced#prioritize-cwd-when-using-git_files
+-- -- The reason I added  'opts' as a parameter is so you can
+-- -- call this function with your own parameters / customizations
+-- -- for example: 'git_files_cwd_aware({ cwd = <another git repo> })'
+-- function M.git_files_cwd_aware(opts)
+--   opts = opts or {}
+--   local fzf_lua = require('fzf-lua')
+--   -- git_root() will warn us if we're not inside a git repo
+--   -- so we don't have to add another warning here, if
+--   -- you want to avoid the error message change it to:
+--   -- local git_root = fzf_lua.path.git_root(opts, true)
+--   local git_root = fzf_lua.path.git_root(opts)
+--   if not git_root then return end
+--   local relative = fzf_lua.path.relative(vim.loop.cwd(), git_root)
+--   opts.fzf_opts = { ['--query'] = git_root ~= relative and relative or nil }
+--   return fzf_lua.git_files(opts)
+-- end
 
 
-vim.cmd([[
-autocmd FileType html lua vim.bo.filetype = 'htmldjango'
-autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
-autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
-autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
-]])
-
-vim.g.barbar_auto_setup = false -- disable auto-setup
-require'barbar'.setup {
-  icons = {
-    filetype = {
-        enabled = false
-    }
-  }
-}
